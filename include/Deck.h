@@ -9,7 +9,8 @@ using namespace std;
 
 class Deck {
 private:
-	// Declare here the collection of "Card *" of the deck
+	Vector<Card*> DeckCards;// Declare here the collection of "Card *" of the deck
+	int Counter;
 public:
 	Card* fetchCard();   //Returns the top card of the deck and remove it rom the deck
 	int getNumberOfCards(); // Get the number of cards in the deck

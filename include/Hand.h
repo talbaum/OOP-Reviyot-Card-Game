@@ -9,7 +9,8 @@ using namespace std;
 
 class Hand {
 private:
-	// Declare here the collection of "Card *" of the hand
+	Vector<Vector<Card*>> HandCards;// Declare here the collection of "Card *" of the hand
+	int Counter;
 public:
 	bool addCard(Card &card);
 	bool removeCard(Card &card);
