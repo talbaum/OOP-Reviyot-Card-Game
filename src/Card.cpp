@@ -24,24 +24,23 @@ Class FigureCard :: public Card{
 	Ace
 };
 	
-	FigureCard::FigureCard () Figure(-1){}// add super constructor
+	FigureCard::FigureCard () Figure(-1) : Card() {}// empty constructor
 
-	FigureCard::FigureCard (Figure f) Figure (f){}
+	FigureCard::FigureCard (Figure figure, Shape shape) Figure (figure) :Figure Card(shape){} // constructor with parameters
 	
 	virtual string toString() {
-		return this.Figure+this.Shape;
-	}
+		return this.figure+Card::toString();
+		}
 }
 
 Class NumericCard :: public Card{
 	
-	NumericCardCard::NumericCardCard () int(0){}
+	NumericCard::NumericCardCard () int(0)::Card(){}
 
-
-	NumericCard::NumericCard (int num) int (num){}
+	NumericCard::NumericCard (int number , Shape shape) int (number) :: Card(shape){}
 	
 	virtual string toString() {
-		return this.num+this.Shape;
+		return this.number+this.shape;
 	}
 }
 
