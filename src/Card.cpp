@@ -1,48 +1,78 @@
-#include <card.h>
+#include <iostream>
+#include <string>
 
-Class Card {
-		enum Shape {
-	Club='C';
-	Diamond='D';
-	Heart='H';
-	Spade='S';
-};
-	Card::Card () Shape(-1){} //check if -1 is legal for enum
+#include <../include/Card.h>
+using namespace std;
+
+ Card::Card():shape(){
+ }
+
 	
-	Card::Card (Shape s) Shape (s){}
-
-	 virtual string toString (){
-	 return this.Shape;
-	 } 
-}
-
-Class FigureCard :: public Card{
-	enum Figure {
-	Jack,
-	Queen,
-	King,
-	Ace
-};
-	
-	FigureCard::FigureCard () Figure(-1) : Card() {}// empty constructor
-
-	FigureCard::FigureCard (Figure figure, Shape shape) Figure (figure) :Figure Card(shape){} // constructor with parameters
-	
-	virtual string toString() {
-		return this.figure+Card::toString();
-		}
-}
-
-Class NumericCard :: public Card{
-	
-	NumericCard::NumericCardCard () int(0)::Card(){}
-
-	NumericCard::NumericCard (int number , Shape shape) int (number) :: Card(shape){}
-	
-	virtual string toString() {
-		return this.number+this.shape;
+	Card::Card(Shape s) : shape(s){
+		//shape=s;
 	}
+
+
+
+	 string Card::toString(){
+		 string ans="";
+		 if (shape=Club){
+			 return ans+'C';
+		 }
+		 else if (shape=Diamond){
+		 			 return ans+'D';
+		 		 }
+		 else if (shape=Heart){
+		 			 return ans+'H';
+		 		 }
+		 else if (shape=Spade){
+		 			  ans=+'S';
+		 		 }
+		 return ans;
+	 } 
+
+
+	FigureCard::FigureCard():Card(),figure(){
+
+	}// empty constructor
+
+	FigureCard::FigureCard(Shape s,Figure f):Card(s),figure(f){
+
+	}
+
+	string FigureCard::toString() {
+		 string ans="";
+		 if (figure=Jack){
+			 return ans+'J';
+		 }
+		 else if (figure=Queen){
+		 			 return ans+'Q';
+		 		 }
+		 else if (figure=King){
+		 			 return ans+'K';
+		 		 }
+		 else if (figure=Ace){
+		 			  ans=+'A';
+		 		 }
+		 return ans;
+		return ans+Card::toString();
+		}
+
+
+NumericCard::NumericCard():Card(), number(0){
+
 }
+
+	NumericCard::NumericCard ( Shape s,int num):Card(s),number(num){
+		number=num;
+	}
+	
+	string NumericCard::toString() {
+
+		 string ans = std:: to_string(number);
+		return ans+Card::toString();
+	}
+
 
 
 
