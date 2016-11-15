@@ -5,14 +5,15 @@
 	Deck::Deck(): DeckCards(){}; 
 	
 	Deck::Deck(vector<Card> GameCards): DeckCards() {
-
+    Card* temp; 
 		for (int i=0;i<GameCards.size();i++){
-			DeckCards.insert(GameCards[i]*);
+      temp = &GameCards[i];
+			DeckCards.push_back(temp);
 		}	
 	}
 	
 	Card* fetchCard(){
-		Card* CardPtr = DeckCards[i]&; // to check if the & create a pointer or go stright to card.
+		*Card CardPtr = &DeckCards[i]; // to check if the & create a pointer or go stright to card.
 		DeckCards.erase(DeckCards.begin());
 		return CardPtr;
 	}
