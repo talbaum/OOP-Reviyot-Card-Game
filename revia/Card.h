@@ -24,8 +24,10 @@ private:
 public:
   Card();
   Card(Shape s);
-  virtual string toString() = 0; //Returns the string representation of the card "<value><shape>" exp: "12S" or "QD"
   virtual ~Card();
+  virtual string toString() = 0; //Returns the string representation of the card "<value><shape>" exp: "12S" or "QD"
+  Shape GetShape();
+
 };
 
 class FigureCard : public Card {
@@ -35,6 +37,7 @@ public:
 	virtual string toString() override;
 	FigureCard();
 	FigureCard(Shape,Figure);
+        int GetValue(int N);
 };
 
 class NumericCard : public Card {
@@ -44,6 +47,7 @@ public:
 	NumericCard();
 	NumericCard(Shape,int);
 	virtual string toString() override;
+        int GetValue(int N);
 };
 
 #endif

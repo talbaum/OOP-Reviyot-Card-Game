@@ -12,11 +12,13 @@
 		for (int i=0;i<GameCards.size();i++){
         temp = &GameCards[i];
 			DeckCards.push_back(temp);
-		}	
+		}
+		
+
 	}
 	
         Deck::~Deck(){
-		// delete Cardptr?
+	//delete temp?
 	}
 	
 	
