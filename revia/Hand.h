@@ -2,7 +2,7 @@
 #define HAND_H_
 
 #include <iostream>
-
+#include <vector>
 #include "Card.h"
 
 using namespace std;
