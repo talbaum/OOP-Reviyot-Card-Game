@@ -26,7 +26,7 @@ int Player::PlayerWithMostCards(vector<Player *> players){
 	return pos;
 }
 
-virtual int Player:: cyclicOrder(vector<Player*> players,Player player){//need to check how to differ stertegy 3 from 4
+	int Player:: cyclicOrder(vector<Player*> players,Player player){//switch Player parameter with "this"?
 	 int myPos=player.getPosition();
 	player.posIterator=(player.posIterator+1)%players.size();
 

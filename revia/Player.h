@@ -20,7 +20,7 @@ public:
 	string getName();   //Returns the name of the player
 	int getPosition();
 	int PlayerWithMostCards(vector<Player*> player);
-	int cyclicOrder(vector<Player*> players,Player player); //need to check how to differ stertegy 3 from 4
+	int cyclicOrder(vector<Player*> players,Player player); //need to check if Player is required
 };
 
 class PlayerType1 : public Player {  //For strategy 1
