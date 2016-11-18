@@ -14,7 +14,7 @@ private:
 
 
 	int whereToInsert(Card &card);
-	vector<Card*> sort (vector<Card*> sortMe);
+	vector<Card*> sortByShape (vector<Card*> sortMe);
 
 public:
 	int count;
