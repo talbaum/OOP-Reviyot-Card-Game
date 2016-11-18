@@ -38,8 +38,8 @@ private:
 public:
 	virtual string toString() override;
 	FigureCard();
-	FigureCard(Shape,Figure);
-	virtual int getValue();
+	FigureCard(Shape,char,int);
+	int getValue();
 };
 
 class NumericCard : public Card {
@@ -48,7 +48,7 @@ private:
 public:
 	NumericCard();
 	NumericCard(Shape,int);
-	virtual int getValue();
+	int getValue();
 	virtual string toString() override;
 };
 

@@ -4,12 +4,13 @@
 using namespace std;
 
  Card::Card():shape(){
+     
  }
 
 	Card::Card(Shape s) : shape(s){
 		//shape=s;
 	}
-virtual int getValue(){return 0;}
+int getValue(){return 0;}
 
 Shape Card:: getShape(){
 	return shape;
@@ -36,16 +37,29 @@ Shape Card:: getShape(){
 	 } 
 
 
-	FigureCard::FigureCard():Card(),figure(){
+	FigureCard::FigureCard():Card(),figure(),value(0){
 
 	}// empty constructor
 
-	FigureCard::FigureCard(Shape s,Figure f):Card(s),figure(f){
-
+	FigureCard::FigureCard(Shape s,char f, int v):Card(s),figure(),value(v){
+                 switch (f){
+                     case 'J':
+                     figure = Jack;
+                     break;
+                     case 'Q':
+                     figure = Queen;
+                     break;
+                     case 'K':
+                     figure = King;
+                     break;
+                     case 'A':
+                     figure = Ace;
+                     break;
+                 }
 	}
 
-int FigureCard::GetValue(){
-	int N=10; //TEST!!!!!
+int FigureCard::getValue(){
+	int N=10; //TES5T!!!!!
             switch (figure){
                      case Jack:
                      return N+1;
@@ -58,9 +72,10 @@ int FigureCard::GetValue(){
                      break; //??
                      case Ace:
                      return N+4;
-			    break; //??
+                     break; //??
                  }
                  cout <<"no Value Error";
+                 return 0;
         }
 
 string FigureCard::toString() {
@@ -86,7 +101,7 @@ NumericCard::NumericCard():Card(), number(0){
 	NumericCard::NumericCard ( Shape s,int num):Card(s),number(num){
 		number=num; // needed?
 	}
-	virtual char NumericCard:: getValue(){
+	int NumericCard:: getValue(){
 		return number;
 	}
 
