@@ -1,31 +1,37 @@
 #include <iostream>
 #include <string>
-
 #include "Card.h"
 using namespace std;
 
-    Card::Card():shape(){
-    }
+ Card::Card():shape(){
+ }
 
-	
-    Card::Card(Shape s) : shape(s){
+	Card::Card(Shape s) : shape(s){
 		//shape=s;
-    }
+	}
+virtual char getValue(){return '0';}
+
+Shape Card:: getShape(){
+	return shape;
+}
+
 
 	 string Card::toString(){
 		 string ans="";
-                 switch (shape){
-                     case Club:
-                     ans+='C';
-                     case Diamond:
-                     ans+='D';
-                     case Heart:
-                     ans+='H';
-                     case Spade:
-                     ans+='S';
-                 }
+		 if (shape=Club){
+			 return ans+'C';
+		 }
+		 else if (shape=Diamond){
+		 			 return ans+'D';
+		 		 }
+		 else if (shape=Heart){
+		 			 return ans+'H';
+		 		 }
+		 else if (shape=Spade){
+		 			  ans=+'S';
+		 		 }
 		 return ans;
-	 } 
+	 }
 
 
 	FigureCard::FigureCard():Card(),figure(){
@@ -35,38 +41,40 @@ using namespace std;
 	FigureCard::FigureCard(Shape s,Figure f):Card(s),figure(f){
 
 	}
+	virtual char  FigureCard::getValue(){
+				 if (figure=Jack){
+					 return 'J';
+				 }
+				 else if (figure=Queen){
+				 			 return 'Q';
+				 		 }
+				 else if (figure=King){
+				 			 return 'K';
+				 		 }
+				 else if (figure=Ace){
+				 			  return'A';
+				 		 }
+				 return '0';
 
+	}
 	string FigureCard::toString() {
 		 string ans="";
-                 switch (figure){
-                     case Jack:
-                     ans=+'J';
-                     case Queen:
-                     ans=+'Q';
-                     case King:
-                     ans=+'K';
-                     case Ace:
-                     ans=+'A';
-                 }
+		 if (figure=Jack){
+			 return ans+'J';
+		 }
+		 else if (figure=Queen){
+		 			 return ans+'Q';
+		 		 }
+		 else if (figure=King){
+		 			 return ans+'K';
+		 		 }
+		 else if (figure=Ace){
+		 			  ans=+'A';
+		 		 }
+		 //return ans;
 		return ans+Card::toString();
 		}
-		
-        int FigureCard::GetValue(int N){
-            switch (figure){
-                     case Jack:
-                     return N+1;
-                     
-                     case Queen:
-                     return N+2;
-                     
-                     case King:
-                     return N+3;
-                     
-                     case Ace:
-                     return N+4;
-                 }
-                 cout <<"no Value Error";
-        }
+
 
 NumericCard::NumericCard():Card(), number(0){
 
@@ -75,17 +83,16 @@ NumericCard::NumericCard():Card(), number(0){
 	NumericCard::NumericCard ( Shape s,int num):Card(s),number(num){
 		number=num;
 	}
-	
+	virtual char NumericCard:: getValue(){
+		return number;
+	}
+
 	string NumericCard::toString() {
 
 		 string ans = std:: to_string(number);
 		return ans+Card::toString();
 	}
-	
 
-	int NumericCard::GetValue(int N){
-            return number;
-        }
 
 
 
