@@ -7,10 +7,29 @@ using namespace std;
      
  }
 
-	Card::Card(Shape s) : shape(s){
-		//shape=s;
+	Card::Card(char s) : shape(){
+                switch (s){
+                     case 'C':
+                     shape=Club;
+                     break;
+                     case 'D':
+                     shape=Diamond;
+                     break;
+                     case 'H':
+                     shape=Heart;
+                     break;
+                     case 'S':
+                     shape=Spade;
+                     break;
+                 }     
 	}
-int getValue(){return 0;}
+	
+	Card::~Card(){
+            
+        }
+        
+int Card::getValue(){return 0;}
+
 
 Shape Card:: getShape(){
 	return shape;
@@ -41,8 +60,9 @@ Shape Card:: getShape(){
 
 	}// empty constructor
 
-	FigureCard::FigureCard(Shape s,char f, int v):Card(s),figure(),value(v){
-                 switch (f){
+	FigureCard::FigureCard(char s,char f, int v):Card(s),figure(),value(v){
+
+            switch (f){
                      case 'J':
                      figure = Jack;
                      break;
@@ -59,23 +79,7 @@ Shape Card:: getShape(){
 	}
 
 int FigureCard::getValue(){
-	int N=10; //TES5T!!!!!
-            switch (figure){
-                     case Jack:
-                     return N+1;
-                     break; //??
-                     case Queen:
-                     return N+2;
-                     break; //??
-                     case King:
-                     return N+3;
-                     break; //??
-                     case Ace:
-                     return N+4;
-                     break; //??
-                 }
-                 cout <<"no Value Error";
-                 return 0;
+return value;
         }
 
 string FigureCard::toString() {
@@ -98,8 +102,8 @@ NumericCard::NumericCard():Card(), number(0){
 
 }
 
-	NumericCard::NumericCard ( Shape s,int num):Card(s),number(num){
-		number=num; // needed?
+	NumericCard::NumericCard ( char s,int num):Card(s),number(num){
+		//number=num; // needed?
 	}
 	int NumericCard:: getValue(){
 		return number;
@@ -112,5 +116,7 @@ NumericCard::NumericCard():Card(), number(0){
 	}
 
 
-
-
+//why is main needed??
+ main(){
+    
+}
