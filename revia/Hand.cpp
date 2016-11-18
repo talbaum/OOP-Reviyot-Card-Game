@@ -1,21 +1,16 @@
 #include "Hand.h"
 #include  <vector>
 #include <iostream>
+#include <Deck.h>
 
 using namespace std;
 
-Hand:: Hand(): vector<vector<Card*>> HandCards() , count(7); {
+Hand:: Hand() : count(7){//empty constructor
 	for(int i=0;i<7;i++)
-		addCard(Deck:: fetchCard());
-}  //empty constructor
-
-Hand::Hand(vector<Card*> other): HandCards() : count (other.size()) {
-  //constructor that receives a vector<Cards*> from the Deck and make it a vector of vectors.
-    for (int i=0;i<other.size();i++)
-            addCard(other[i]*);
+		addCard(fetchCard()&);
 }
 
-Hand::Hand(vector<vector<Card*>> other): HandCards(other) : count (other.size()) {};
+Hand::Hand(vector<vector<Card*>> other): HandCards(other) , count (other.size()) {};
 //copy constructor
 
 
@@ -38,15 +33,17 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
             return mid;
         }
     }
-
+    if(mid!=0)
        return mid-1; //for making sure its inserted before the closer bigger value. need to check it.
-
+    else
+    	return 0; //if the vec is empty , it will insert at first position.
 }
 
     bool Hand:: addCard(Card &card){
         int pos=whereToInsert(card);
         HandCards[pos].push_back(&card);
-        HandCards[pos]=sortByShape(HandCards[pos]);
+        if(HandCards[pos].size()>1)
+        	HandCards[pos]=sortByShape(HandCards[pos]);
         count++;
         return true;
     }

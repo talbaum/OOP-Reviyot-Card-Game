@@ -11,15 +11,12 @@ using namespace std;
 class Hand {
 private:
 	vector<vector<Card*>> HandCards;// Declare here the collection of "Card *" of the hand
-
-
 	int whereToInsert(Card &card);
 	vector<Card*> sortByShape (vector<Card*> sortMe);
 
 public:
 	int count;
 	Hand();
-	Hand(vector<Card*> other);
 	Hand(vector<vector<Card*>> other);
 	virtual ~Hand();
 
