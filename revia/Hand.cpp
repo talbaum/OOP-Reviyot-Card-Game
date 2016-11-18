@@ -14,9 +14,7 @@ Hand::Hand(vector<vector<Card*>> other): HandCards(other) , count (other.size())
 //copy constructor
 
 
-Hand::~Hand(){
-//delete count && pos?
-}
+Hand::~Hand(){}
 
 int Hand:: whereToInsert(Card &card){   // made for the addCard method.
     int mid, left = 0 ;
