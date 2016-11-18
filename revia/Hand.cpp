@@ -4,17 +4,15 @@
 
 using namespace std;
 
-Hand:: Hand(): vector<vector<Card*>> HandCards() , count(0); {}  //empty constructor
+Hand:: Hand(): vector<vector<Card*>> HandCards() , count(7); {
+	for(int i=0;i<7;i++)
+		addCard(Deck:: fetchCard());
+}  //empty constructor
 
 Hand::Hand(vector<Card*> other): HandCards() : count (other.size()) {
   //constructor that receives a vector<Cards*> from the Deck and make it a vector of vectors.
-    for (int i=0;i<other.size();i++){
-            int pos = searchCard(other[i]&);
-            (HandCards[pos].push_back(other[i]);
-             if(HandCards[pos].size()>1)
-                 HandCards[i].sort();
-        }    // sort the inside vector by abc order (C-->D-->H-->S) which is the requested order.
-    return HandCards;
+    for (int i=0;i<other.size();i++)
+            addCard(other[i]*);
 }
 
 Hand::Hand(vector<vector<Card*>> other): HandCards(other) : count (other.size()) {};
@@ -30,10 +28,10 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
     int right = HandCards.size();
     while (left < right) {
         mid = left + (right - left)/2;
-        if (card.getValue() > HandCards[mid]){
+        if (card.getValue() > HandCards[mid][0]->getValue()){
             left = mid+1;
         }
-        else if (card.getValue() < HandCards[mid]){
+        else if (card.getValue() < HandCards[mid][0]->getValue()){
             right = mid;
         }
         else {
@@ -48,17 +46,17 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
     bool Hand:: addCard(Card &card){
         int pos=whereToInsert(card);
         HandCards[pos].push_back(&card);
-        HandCards[pos]=sort(HandCards[pos]);
+        HandCards[pos]=sortByShape(HandCards[pos]);
         count++;
         return true;
     }
 
-    vector<Card*> Hand:: sort(vector<Card*> sortMe) {
+    vector<Card*> Hand:: sortByShape(vector<Card*> sortMe) {
     	//insertion sort.
     	Card* tmp;
         for (int i = 1; i < sortMe.size(); i++)  {
             for (int j = i; j >= 1; j--) {
-                if (sortMe[j]->getValue() < sortMe[j-1]->getValue()) {
+                if (sortMe[j]->getShape() < sortMe[j-1]->getShape()) {
                     tmp = sortMe[j];
                     sortMe[j] = sortMe[j-1];
                     sortMe[j-1] = tmp;
@@ -79,7 +77,7 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
                 if((*insideVec[i]).getShape()==card.getShape()) {
                 	insideVec.erase(insideVec.begin()+i);
                     count--;
-                    insideVec=sort(insideVec);
+                    insideVec=sortByShape(insideVec);
                     return true;
                 }
             }
@@ -92,10 +90,10 @@ int Hand:: searchCard(Card &card){  //made for remove card method. (had to make 
     int right = HandCards.size();
     while (left < right) {
         mid = left + (right - left)/2;
-        if (card.getValue() > HandCards[mid]){
+        if (card.getValue() > HandCards[mid][0]->getValue()){
             left = mid+1;
         }
-        else if (card.getValue() < HandCards[mid]){
+        else if (card.getValue() < HandCards[mid][0]->getValue()){
             right = mid;
         }
         else {
