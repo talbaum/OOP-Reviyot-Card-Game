@@ -4,20 +4,20 @@
 #include <iostream>
 #include "Card.h"
 #include <vector>
-#include <string>;
+#include <string>
 
 using namespace std;
 
 class Hand {
 private:
-	vector<vector<Card*>> HandCards;// Declare here the collection of "Card *" of the hand
+	vector<vector<Card*> > HandCards;// Declare here the collection of "Card *" of the hand
 	int whereToInsert(Card &card);
 	vector<Card*> sortByShape (vector<Card*> sortMe);
 
 public:
 	int count;
 	Hand();
-	Hand(vector<vector<Card*>> other);
+	Hand(vector<vector<Card*> > other);
 	virtual ~Hand();
 
 	int searchCard(Card &card);
