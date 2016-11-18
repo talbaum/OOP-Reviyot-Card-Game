@@ -22,7 +22,7 @@ Game::Game(char* config):players(),deck(){
     bool verbalpass=false;
     bool highest=false;
     bool deck=false;
-    bool players= false;
+    bool playersPass= false;
     
     string word;
     while (getline(filetext,word)){
@@ -47,7 +47,7 @@ Game::Game(char* config):players(),deck(){
                 char shape;
                 char fig;
                 int value;                
-                int index=0;
+                unsigned int index=0;
                 string s;
             while (word.length()>index){
                 
@@ -99,9 +99,9 @@ Game::Game(char* config):players(),deck(){
             deck=true;
         }
             
-        else if (!players){
+        else if (!playersPass){
+            int playerNum=1;
             while (!word.empty()){
-                
             string name="";
             int index=0;
             int strtg;
@@ -110,8 +110,11 @@ Game::Game(char* config):players(),deck(){
                 index++;
             }
             strtg=word.at(index+1)-'0';
+            Player temp = new Player(name,playerNum,strtg);
+             players.push_back(&temp);
              cout << "player name: " << name << " playing " << strtg <<'\n';
              getline(filetext,word);
+             playerNum++;
             } 
     }
     }
