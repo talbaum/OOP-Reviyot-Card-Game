@@ -5,6 +5,7 @@
 #include "Card.h"
 #include <vector>
 #include <string>
+#include "Deck.h"
 
 using namespace std;
 
@@ -16,7 +17,8 @@ private:
 
 public:
 	int count;
-	Hand();
+	//Hand();
+	Hand(Deck deck);
 	Hand(vector<vector<Card*> > other);
 	virtual ~Hand();
 

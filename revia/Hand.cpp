@@ -1,13 +1,16 @@
 #include "Hand.h"
 #include  <vector>
 #include <iostream>
-#include "Deck.h"
+//#include "Deck.h"
 
 using namespace std;
+//Hand::Hand():HandCards(),count(7) {}
 
-Hand:: Hand() : count(7){//empty constructor
-	for(int i=0;i<7;i++)
-		addCard(fetchCard()&);
+
+Hand:: Hand(Deck deck) :HandCards(), count(7){//empty constructor
+	for(unsigned int i=0;i<7;i++)
+		//Hand::addCard(*deck.fetchCard());
+i++;
 }
 
 Hand::Hand(vector<vector<Card*>> other): HandCards(other) , count (other.size()) {};
@@ -17,8 +20,8 @@ Hand::Hand(vector<vector<Card*>> other): HandCards(other) , count (other.size())
 Hand::~Hand(){}
 
 int Hand:: whereToInsert(Card &card){   // made for the addCard method.
-    int mid, left = 0 ;
-    int right = HandCards.size();
+  unsigned int mid, left = 0 ;
+  unsigned int right = HandCards.size();
     while (left < right) {
         mid = left + (right - left)/2;
         if (card.getValue() > HandCards[mid][0]->getValue()){
@@ -49,8 +52,8 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
     vector<Card*> Hand:: sortByShape(vector<Card*> sortMe) {
     	//insertion sort.
     	Card* tmp;
-        for (int i = 1; i < sortMe.size(); i++)  {
-            for (int j = i; j >= 1; j--) {
+        for (unsigned int i = 1; i < sortMe.size(); i++)  {
+            for (unsigned int j = i; j >= 1; j--) {
                 if (sortMe[j]->getShape() < sortMe[j-1]->getShape()) {
                     tmp = sortMe[j];
                     sortMe[j] = sortMe[j-1];
@@ -68,7 +71,7 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
             return false; //no such card at the hand.
         else {
         	insideVec=HandCards[pos];
-            for (int i = 0; i < insideVec.size(); ++i) {
+            for (unsigned int i = 0; i < insideVec.size(); ++i) {
                 if((*insideVec[i]).getShape()==card.getShape()) {
                 	insideVec.erase(insideVec.begin()+i);
                     count--;
@@ -81,8 +84,8 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
     }
 
 int Hand:: searchCard(Card &card){  //made for remove card method. (had to make 2 diffrenet ones).
-    int mid, left = 0 ;
-    int right = HandCards.size();
+	unsigned int mid, left = 0 ;
+	unsigned int right = HandCards.size();
     while (left < right) {
         mid = left + (right - left)/2;
         if (card.getValue() > HandCards[mid][0]->getValue()){
@@ -105,9 +108,9 @@ int Hand:: searchCard(Card &card){  //made for remove card method. (had to make 
     string Hand:: toString(){
     	string ans="";
     	  vector<Card*> insideVec;
-	for(int i=0; i<HandCards.size();i++){
+	for(unsigned int i=0; i<HandCards.size();i++){
 		insideVec=HandCards[i];
-		for(int j=0; j<insideVec.size();j++)
+		for(unsigned int j=0; j<insideVec.size();j++)
 			ans+=insideVec[j]->toString() + " ";
 	}
 	return ans;
