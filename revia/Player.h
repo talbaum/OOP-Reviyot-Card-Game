@@ -11,16 +11,17 @@ class Player : public Hand {
 private:
 	const string name;
 	const int position;
+	const int startegy;
 
 public:
 	int posIterator;
 	Player();
-	Player(string name, int position);
-	~Player();
+	Player(string name, int position , int strtg);
+	virtual ~Player();
 	string getName();   //Returns the name of the player
 	int getPosition();
 	int PlayerWithMostCards(vector<Player*> player);
-	int cyclicOrder(vector<Player*> players,Player player); //need to check if Player is required
+	int cyclicOrder(vector<Player*> players); //need to check if Player is required
 };
 
 class PlayerType1 : public Player {  //For strategy 1

@@ -1,10 +1,10 @@
 #include "Player.h"
 
-Player::Player() : name(""),position(1),posIterator(0) {};
+Player::Player() : name(""),position(1),posIterator(0),startegy(0) {};
 
-Player:: Player(string name, int position) : name(name),position(position),posIterator(0){};
+Player:: Player(string name, int position, int strtg) : name(name),position(position),posIterator(0), startegy (strtg){};
 
-Player:: ~Player() {delete(position,name);};
+virtual Player:: ~Player() {delete(position,name);};
 
 string Player:: getName(){
 	return name;
@@ -26,17 +26,17 @@ int Player::PlayerWithMostCards(vector<Player *> players){
 	return pos;
 }
 
-	int Player:: cyclicOrder(vector<Player*> players,Player player){//switch Player parameter with "this"?
-	 int myPos=player.getPosition();
-	player.posIterator=(player.posIterator+1)%players.size();
+	int Player:: cyclicOrder(vector<Player*> players){//switch Player parameter with "this"?
+	 int myPos=this->getPosition();
+	this->posIterator=(this->posIterator+1)%players.size();
 
-		 if(player.posIterator%players.size()==myPos)
-			 player.posIterator=(player.posIterator+1)%players.size();
+		 if(this->posIterator%players.size()==myPos)
+			 this->posIterator=(this->posIterator+1)%players.size();
 
-		 if(player.posIterator==0)
+		 if(this->posIterator==0)
 			 return 1;
 		 else
-			 return player.posIterator;
+			 return this->posIterator;
 }
 
 int PlayerType1:: getCommonCard(vector<vector<Card*>> myCards) {
