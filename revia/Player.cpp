@@ -1,90 +1,46 @@
-#include "Player.h"
+#ifndef PLAYER_H_
+#define PLAYER_H_
 
-Player::Player() : name(""),position(1),posIterator(0),startegy(0) {};
+#include <iostream>
+#include "Hand.h"
 
-Player:: Player(string name, int position, int strtg) : name(name),position(position),posIterator(0), startegy (strtg){};
+using namespace std;
 
-virtual Player:: ~Player() {delete(position,name);};
+class Player : public Hand {
+private:
+	const string name;
+	 int position;
+	 int strategy;
 
-string Player:: getName(){
-	return name;
-}
+public:
+	int posIterator;
+	Player();
+	Player(string name, int position , int strtg);
+	Player& operator=(const Player &other);
+	Player(const Player &other);
+	virtual ~Player();
+	string getName();   //Returns the name of the player
+	int getPosition();
+	int PlayerWithMostCards(vector<Player*> player);
+	int cyclicOrder(vector<Player*> players); //need to check if Player is required
+};
 
-int Player:: getPosition(){
-	return position;
-}
+class PlayerType1 : public Player {  //For strategy 1
+public:
+	int getCommonCard(vector<vector<Card*> > myCards);
+};
 
-int Player::PlayerWithMostCards(vector<Player *> players){
-	int max=0;
-	int pos=0;
-	for(int i=0;i<players.size();i++){
-		if(players[i]->getNumberOfCards()>=max){
-			max=players[i]->getNumberOfCards();
-			pos=players[i]->getPosition();
-		}
-	}
-	return pos;
-}
+class PlayerType2 : public Player {  //For strategy 2
+public:
+	int getUncommonCard(vector<vector<Card*> > myCards);
+};
 
-	int Player:: cyclicOrder(vector<Player*> players){//switch Player parameter with "this"?
-	 int myPos=this->getPosition();
-	this->posIterator=(this->posIterator+1)%players.size();
+class PlayerType3 : public Player {  //For strategy 3
+	int getHighestVal(vector<vector<Card*> > myCards);
+};
 
-		 if(this->posIterator%players.size()==myPos)
-			 this->posIterator=(this->posIterator+1)%players.size();
+class PlayerType4 : public Player {  //For strategy 4
+	int getLowestVal(vector<vector<Card*> > myCards);
+};
 
-		 if(this->posIterator==0)
-			 return 1;
-		 else
-			 return this->posIterator;
-}
-
-int PlayerType1:: getCommonCard(vector<vector<Card*>> myCards) {
-	int commonCardValue=0,commonCardAmount=0,index=0;
-
-	for(int i=0;i<myCards.size();i++){
-		if(myCards[i].size()>commonCardAmount){
-			commonCardValue=myCards[i][0]->getValue();
-			index=i;
-		}
-		else if(myCards[i].size()==commonCardAmount){
-			int a=myCards[i][0]->getValue();
-			int b=myCards[index][0]->getValue();
-			commonCardValue=(a>b)?a:b;
-		}
-	}
-return commonCardValue;
-}
-
-int PlayerType2:: getUncommonCard(vector<vector<Card*>> myCards) {
-	int uncommonCardValue=0,uncommonCardAmount=4,index=0;
-
-	for(int i=0;i<myCards.size();i++){
-		if(myCards[i].size()<uncommonCardAmount){
-			uncommonCardValue=myCards[i][0]->getValue();
-			index=i;
-		}
-		else if(myCards[i].size()==uncommonCardAmount){
-			int a=myCards[i][0]->getValue();
-			int b=myCards[index][0]->getValue();
-			uncommonCardValue=(a<b)?a:b;
-		}
-	}
-return uncommonCardValue;
-}
-int PlayerType3:: getHighestVal(vector<vector<Card*>> myCards){
-	int max=0;
-	for(int i=0;i<myCards.size();i++){
-		max= (myCards[i][0]->getValue()>max)?myCards[i][0]->getValue():max;
-	}
-	return max;
-}
-
-int PlayerType4:: getLowestVal(vector<vector<Card*>> myCards){
-	int min=myCards[0][0]->getValue();
-	for(int i=0;i<myCards.size();i++){
-		min= (myCards[i][0]->getValue()<min)?myCards[i][0]->getValue():min;
-	}
-	return min;
-}
-
+#endif

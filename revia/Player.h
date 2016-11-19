@@ -2,7 +2,6 @@
 #define PLAYER_H_
 
 #include <iostream>
-
 #include "Hand.h"
 
 using namespace std;
@@ -10,13 +9,15 @@ using namespace std;
 class Player : public Hand {
 private:
 	const string name;
-	const int position;
-	const int startegy;
+	 int position;
+	 int strategy;
 
 public:
 	int posIterator;
 	Player();
 	Player(string name, int position , int strtg);
+	Player& operator=(const Player &other);
+	Player(const Player &other);
 	virtual ~Player();
 	string getName();   //Returns the name of the player
 	int getPosition();
