@@ -17,7 +17,7 @@ private:
 
 public:
 	int count;
-	//Hand();
+	Hand();
 	Hand(Deck deck);
 	Hand(vector<vector<Card*> > other);
 	virtual ~Hand();

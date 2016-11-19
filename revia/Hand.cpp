@@ -4,16 +4,16 @@
 //#include "Deck.h"
 
 using namespace std;
-//Hand::Hand():HandCards(),count(7) {}
+Hand::Hand():HandCards(),count(0) {}
 
 
 Hand:: Hand(Deck deck) :HandCards(), count(7){//empty constructor
 	for(unsigned int i=0;i<7;i++)
-		//Hand::addCard(*deck.fetchCard());
-i++;
+		Hand::addCard(*deck.fetchCard());
+
 }
 
-Hand::Hand(vector<vector<Card*>> other): HandCards(other) , count (other.size()) {};
+Hand::Hand(vector<vector<Card*> > other): HandCards(other) , count (other.size()) {};
 //copy constructor
 
 
