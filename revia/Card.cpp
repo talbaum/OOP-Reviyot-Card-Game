@@ -3,9 +3,8 @@
 #include "Card.h"
 using namespace std;
 
- Card::Card():shape(){
-     
- }
+ //Card::Card():shape(){ }
+
 
 	Card::Card(char s) : shape(){
                 switch (s){
@@ -56,9 +55,8 @@ Shape Card:: getShape(){
 	 } 
 
 
-	FigureCard::FigureCard():Card(),figure(),value(0){
+	//FigureCard::FigureCard():Card(),figure(),value(0){}
 
-	}// empty constructor
 
 	FigureCard::FigureCard(char s,char f, int v):Card(s),figure(),value(v){
 
@@ -79,10 +77,14 @@ Shape Card:: getShape(){
 	}
 
 int FigureCard::getValue(){
-return value;
-        }
+    return value;   
+    
+}
+Shape FigureCard:: getShape(){
+	return Card::getShape();
+}
 
-string FigureCard::toString() {
+ string FigureCard::toString() {
 		 string ans="";
                  switch (figure){
                      case Jack:
@@ -94,13 +96,11 @@ string FigureCard::toString() {
                      case Ace:
                      ans=+'A';
                  }
-		return ans+Card::toString();
+		return ans+Card::toString(); //add card!!
 		}
 
 
-NumericCard::NumericCard():Card(), number(0){
-
-}
+//NumericCard::NumericCard():Card(), number(0){}
 
 	NumericCard::NumericCard ( char s,int num):Card(s),number(num){
 		//number=num; // needed?
@@ -112,8 +112,11 @@ NumericCard::NumericCard():Card(), number(0){
 	string NumericCard::toString() {
 
 		 string ans = std:: to_string(number);
-		return ans+Card::toString();
+		return ans+Card::toString(); //add card::!!!
 	}
+        Shape NumericCard:: getShape(){
+	return Card::getShape();
+        }
 
 
 //why is main needed??

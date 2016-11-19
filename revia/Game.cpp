@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <cstdlib>
+#include <vector> // needed???
 #include "Game.h"
 using namespace std;
 
@@ -10,6 +11,7 @@ using namespace std;
 Game::Game(char* config):players(),deck(){
     //deck = Deck();
     
+    vector<Card> GameCards;
     
     ifstream filetext(config);
     if (!filetext){
@@ -43,7 +45,6 @@ Game::Game(char* config):players(),deck(){
                 highest=true;
             }
             else if (!deck){
-                std::vector<Card> GameCards();
                 char shape;
                 char fig;
                 int value;                
@@ -59,7 +60,7 @@ Game::Game(char* config):players(),deck(){
                             if (word.at(index+1)==(char)32){ //next char is space
                                 shape=word.at(index);
                                 value=std::atoi(s.c_str());
-                                //GameCards.push_back(NumericCard(shape,value));
+                                GameCards.push_back(NumericCard(shape,value));
                                 index++;
                             }
                             else{ //next one isnt space, keep going on nums

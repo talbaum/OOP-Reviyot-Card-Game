@@ -22,12 +22,12 @@ class Card {
 private:
   Shape shape;
 public:
-  Card();
+  //Card();
   Card(char);
   virtual ~Card();
-  Shape getShape();
+  virtual Shape getShape();
   virtual int getValue();
-  virtual string toString() = 0; //Returns the string representation of the card "<value><shape>" exp: "12S" or "QD"
+  virtual string toString();// was '= 0 //Returns the string representation of the card "<value><shape>" exp: "12S" or "QD"
   
 };
 
@@ -36,20 +36,22 @@ private:
 	Figure figure;
 	int value;
 public:
-	string toString() override;
-	FigureCard();
-	FigureCard(char,char,int);
+	//FigureCard();
+        FigureCard(char,char,int);
 	int getValue() override;
+        virtual string toString() override;
+        Shape getShape() override;
 };
 
 class NumericCard : public Card {
 private:
 	int number;
 public:
-	NumericCard();
+	//NumericCard();
 	NumericCard(char,int);
 	int getValue() override;
-	string toString() override;
+	virtual string toString() override;
+        Shape getShape() override;
 };
 
 #endif
