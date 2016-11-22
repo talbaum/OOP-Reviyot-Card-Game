@@ -13,7 +13,8 @@ private:
 public:
 	Deck();
 	virtual ~Deck();
-	Deck (vector<Card>);
+	Deck (vector<Card*>);
+	bool isEmpty(Deck);
 	vector<Card *> GetDeck();
 	void SetDeck(vector<Card *> other);
 	Card* fetchCard();   //Returns the top card of the deck and remove it rom the deck

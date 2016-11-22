@@ -28,7 +28,7 @@ public:
 	virtual ~Card();
     Shape getShape();
 	virtual int getValue();
-	virtual string toString()=0;//Returns the string representation of the card "<value><shape>" exp: "12S" or "QD"
+	virtual string toString();//Returns the string representation of the card "<value><shape>" exp: "12S" or "QD"
 
 };
 

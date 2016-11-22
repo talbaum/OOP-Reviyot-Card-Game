@@ -11,36 +11,45 @@ private:
 	const string name;
 	int position;
 	int strategy;
+	//Game& game;
 
 public:
 	int posIterator;
 	Player();
-	Player(string name, int position , int strtg);
+	Player(string name, int position , Deck d,int strtg);
 	Player& operator=(const Player &other);
 	Player(const Player &other);
 	virtual ~Player();
 	string getName();   //Returns the name of the player
 	int getPosition();
+	int getStrategy();
+	virtual int selectCard(vector<vector<Card*> > myCards);
 	int PlayerWithMostCards(vector<Player*> player);
 	int cyclicOrder(vector<Player*> players); //need to check if Player is required
-};
+};//PLAY TURN ABSTRACT?
 
 class PlayerType1 : public Player {  //For strategy 1
 public:
-	int getCommonCard(vector<vector<Card*> > myCards);
+	PlayerType1(string name, int position , Deck d, int strtg);
+	virtual int selectCard(vector<vector<Card*> > myCards);
 };
 
 class PlayerType2 : public Player {  //For strategy 2
 public:
-	int getUncommonCard(vector<vector<Card*> > myCards);
+	PlayerType2(string name, int position , Deck d,int strtg);
+	virtual int selectCard(vector<vector<Card*> > myCards);
 };
 
 class PlayerType3 : public Player {  //For strategy 3
-	int getHighestVal(vector<vector<Card*> > myCards);
+public:
+	PlayerType3(string name, int position , Deck d,int strtg);
+	virtual int selectCard(vector<vector<Card*> > myCards);
 };
 
 class PlayerType4 : public Player {  //For strategy 4
-	int getLowestVal(vector<vector<Card*> > myCards);
+public:
+	PlayerType4(string name, int position , Deck d,int strtg);
+	virtual int selectCard(vector<vector<Card*> > myCards);
 };
 
 #endif

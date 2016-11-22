@@ -18,12 +18,15 @@ private:
 public:
 	int count;
 	Deck deck;
+	vector<vector<Card*> > initialHand;
+
 	Hand();
 	Hand(Deck deck);
 	Hand(vector<vector<Card*> > other);
 	Hand& operator=(const Hand &other);
 	virtual ~Hand();
 
+	vector<vector<Card*> > getHand();
 	int searchCard(Card &card);
 	bool addCard(Card &card);
 	bool removeCard(Card &card);

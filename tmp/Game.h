@@ -13,15 +13,25 @@ class Game {
 private:
 	vector<Player *> players;  //The list of the players
 	Deck deck; ///The deck of the game
+	Deck initialDeck;
+	bool twoWinners;
+	int winner1;
+	int winner2;
+	int count;
+
 public:
 	Game(char* configurationFile);
 	//Game& operator=(const Game &other);
 	virtual ~Game();
-	void init(); // initilizae players hands positions
-	void play(); // loop with counter and printstate and playTurn for each strategy
+	vector<Player *> getPlayers();
+	void init(); // initiliaze players hands positions and startegy
+	void play(); // loop with counter and printState and playTurn for each strategy
 	void printState();        //Print the state of the game as described in the assignment.
 	void printWinner();       //Print the winner of the game as describe in the assignment.
-        void printNumberOfTurns(); //Print the number of played turns at any given time.
+	void printNumberOfTurns(); //Print the number of played turns at any given time.
+	void printInitialState();
 };
 
 #endif
+
+//order of intialize the fields. warning.

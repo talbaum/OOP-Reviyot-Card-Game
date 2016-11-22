@@ -1,7 +1,7 @@
 #include "Hand.h"
 #include  <vector>
 #include <iostream>
-//#include "Deck.h"
+#include "Deck.h"
 
 using namespace std;
 Hand::Hand():HandCards(),count(0),deck() {}
@@ -9,7 +9,10 @@ Hand::Hand():HandCards(),count(0),deck() {}
 
 Hand:: Hand(Deck deck2) :HandCards(), count(7),deck(deck2){//empty constructor
 	for(unsigned int i=0;i<7;i++)
-		Hand::addCard(*deck.fetchCard());
+		Hand::addCard(*deck2.fetchCard());
+
+	initialHand=HandCards;
+	deck=deck2;
 
 }
 
@@ -18,7 +21,11 @@ Hand::Hand(vector<vector<Card*> > other): HandCards(other) , count (other.size()
 
 //Hand::Hand operator =(const Hand &other):count(other.count) ,deck(other.deck){};
 
-Hand::~Hand(){}
+Hand::~Hand(){}//delete *deck;?
+
+vector<vector<Card*> > Hand:: getHand(){
+	return this->HandCards;
+}
 
 int Hand:: whereToInsert(Card &card){   // made for the addCard method.
 	unsigned int mid, left = 0 ;
@@ -80,11 +87,13 @@ bool  Hand:: removeCard(Card &card) {
 		insideVec.erase(insideVec.begin(),insideVec.end());
 		count-=K;
 		int j=0;
+		Deck deck2=deck;
 		while(j<K){
-			Hand::addCard(*deck.fetchCard());
+			Hand::addCard(*deck2.fetchCard());
 			count++;
 			j++;
 		}
+		deck=deck2;
 		return true;
 	}
 }
@@ -123,4 +132,4 @@ string Hand:: toString(){
 	return ans;
 }
 
-//opertor = , check gameplay
+//opertor = , check gameplay (remove and add card)

@@ -4,14 +4,20 @@
 
 	Deck::Deck(): DeckCards() {};
 
-	Deck::Deck(vector<Card> GameCards):DeckCards(){
+	Deck::Deck(vector<Card*> GameCards):DeckCards(){
         vector<Card *> DeckCards2;
         Card *temp;
 		for (unsigned int i=0;i<GameCards.size();i++){
-                temp = &GameCards[i];
+                temp = GameCards[i];
 			DeckCards2.push_back(temp);
 			this->DeckCards=DeckCards2;
 		}
+	}
+
+	bool Deck::isEmpty(Deck d){
+		if(d.getNumberOfCards()==0)
+			return true;
+		return false;
 	}
 	//Deck Deck::operator =(Deck & other): this.DeckCards(other.DeckCards)  {}
 

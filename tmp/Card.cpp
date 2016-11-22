@@ -109,5 +109,4 @@ string NumericCard::toString() {
 	return ans;
 }
 
-//why is main needed??
 // opertor= , toString
