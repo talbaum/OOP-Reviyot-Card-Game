@@ -144,40 +144,53 @@ Game ::~Game(){
 
 vector<Player *> Game::getPlayers(){ return players;};
 void Game::init(){
-initialDeck=deck.GetDeck();
+	initialDeck=deck.GetDeck();
 }
 
 void Game::play(){
-	int numOfPlayer=1,askedCard,askedPlayer;
+	unsigned int numOfPlayer=1,askedPlayer,shapeIndex;
 	bool isAskedWon=false;
 	Player* myPlayer;
-
+	vector<Card*> askedCardVec;
 
 	while(winner1==0){
 		count++;
 		cout << "Turn" << count <<'\n';
-		deck.toString();
-		for(unsigned int i=0;i<players.size();++i){
-			cout << players[i]->getName() << ": " << players[i]->toString()<<'\n';
-		}
+		printState();
+
 		numOfPlayer=count%players.size();
 		myPlayer=players[numOfPlayer];
-		askedCard=myPlayer->selectCard(myPlayer->getHand());
+		askedCardVec=myPlayer->selectCard(myPlayer->getHand());
 
 		if(myPlayer->getStrategy()<=2)
 			askedPlayer=myPlayer->PlayerWithMostCards(getPlayers());
 		else
 			askedPlayer= myPlayer->cyclicOrder(getPlayers());
 
-		cout << myPlayer->getName() << "Asked " << players[askedPlayer]->getName()<< "for the value "<< askedCard<<'\n';
 
-		if(players[askedPlayer]->removeCard(askedCard))
-		{
+		cout << myPlayer->getName() << "Asked " << players[askedPlayer]->getName()<< "for the value "<< askedCardVec[0]->getValue()<<'\n';
 
+
+		Card* requestedCard;
+		bool stop=true,actionHappend=false;
+
+		shapeIndex=askedCardVec.size()-1;
+		while(stop){
 			//actual remove of cards and adding it from one player to other
+			//while we can remove one card at a certain shape, remove the pointer from askedPlayer and add it to myPlayer
+			if(shapeIndex<0)
+				break;
 
-
-			if(players[askedPlayer]->getNumberOfCards()==0){//checking if the game has ended.
+			requestedCard=askedCardVec[shapeIndex];				//need to check memory usage
+			stop=players[askedPlayer]->removeCard(*askedCardVec[shapeIndex]);
+			myPlayer->addCard(*requestedCard);
+			shapeIndex--;
+			if(stop&&!actionHappend)
+				actionHappend=true;
+		}
+		if(actionHappend){
+			//checking if the game has ended.
+			if(players[askedPlayer]->getNumberOfCards()==0){
 				winner1=askedPlayer;
 				isAskedWon=true;
 			}
@@ -189,8 +202,14 @@ void Game::play(){
 				}
 			}
 		}
-		else if(myPlayer->getNumberOfCards()!=0)//player can fetchcard only if is not empty
-			myPlayer->deck.fetchCard(); //the asked card is not at the asked player hand. so my player takes a card from deck.
+		else if(myPlayer->getNumberOfCards()!=0 && deck.getNumberOfCards()!=0)
+					myPlayer->deck.fetchCard();
+
+		//the asked card is not at the asked player hand. so my player takes a card from deck.
+		//player can fetch card only if his hand and the deck are not empty
+
+
+
 	}//end of while.game over.
 
 	printWinner();
@@ -205,10 +224,10 @@ void Game::printWinner(){
 	}
 	else{
 		cout<<"***** The Winners are: "<< players[winner1]->getName()<<"and: "<<players[winner2]->getName()<<" *****"<<endl;
-			printNumberOfTurns();
-			printInitialState();
-			cout<<"Final state: "<<endl;
-			printState();
+		printNumberOfTurns();
+		printInitialState();
+		cout<<"Final state: "<<endl;
+		printState();
 	}
 }
 
@@ -216,23 +235,23 @@ void Game::printInitialState(){
 	string ans="";
 	vector<vector<Card*> > printMe;
 	cout<<"Initial state: "<<endl;
-			cout<<"----------"<<endl;
-			cout<<"Deck: "<<initialDeck.toString()<<endl;
-			for(unsigned int i=0;i<players.size();++i){
-				printMe=players[i]->initialHand;
-				for(unsigned j=0;j<printMe.size();j++){
-					for(unsigned k=0;k<printMe[j].size();k++)
-						ans+=printMe[j][k]->toString();
-				}
-				cout << players[i]->getName() << ": " << ans <<endl;;
-			}
-					cout<<"----------"<<endl;
+	cout<<"----------"<<endl;
+	cout<<"Deck: "<<initialDeck.toString()<<endl;
+	for(unsigned int i=0;i<players.size();++i){
+		printMe=players[i]->initialHand;
+		for(unsigned j=0;j<printMe.size();j++){
+			for(unsigned k=0;k<printMe[j].size();k++)
+				ans+=printMe[j][k]->toString();
+		}
+		cout << players[i]->getName() << ": " << ans <<endl;;
+	}
+	cout<<"----------"<<endl;
 }
 void Game::printState(){ //Print the state of the game as described in the assignment.
 
 	cout <<"Deck: "<< deck.toString()<<endl;
 	for(unsigned int i=0;i<players.size();++i)
-		cout << players[i]->getName() << ": " << players[i]->toString()<<endl;;
+		cout << players[i]->getName() << ": " << players[i]->toString()<<endl;
 
 }
 void Game::printNumberOfTurns(){//Print the number of played turns at any given time.
@@ -246,4 +265,4 @@ void Game::printNumberOfTurns(){//Print the number of played turns at any given 
 
 //   }
 
-//empty constructor is needed?, different functions
+//empty constructor is needed?, check gameplay

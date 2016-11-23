@@ -24,7 +24,7 @@ private:
 public:
 	Card();
 	Card(char);
-	//Card & operator=(const Card &other);
+	Card& operator=(const Card &other);
 	virtual ~Card();
     Shape getShape();
 	virtual int getValue();
@@ -39,8 +39,8 @@ private:
 public:
 	FigureCard();
 	FigureCard(char,char,int);
-	virtual int getValue() override;
-	virtual string toString() override;
+	virtual int getValue();
+	virtual string toString() ;
 
 };
 
@@ -50,8 +50,8 @@ private:
 public:
 	NumericCard();
 	NumericCard(char,int);
-	virtual int getValue() override;
-	virtual string toString() override;
+	virtual int getValue() ;
+	virtual string toString();
 
 };
 

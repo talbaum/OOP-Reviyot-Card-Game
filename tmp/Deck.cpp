@@ -48,4 +48,4 @@
 		}
 		return ans;
 	}
-//toString , opertor =
+//toString (using card to string), opertor =

@@ -11,7 +11,7 @@ int Player:: getPosition(){
 int Player:: getStrategy(){
 	return strategy;}
 
- int Player:: selectCard(vector<vector<Card*> > myCards){};
+vector<Card*> Player:: selectCard(vector<vector<Card*> > myCards){};
 
 int Player::PlayerWithMostCards(vector<Player *> players){
 	int max=0;
@@ -37,59 +37,74 @@ int Player:: cyclicOrder(vector<Player*> players){
 
 PlayerType1::PlayerType1(string name, int position , Deck d, int strtg) :Player( name, position , d,strtg){};
 
-int PlayerType1::selectCard(vector<vector<Card*> > myCards) {
+vector<Card*> PlayerType1::selectCard(vector<vector<Card*> > myCards) {
 	//getCommonCard
-	int commonCardValue=0,commonCardAmount=0,index=0;
+	int commonCardAmount=0,firstIndex=0;
+	vector<Card*> commonCard;
 	for(unsigned int i=0;i<myCards.size();i++){
 		if(myCards[i].size()>commonCardAmount){
-			commonCardValue=myCards[i][0]->getValue();
-			index=i;
+			commonCardAmount=myCards[i].size();
+			commonCard=myCards[i];
+			firstIndex=i;
 		}
 		else if(myCards[i].size()==commonCardAmount){
-			int a=myCards[i][0]->getValue();
-			int b=myCards[index][0]->getValue();
-			commonCardValue=(a>b)?a:b;
+			int firstVal=myCards[firstIndex][0]->getValue();
+			int secondVal=myCards[i][0]->getValue();
+
+			commonCard=(firstVal>secondVal)?myCards[firstIndex]:myCards[i];
 		}
 	}
-	return commonCardValue;
+	return commonCard;
 }
 PlayerType2::PlayerType2(string name, int position , Deck d,int strtg) :Player( name, position , d,strtg){};
 
-int PlayerType2:: selectCard(vector<vector<Card*> > myCards) {
+vector<Card*> PlayerType2:: selectCard(vector<vector<Card*> > myCards) {
 	//getUnCommonCard
-	unsigned int uncommonCardValue=0,uncommonCardAmount=4,index=0;
+	unsigned int uncommonCardAmount=4,firstIndex=0;
+	vector<Card*> unCommonCard;
+
 	for(unsigned int i=0;i<myCards.size();i++){
 		if(myCards[i].size()<uncommonCardAmount){
-			uncommonCardValue=myCards[i][0]->getValue();
-			index=i;
+			uncommonCardAmount=myCards[i].size();
+			unCommonCard=myCards[i];
+			firstIndex=i;
 		}
 		else if(myCards[i].size()==uncommonCardAmount){
-			int a=myCards[i][0]->getValue();
-			int b=myCards[index][0]->getValue();
-			uncommonCardValue=(a<b)?a:b;
+			int firstVal=myCards[firstIndex][0]->getValue();
+			int secondVal=myCards[i][0]->getValue();
+
+			unCommonCard=(secondVal<firstVal)? myCards[i]:myCards[firstIndex];
 		}
 	}
-	return uncommonCardValue;
+	return unCommonCard;
 }
 PlayerType3::PlayerType3(string name, int position , Deck d,int strtg) :Player( name, position , d,strtg){};
 
-int PlayerType3:: selectCard(vector<vector<Card*> > myCards){
+vector<Card*> PlayerType3:: selectCard(vector<vector<Card*> > myCards){
 	//getHighestValue
 	int max=0;
+	vector<Card*> maxCard;
 	for(unsigned int i=0;i<myCards.size();i++){
-		max= (myCards[i][0]->getValue()>max)?myCards[i][0]->getValue():max;
+		if(myCards[i][0]->getValue()>max){
+			max=myCards[i][0]->getValue();
+			maxCard=myCards[i];
+		}
 	}
-	return max;
+	return maxCard;
 }
 PlayerType4::PlayerType4(string name, int position , Deck d,int strtg) :Player( name, position , d,strtg){};
 
-int PlayerType4:: selectCard(vector<vector<Card*> > myCards){
+vector<Card*> PlayerType4:: selectCard(vector<vector<Card*> > myCards){
 	//getLowestValue
 	int min=myCards[0][0]->getValue();
+	vector<Card*> minCard=myCards[0];
 	for(unsigned int i=0;i<myCards.size();i++){
-		min= (myCards[i][0]->getValue()<min)?myCards[i][0]->getValue():min;
+		if(myCards[i][0]->getValue()<min){
+			min=myCards[i][0]->getValue();
+			minCard=myCards[i];
+		}
 	}
-	return min;
+	return minCard;
 }
 
 //opertor= , abstract function selectCard to make sure it works

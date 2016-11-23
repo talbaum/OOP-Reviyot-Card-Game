@@ -22,8 +22,8 @@ public:
 
 	Hand();
 	Hand(Deck deck);
-	Hand(vector<vector<Card*> > other);
-	Hand& operator=(const Hand &other);
+	Hand(const Hand &other);
+	//Hand & operator=(const Hand &other);
 	virtual ~Hand();
 
 	vector<vector<Card*> > getHand();
