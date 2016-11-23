@@ -23,7 +23,7 @@ public:
 	Hand();
 	Hand(Deck deck);
 	Hand(const Hand &other);
-	//Hand & operator=(const Hand &other);
+	Hand& operator=(Hand &other);
 	virtual ~Hand();
 
 	vector<vector<Card*> > getHand();

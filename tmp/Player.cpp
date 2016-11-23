@@ -1,8 +1,15 @@
 #include "Player.h"
 Player::Player() : name(""),position(1),posIterator(0),strategy(0) {};
 Player:: Player(string name, int position, Deck d, int strtg) : Hand(d), name(name),position(position),posIterator(0),strategy(strtg){};
-//Player Player::operator =(const Player &other): position(other.position),posIterator(other.posIterator){};
+
 Player:: ~Player() {};
+
+Player& Player::operator =(Player &other){
+	if(this==&other)
+		return *this;
+
+	//body of operator
+}
 
 string Player:: getName(){
 	return name;}

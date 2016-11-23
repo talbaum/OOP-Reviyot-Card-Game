@@ -17,9 +17,11 @@ public:
 	int posIterator;
 	Player();
 	Player(string name, int position , Deck d,int strtg);
-	Player& operator=(const Player &other);
+	Player& operator =(Player &other);
 	Player(const Player &other);
 	virtual ~Player();
+
+
 	string getName();   //Returns the name of the player
 	int getPosition();
 	int getStrategy();

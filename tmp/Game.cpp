@@ -139,12 +139,12 @@ Game::Game(char* config): count(0),twoWinners(false),winner1(0),winner2(0),initi
 }
 
 Game ::~Game(){
-	//delete temp;
+	//delete temp?
 }
 
 vector<Player *> Game::getPlayers(){ return players;};
 void Game::init(){
-	initialDeck=deck.GetDeck();
+	initialDeck.SetDeck(deck.GetDeck());
 }
 
 void Game::play(){
@@ -183,10 +183,12 @@ void Game::play(){
 
 			requestedCard=askedCardVec[shapeIndex];				//need to check memory usage
 			stop=players[askedPlayer]->removeCard(*askedCardVec[shapeIndex]);
+			if(stop){
 			myPlayer->addCard(*requestedCard);
 			shapeIndex--;
-			if(stop&&!actionHappend)
+			if(!actionHappend)
 				actionHappend=true;
+			}
 		}
 		if(actionHappend){
 			//checking if the game has ended.
@@ -237,6 +239,7 @@ void Game::printInitialState(){
 	cout<<"Initial state: "<<endl;
 	cout<<"----------"<<endl;
 	cout<<"Deck: "<<initialDeck.toString()<<endl;
+
 	for(unsigned int i=0;i<players.size();++i){
 		printMe=players[i]->initialHand;
 		for(unsigned j=0;j<printMe.size();j++){
@@ -263,6 +266,6 @@ void Game::printNumberOfTurns(){//Print the number of played turns at any given 
 
 
 
-//   }
+   //}
 
 //empty constructor is needed?, check gameplay

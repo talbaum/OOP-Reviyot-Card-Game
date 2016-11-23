@@ -12,8 +12,10 @@ private:
 	vector<Card *> DeckCards;// Declare here the collection of "Card *" of the deck
 public:
 	Deck();
-	virtual ~Deck();
 	Deck (vector<Card*>);
+	virtual ~Deck();
+	Deck& operator =(Deck &other);
+
 	bool isEmpty(Deck);
 	vector<Card *> GetDeck();
 	void SetDeck(vector<Card *> other);

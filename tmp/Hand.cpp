@@ -19,17 +19,12 @@ Hand:: Hand(Deck deck2) :HandCards(), count(7),deck(deck2){//empty constructor
 Hand::Hand(const Hand &other): HandCards(other.HandCards) , count (other.count), deck(other.deck),initialHand(other.initialHand) {};
 //copy constructor
 
-/*
-Hand::Hand & operator=(const Hand &other)
-{
+
+Hand& Hand::operator =(Hand &other){
 	if(this==&other)
 		return *this;
-
-	Hand* temp= new Hand(*other);
-	delete other;
-	this=temp;
-	return this;
-}*/
+	//body of operator
+}
 
 Hand::~Hand(){}//delete *deck;?
 
@@ -99,7 +94,7 @@ bool  Hand:: removeCard(Card &card) {
 		return true;
 
 /*
- * Old version: delete all the vec at once. problem at adding the certian shapes to the other player hand.
+ * Old version: delete all the vec at once.
 		insideVec=HandCards[pos];
 		int K=insideVec.size();
 		insideVec.erase(insideVec.begin(),insideVec.end());
@@ -151,4 +146,4 @@ string Hand:: toString(){
 	return ans;
 }
 
-//opertor = , check gameplay (remove and add card)
+//opertor =

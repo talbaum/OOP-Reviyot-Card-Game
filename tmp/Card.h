@@ -24,11 +24,11 @@ private:
 public:
 	Card();
 	Card(char);
-	Card& operator=(const Card &other);
+	Card& operator =(const Card &other);
 	virtual ~Card();
     Shape getShape();
-	virtual int getValue();
-	virtual string toString();//Returns the string representation of the card "<value><shape>" exp: "12S" or "QD"
+	virtual int getValue()=0;
+	virtual string toString()=0;//Returns the string representation of the card "<value><shape>" exp: "12S" or "QD"
 
 };
 

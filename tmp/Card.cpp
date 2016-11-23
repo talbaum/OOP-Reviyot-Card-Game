@@ -21,11 +21,14 @@ Card::Card(char s) : shape(){
 		break;
 	}
 }
-//Card Card::operator=(Card &other):{}
+Card& Card::operator =(const Card &other){
+	if(this==&other)
+	return *this;
+}
 
 Card::~Card(){}
 
-int Card::getValue(){return 0;}
+//int Card::getValue(){return 0;}
 
 Shape Card:: getShape(){
 	return shape;}
@@ -50,6 +53,7 @@ FigureCard::FigureCard(char s,char f, int v):Card(s),figure(),value(v){
 }
 int FigureCard::getValue(){
 	return value;}
+
 string FigureCard::toString() {
 	string ans="";
 	switch (figure){

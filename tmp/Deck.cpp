@@ -13,15 +13,21 @@
 			this->DeckCards=DeckCards2;
 		}
 	}
+	   Deck::~Deck(){}
 
-	bool Deck::isEmpty(Deck d){
-		if(d.getNumberOfCards()==0)
-			return true;
-		return false;
+	Deck& Deck::operator =(Deck &other){
+		if(this==&other)
+			return *this;
+
+		//body of operator
 	}
-	//Deck Deck::operator =(Deck & other): this.DeckCards(other.DeckCards)  {}
 
-        Deck::~Deck(){}
+
+    	bool Deck::isEmpty(Deck d){
+    		if(d.getNumberOfCards()==0)
+    			return true;
+    		return false;
+    	}
 
         vector<Card *> Deck:: GetDeck(){
         	return DeckCards;
