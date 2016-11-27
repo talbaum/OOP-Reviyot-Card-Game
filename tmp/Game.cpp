@@ -11,12 +11,13 @@ using namespace std;
 
 Game::Game(char* config): count(0),twoWinners(false),winner1(0),winner2(0),initialDeck(){
 	vector<Card*> GameCards;
+	ifstream file2("config.txt");
 	ifstream filetext(config);
-	if (!filetext){
-		cout << "error reading conf file";
+	if (!file2){
+		cout << "error reading conf file"<<endl;
 		return;
 	}
-
+	cout << "passed first if- conf file"<<endl;
 	bool verbal;
 	int N;
 	bool verbalpass=false;
@@ -155,7 +156,7 @@ void Game::play(){
 
 	while(winner1==0){
 		count++;
-		cout << "Turn" << count <<'\n';
+		cout << "Turn " << count <<'\n';
 		printState();
 
 		numOfPlayer=count%players.size();

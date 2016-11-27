@@ -16,7 +16,7 @@ public:
 	virtual ~Deck();
 	Deck& operator =(Deck &other);
 
-	bool isEmpty(Deck);
+	bool isEmpty();
 	vector<Card *> GetDeck();
 	void SetDeck(vector<Card *> other);
 	Card* fetchCard();   //Returns the top card of the deck and remove it rom the deck

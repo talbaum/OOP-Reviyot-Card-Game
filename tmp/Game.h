@@ -21,7 +21,7 @@ private:
 
 public:
 	Game(char* configurationFile);
-	//Game& operator=(const Game &other);
+	//Game& operator=(Game &other);
 	virtual ~Game();
 	vector<Player *> getPlayers();
 	void init(); // initiliaze players hands positions and startegy

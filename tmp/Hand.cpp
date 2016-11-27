@@ -8,6 +8,8 @@ Hand::Hand():HandCards(),count(0),deck() {}
 
 
 Hand:: Hand(Deck deck2) :HandCards(), count(7),deck(deck2){//empty constructor
+	HandCards.resize(1);
+
 	for(unsigned int i=0;i<7;i++)
 		Hand::addCard(*deck2.fetchCard());
 
@@ -24,6 +26,7 @@ Hand& Hand::operator =(Hand &other){
 	if(this==&other)
 		return *this;
 	//body of operator
+
 }
 
 Hand::~Hand(){}//delete *deck;?
@@ -33,7 +36,7 @@ vector<vector<Card*> > Hand:: getHand(){
 }
 
 int Hand:: whereToInsert(Card &card){   // made for the addCard method.
-	unsigned int mid, left = 0 ;
+	unsigned int mid=0, left = 0 ;
 	unsigned int right = HandCards.size();
 	while (left < right) {
 		mid = left + (right - left)/2;
@@ -55,7 +58,10 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
 
 bool Hand:: addCard(Card &card){
 	int pos=whereToInsert(card);
-	HandCards[pos].push_back(&card);
+	vector<Card*> insideVec= HandCards.at(pos);
+	insideVec.push_back(&card);
+	HandCards.at(pos)=insideVec;
+
 	if(HandCards[pos].size()==4)   //if player got revia.
 			Hand::removeCard(*HandCards[pos][0]);
 

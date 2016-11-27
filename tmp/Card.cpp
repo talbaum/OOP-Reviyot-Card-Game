@@ -23,15 +23,33 @@ Card::Card(char s) : shape(){
 }
 Card& Card::operator =(const Card &other){
 	if(this==&other)
-	return *this;
+		return *this;
 }
 
 Card::~Card(){}
 
 //int Card::getValue(){return 0;}
 
-Shape Card:: getShape(){
-	return shape;}
+char Card:: getShape(){
+	char ans;
+	switch (shape){
+	case Club:
+		ans='C';
+		break;
+	case Diamond:
+		ans='D';
+		break;
+	case Heart:
+		ans='H';
+		break;
+	case Spade:
+		ans='S';
+		break;
+	}
+	return ans;
+}
+
+
 
 FigureCard::FigureCard():Card(),figure(),value(0){}
 
@@ -85,6 +103,10 @@ string FigureCard::toString() {
 	}
 	return ans;
 }
+
+
+
+
 NumericCard::NumericCard():Card(), number(0){}
 
 NumericCard::NumericCard ( char s,int num):Card(s),number(num){}

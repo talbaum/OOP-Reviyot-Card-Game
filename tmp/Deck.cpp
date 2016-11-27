@@ -23,8 +23,8 @@
 	}
 
 
-    	bool Deck::isEmpty(Deck d){
-    		if(d.getNumberOfCards()==0)
+    	bool Deck::isEmpty(){
+    		if(getNumberOfCards()==0)
     			return true;
     		return false;
     	}
@@ -50,7 +50,7 @@
 		string ans="";
                 unsigned int i;
 		for (i=0;i<DeckCards.size();i++){
-			ans+=DeckCards.at(i)->toString();
+			ans+=DeckCards.at(i)->toString()+  " ";
 		}
 		return ans;
 	}
