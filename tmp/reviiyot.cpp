@@ -56,7 +56,6 @@ int main(int argc, char **argv) {
 
 
  //* test for hand:
-cout<<"check1"<<endl;
 	Hand * aa= new Hand();
 	FigureCard * a=new FigureCard('C','A',14);
 	NumericCard * b=new NumericCard('S',2);
@@ -69,7 +68,7 @@ cout<<"check1"<<endl;
 	NumericCard * i=new NumericCard('C',6);
 	NumericCard * j=new NumericCard('H',6);
 
-	cout<<"check2"<<endl;
+
 	vector<Card*> cards;
 	cards.push_back(d);
 	cards.push_back(c);
@@ -81,17 +80,43 @@ cout<<"check1"<<endl;
 	cards.push_back(h);
 	cards.push_back(i);
 	cards.push_back(j);
-	cout<<"check3"<<endl;
+
 	Deck  deck (cards);
 	cout<<deck.toString()<<endl;
-	cout<<"check4"<<endl;
+
+
+	//fix whereToInsert and SearchCard
+	//check why when insert figure card it entered twice
+
+	Hand bb=Hand(deck);
+	cout<<"bb hand number of cards:" <<bb.getNumberOfCards()<<endl;
+	bb.addCard(*f);
+	cout<<"bb hand number of cards after addCard:" <<bb.getNumberOfCards()<<endl;
+	cout<<"is f on the hand after we added it?"<<bb.searchCard(*f)<<endl; //problem
+	bb.removeCard(*f);
+	cout<<"is f on the hand adter we removed it?"<<bb.searchCard(*f)<<endl;
+
+	cout<<bb.toString()<<endl; //problem
+
+
+
 	cout<<"empty hand number of cards:" <<aa->getNumberOfCards()<<endl;
 	aa->addCard(*a);
-	cout<<aa->getNumberOfCards()<<endl;
+	aa->addCard(*b);
+	aa->addCard(*i);
+	//aa->addCard(*j); //problem
+	cout<<"should be 3:"<<aa->getNumberOfCards()<<endl;
 
-	cout<<"check5"<<endl;
+aa->deck.SetDeck(cards);
+	cout<<"0 if found this card: "<<aa->searchCard(*a)<<endl;
+	cout<<"-1 if not found this card: "<<aa->searchCard(*c)<<endl;
+	cout<<"1 if removed this card: "<<aa->removeCard(*a)<<endl;
+	cout<<"0 if not removed this card:"<<aa->removeCard(*c)<<endl;
+	cout<<aa->toString()<<endl;//problem
 
-//	cout<<"regular hand number of cards:" <<bb.getNumberOfCards()<<endl;
+	cout<<"numOfCard after remove- should be 2:  "<<aa->getNumberOfCards()<<endl;//problem
+
+
 
 
 

@@ -22,11 +22,8 @@ Card::Card(char s) : shape(){
 	}
 }
 Card& Card::operator =(const Card &other){
-	if(this==&other){
-	return *this;
-        }
-        shape = other.getShape();
-        return *this
+	if(this==&other)
+		return *this;
 }
 
 Card::~Card(){}
