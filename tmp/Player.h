@@ -25,7 +25,7 @@ public:
 	string getName();   //Returns the name of the player
 	int getPosition();
 	int getStrategy();
-	virtual vector<Card*> selectCard(vector<vector<Card*> > myCards);
+	virtual vector<Card*> selectCard(vector<vector<Card*> > myCards)=0;
 	int PlayerWithMostCards(vector<Player*> player);
 	int cyclicOrder(vector<Player*> players); //need to check if Player is required
 };

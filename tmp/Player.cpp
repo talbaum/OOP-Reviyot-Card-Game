@@ -18,15 +18,16 @@ int Player:: getPosition(){
 int Player:: getStrategy(){
 	return strategy;}
 
-vector<Card*> Player:: selectCard(vector<vector<Card*> > myCards){};
 
 int Player::PlayerWithMostCards(vector<Player *> players){
 	int max=0;
 	int pos=0;
 	for(unsigned int i=0;i<players.size();i++){
 		if(players[i]->getNumberOfCards()>=max){
-			max=players[i]->getNumberOfCards();
-			pos=players[i]->getPosition();
+			if(i!=this->position){
+				max=players[i]->getNumberOfCards();
+				pos=players[i]->getPosition();
+			}
 		}
 	}
 	return pos;
@@ -34,10 +35,16 @@ int Player::PlayerWithMostCards(vector<Player *> players){
 int Player:: cyclicOrder(vector<Player*> players){
 	unsigned int myPos=this->getPosition();
 	posIterator=(posIterator +1)%players.size();
+
 	if(posIterator % players.size()==myPos)
 		posIterator=(posIterator+1)%players.size();
-	if(posIterator==0)
-		return 1;
+
+	if(posIterator==0){
+		if(myPos!=1)
+			return 1;
+		else
+			return 2;
+	}
 	else
 		return posIterator;
 }
