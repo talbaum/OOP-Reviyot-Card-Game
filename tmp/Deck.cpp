@@ -20,6 +20,8 @@
 			return *this;
 
 		//body of operator
+	//DeckCards=other.DeckCards;
+	//return *this;
 	}
 
 
@@ -37,7 +39,6 @@
         }
 
         Card* Deck::fetchCard(){
-
 		Card *CardPtr = DeckCards.front(); // to check if the & create a pointer or go straight to card.
 		DeckCards.erase(DeckCards.begin());
 		return CardPtr;

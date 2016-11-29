@@ -27,6 +27,7 @@ public:
 	virtual ~Hand();
 
 	vector<vector<Card*> > getHand();
+	void sortMyHand();
 	int searchCard(Card &card);
 	bool addCard(Card &card);
 	bool removeCard(Card &card);
