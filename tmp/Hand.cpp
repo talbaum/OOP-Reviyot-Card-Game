@@ -8,7 +8,7 @@ Hand::Hand():HandCards(),count(0),deck() {}
 
 
 Hand:: Hand(Deck deck2) :HandCards(), count(0),deck(deck2){//empty constructor
-	HandCards.resize(1);
+	//HandCards.resize(1);
 
 	for(unsigned int i=0;i<7;i++)
 		Hand::addCard(*deck2.fetchCard());
@@ -29,7 +29,7 @@ Hand& Hand::operator =(Hand &other){
 
 }
 
-Hand::~Hand(){}//delete *deck;?
+Hand::~Hand(){}
 
 vector<vector<Card*> > Hand:: getHand(){
 	return this->HandCards;
@@ -40,7 +40,7 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
 	bool first=true;
 	unsigned int right = (HandCards.size()==0)?0:HandCards.size()-1;
 	while (left < right) {
-		mid = left + (right - left)/2;
+		mid = (left + right)/2;
 		if (card.getValue() > HandCards[mid][0]->getValue()){
 			left = mid+1;
 			first=false;
@@ -56,25 +56,30 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
 	if(first)
 		return 0; //if the vec is empty , it will insert at first position.
 	else
-		return mid-1; //for making sure its inserted before the closer bigger value. need to check it.
+		return mid; //for making sure its inserted before the closer bigger value. need to check it.
 }
 
 bool Hand:: addCard(Card &card){
-	if(HandCards.size()==0){
+	int myCardPos=searchCard(card);
+
+	if(myCardPos==-1){
+		std::vector<vector<Card*> >::iterator it;
 		vector<Card*> insideVec;
 		insideVec.push_back(&card);
-		HandCards.push_back(insideVec);
+		int pos=whereToInsert(card);
+		it=HandCards.begin();
+		HandCards.insert(it+pos,insideVec);
 	}
 	else{
-		int pos=whereToInsert(card);
-		HandCards.at(pos).push_back(&card);
+		HandCards.at(myCardPos).push_back(&card);
 
 
-		if(HandCards.at(pos).size()==4)   //if player got revia.
-			Hand::removeCard(*HandCards[pos][0]);
+		if(HandCards.at(myCardPos).size()==4)   //if player got revia.
+			for(int i=0;i<=3;i++)
+			Hand::removeCard(*HandCards[myCardPos][0]);
 
-		else if(HandCards.at(pos).size()>=2)
-			HandCards[pos]=sortByShape(HandCards[pos]);
+		else if(HandCards.at(myCardPos).size()>=2)
+			HandCards[myCardPos]=sortByShape(HandCards[myCardPos]);
 	}
 	count++;
 	return true;
@@ -128,7 +133,26 @@ bool  Hand:: removeCard(Card &card) {
 
 
 int Hand:: searchCard(Card &card){  //made for remove card method. (had to make 2 diffrenet ones).
-	unsigned int mid, left = 0 ;
+
+	  int left = 0;
+	        int right = HandCards.size() - 1;
+	        int middle;
+	        while (left <= right) {
+	            middle = (left + right)/2;
+	            if (HandCards[middle][0]->getValue() > card.getValue())
+	                right = middle - 1;
+	            else
+	                if (HandCards[middle][0]->getValue() < card.getValue())
+	                    left = middle + 1;
+	                else
+	                    return middle;
+	        }
+	        return -1;
+}
+
+
+
+	/*unsigned int mid, left = 0 ;
 	unsigned int right = HandCards.size();
 	while (left < right) {
 		mid = left + (right - left)/2;
@@ -143,7 +167,8 @@ int Hand:: searchCard(Card &card){  //made for remove card method. (had to make 
 		}
 	}
 	return -1; // if the exact value is not found at the vec.
-}
+}*/
+
 
 int Hand:: getNumberOfCards(){
 	return this->count;
