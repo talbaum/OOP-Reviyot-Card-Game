@@ -9,7 +9,8 @@ using namespace std;
 
 //Game::Game():players(),deck(), highNumVal(0){} // needed?
 
-Game::Game(char* config): count(0),twoWinners(false),winner1(0),winner2(0),initialDeck(){
+Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),count(0){
+
 	vector<Card*> GameCards;
 	ifstream filetext(config);
 	if (!filetext.is_open()){
@@ -67,8 +68,8 @@ Game::Game(char* config): count(0),twoWinners(false),winner1(0),winner2(0),initi
 									index++;
 								}
 							}
+							cout << "next card value:" << value << " of " << shape <<'\n';
 						}
-
 						else{ //figure card
 							fig=word.at(index);
 							switch (fig){
@@ -89,50 +90,50 @@ Game::Game(char* config): count(0),twoWinners(false),winner1(0),winner2(0),initi
 							shape=word.at(index);
 							FigureCard f=FigureCard(shape,fig,value);
 							GameCards.push_back(&f);
+							cout << "next card value:" << value << ", figure: " << fig << " of " << shape <<'\n';
 						}
-
-						cout << "next card:" << value << "," << fig << " of " << shape <<'\n';
-
 					}
 					index++;
-
 				}
 				deckCheck=true;
 				deck.SetDeck(GameCards);
+
 				//initialize the deck from the gameCards.
 			}
-		}
-		else if (!playersPass){
-			int playerNum=1;
-			while (!word.empty()){
-				string name="";
-				int index=0;
-				int strtg;
-				while (word.at(index)!=(char)32){
-					name+=word.at(index);
-					index++;
+
+			else if (!playersPass){
+				int playerNum=1;
+				while (!word.empty()&&(word.at(0)!='#')){
+					string name="";
+					int index=0;
+					int strtg;
+					while (word.at(index)!=(char)32){
+						name+=word.at(index);
+						index++;
+					}
+					strtg=word.at(index+1)-'0';
+					Player * temp;
+					switch (strtg){
+					case 1:
+						temp = new PlayerType1(name,playerNum,deck,strtg);
+						cout<<"Player was initliazed"<<endl;
+						break;
+					case 2:
+						temp = new PlayerType2(name,playerNum,deck,strtg);
+						break;
+					case 3:
+						temp = new PlayerType3(name,playerNum,deck,strtg);
+						break;
+					case 4:
+						temp = new PlayerType4(name,playerNum,deck,strtg);
+						break;
+					}
+					//initialize player & his hand and strategy.
+					players.push_back(temp);
+					cout << "player name: " << name << " playing " << strtg <<'\n';
+					getline(filetext,word);
+					playerNum++;
 				}
-				strtg=word.at(index+1)-'0';
-				Player* temp;
-				switch (strtg){
-				case 1:
-					temp = new PlayerType1(name,playerNum,deck,strtg);
-					break;
-				case 2:
-					temp = new PlayerType2(name,playerNum,deck,strtg);
-					break;
-				case 3:
-					temp = new PlayerType3(name,playerNum,deck,strtg);
-					break;
-				case 4:
-					temp = new PlayerType4(name,playerNum,deck,strtg);
-					break;
-				}
-				//initialize player & his hand and strategy.
-				players.push_back(temp);
-				cout << "player name: " << name << " playing " << strtg <<'\n';
-				getline(filetext,word);
-				playerNum++;
 			}
 		}
 	}
@@ -184,10 +185,10 @@ void Game::play(){
 			requestedCard=askedCardVec[shapeIndex];				//need to check memory usage
 			stop=players[askedPlayer]->removeCard(*askedCardVec[shapeIndex]);
 			if(stop){
-			myPlayer->addCard(*requestedCard);
-			shapeIndex--;
-			if(!actionHappend)
-				actionHappend=true;
+				myPlayer->addCard(*requestedCard);
+				shapeIndex--;
+				if(!actionHappend)
+					actionHappend=true;
 			}
 		}
 		if(actionHappend){
@@ -205,7 +206,7 @@ void Game::play(){
 			}
 		}
 		else if(myPlayer->getNumberOfCards()!=0 && deck.getNumberOfCards()!=0)
-					myPlayer->deck.fetchCard();
+			myPlayer->deck.fetchCard();
 
 		//the asked card is not at the asked player hand. so my player takes a card from deck.
 		//player can fetch card only if his hand and the deck are not empty
@@ -216,6 +217,7 @@ void Game::play(){
 
 	printWinner();
 }
+
 void Game::printWinner(){
 	if(!twoWinners){
 		cout<<"***** The Winner is: "<< players[winner1]->getName()<<" *****"<<endl;
@@ -261,11 +263,63 @@ void Game::printNumberOfTurns(){//Print the number of played turns at any given 
 	cout << "Number of turns: " << count<< endl;
 }
 
+/* ido and oren reading file:
+ *
+	    //std::ifstream fin("../config3.txt");
+	    std::ifstream fin (config);
+	    std::string line;
+	    string s="";
+		int verbal;
+		int N;
+		bool verbalpass=false;
+		bool highest=false;
+		bool deckCheck=false;
+		bool playersPass= false;
+	    int counter =1;
+	    while (std::getline(fin, line)){
+	        if (line != "" && line.at(0)!='#'){
+	            s = s + line + "\n";
+	            if (counter ==1){
+	                verbal = stoi(line);
+	            }
+	            else if (counter ==3){
+	                deck.stringToDeck(line);
+	            }
+	            else if (counter > 3){
+	                if (line.at(line.length()-1)=='1'){
+	                    players.push_back(new PlayerType1(line.substr(0,line.length()-2)));
+	                }
+
+	                else if (line.at(line.length()-1)=='2'){
+	                    players.push_back(new PlayerType2(line.substr(0,line.length()-2)));
+	                }
+
+	                else if (line.at(line.length()-1)=='3'){
+	                    players.push_back(new PlayerType3(line.substr(0,line.length()-2)));
+	                }
+
+	                else
+	                    players.push_back(new PlayerType4(line.substr(0,line.length()-2)));
+	                }
+
+	            counter++;
+	        }
+	    }
+	}
+ */
+
+
+
+
+
+
+
+
 
 //int main(){
 
 
 
-   //}
+//}
 
 //empty constructor is needed?, check gameplay

@@ -11,6 +11,8 @@ Player& Player::operator =(Player &other){
 	//body of operator
 }
 
+//vector<Card*> Player::selectCard(vector<vector<Card*> > myCards){};
+
 string Player:: getName(){
 	return name;}
 int Player:: getPosition(){
