@@ -13,9 +13,9 @@ private:
 public:
 	Deck();
 	Deck (vector<Card*>);
+        Deck (Deck &other);
 	virtual ~Deck();
-	Deck& operator =(Deck &other);
-
+	Deck& operator =(const Deck &other);
 	bool isEmpty();
 	vector<Card *> GetDeck();
 	void SetDeck(vector<Card *> other);

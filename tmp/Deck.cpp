@@ -15,13 +15,18 @@
 	}
 	   Deck::~Deck(){}
 
-	Deck& Deck::operator =(Deck &other){
+	   Deck::Deck (Deck &other){
+               vector<Card*> DeckCards(other.GetDeck());
+           }
+           
+           
+           
+	Deck& Deck::operator =(const Deck &other){
 		if(this==&other)
 			return *this;
 
-		//body of operator
-	//DeckCards=other.DeckCards;
-	//return *this;
+	DeckCards=other.DeckCards;
+	return *this;
 	}
 
 
@@ -52,7 +57,7 @@
 		string ans="";
                 unsigned int i;
 		for (i=0;i<DeckCards.size();i++){
-			ans+=DeckCards[i]->toString();
+			ans+=DeckCards.at(i)->toString()+  " ";
 		}
 		return ans;
 	}
