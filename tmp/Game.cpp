@@ -11,9 +11,8 @@ using namespace std;
 
 Game::Game(char* config): count(0),twoWinners(false),winner1(0),winner2(0),initialDeck(){
 	vector<Card*> GameCards;
-	ifstream file2("config.txt");
 	ifstream filetext(config);
-	if (!file2){
+	if (!filetext.is_open()){
 		cout << "error reading conf file"<<endl;
 		return;
 	}

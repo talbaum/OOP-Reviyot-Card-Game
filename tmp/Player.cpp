@@ -24,7 +24,7 @@ int Player::PlayerWithMostCards(vector<Player *> players){
 	int pos=0;
 	for(unsigned int i=0;i<players.size();i++){
 		if(players[i]->getNumberOfCards()>=max){
-			if(i!=this->position){
+			if(players[i]->getPosition() != this->position){ //to make sure i wont ask for cards from me
 				max=players[i]->getNumberOfCards();
 				pos=players[i]->getPosition();
 			}
@@ -33,20 +33,13 @@ int Player::PlayerWithMostCards(vector<Player *> players){
 	return pos;
 }
 int Player:: cyclicOrder(vector<Player*> players){
-	unsigned int myPos=this->getPosition();
-	posIterator=(posIterator +1)%players.size();
+	unsigned int myPos=this->getPosition() -1;//getPosition-1 array start from 0 and position starts from 1
 
 	if(posIterator % players.size()==myPos)
-		posIterator=(posIterator+1)%players.size();
+		posIterator++;
 
-	if(posIterator==0){
-		if(myPos!=1)
-			return 1;
-		else
-			return 2;
-	}
-	else
-		return posIterator;
+	posIterator++;
+	return (posIterator-1)%players.size() +1;
 }
 
 PlayerType1::PlayerType1(string name, int position , Deck d, int strtg) :Player( name, position , d,strtg){};

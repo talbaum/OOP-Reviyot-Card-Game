@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
 	cout<<"deck2 to string after GetDeck and SetDeck "<<deck2->toString()<<endl;
 	 */
 
-	/*
+/*
 	//* test for hand:
 	Hand * aa= new Hand();
 	FigureCard * a=new FigureCard('C','A',14);
@@ -94,11 +94,7 @@ int main(int argc, char **argv) {
 
 	Deck  deck (cards);
 	cout<<"Deck: "<<deck.toString()<<endl;
-	/*
-		NumericCard* q=new NumericCard('C','7');
-		NumericCard * n=new NumericCard('C',5);
-		NumericCard * o=new NumericCard('C',10);
-		FigureCard * p=new FigureCard('C','J',11);
+
 
 		vector<Card*> cards2;
 		cards2.push_back(n);
@@ -121,8 +117,11 @@ int main(int argc, char **argv) {
 	cout<<"Deck before reviia: "<<bb.deck.toString()<<endl;
 	bb.addCard(*m);
 	cout<<"tostring after reviia:"<<bb.toString()<<endl;
-	 */
+	cout<<"tostring Deck after reviia:"<<bb.deck.toString()<<endl;
+*/
 
+/*
+/*
 	//tests for player:
 	//FigureCard * a=new FigureCard('C','A',14);
 	NumericCard * b=new NumericCard('S',2);
@@ -167,9 +166,9 @@ int main(int argc, char **argv) {
 	cout<<"Deck: "<<deck.toString()<<endl;
 
 
-	/* player with most card on the table is 1
-	 * player with least card on the table is 3
-	 */
+	// player with most card on the table is 1
+	  //player with least card on the table is 3
+
 
 	Player * one= new PlayerType1("Tal",1,deck,1);
 	Player * two= new PlayerType2("Elad",2,deck,2);
@@ -214,7 +213,7 @@ int main(int argc, char **argv) {
 	int asked3=three->cyclicOrder(players);
 	int asked4=four->cyclicOrder(players);
 
-	cout<<"player1 asked from (should be 4):"<< asked1<<endl; //problem-asking from himself!
+	cout<<"player1 asked from (should be 4):"<< asked1<<endl;
 	cout<<"player2 asked from (should be 1):"<< asked2<<endl;
 	cout<<"player3 asked from (should be 1):"<< asked3<<endl;
 	cout<<"player4 asked from (should be 1):"<< asked4<<endl;
@@ -224,18 +223,19 @@ int main(int argc, char **argv) {
 	cout<<"player4 asked from (should be 1):"<<four->cyclicOrder(players)<<endl;
 
 
-	cout<<"player4 asked from (should be 2):"<<four->cyclicOrder(players)<<endl; //problem with cycle
-	cout<<"player4 asked from (should be 3):"<<four->cyclicOrder(players)<<endl;//problem with cycle
-	cout<<"player3 asked from (should be 2):"<< three->cyclicOrder(players)<<endl;//problem with cycle
-	cout<<"player3 asked from (should be 4):"<< three->cyclicOrder(players)<<endl;//problem with cycle
-	cout<<"player3 asked from (should be 1):"<< three->cyclicOrder(players)<<endl;//problem with cycle
-	cout<<"player3 asked from (should be 2):"<< three->cyclicOrder(players)<<endl;//problem with cycle
-	cout<<"player3 asked from (should be 4):"<< three->cyclicOrder(players)<<endl;//problem with cycle
+	cout<<"player4 asked from (should be 2):"<<four->cyclicOrder(players)<<endl;
+	cout<<"player4 asked from (should be 3):"<<four->cyclicOrder(players)<<endl;
+	cout<<"player3 asked from (should be 2):"<< three->cyclicOrder(players)<<endl;
+	cout<<"player3 asked from (should be 4):"<< three->cyclicOrder(players)<<endl;
+	cout<<"player3 asked from (should be 1):"<< three->cyclicOrder(players)<<endl;
+	cout<<"player3 asked from (should be 2):"<< three->cyclicOrder(players)<<endl;
+	cout<<"player3 asked from (should be 4):"<< three->cyclicOrder(players)<<endl;
+	cout<<"player4 asked from (should be 1):"<<four->cyclicOrder(players)<<endl;
 
 
-	/*
+*/
+
                  char* configurationFile = argv[1];
-
                  Game game = Game(configurationFile);
                  game.init();
                   Game initializedGame = game;
@@ -250,7 +250,7 @@ int main(int argc, char **argv) {
                  cout<<"----------"<<endl;
                  cout<<"Final State:"<<endl;
                  game.printState();
-	 */
+
 	return 0;
 
 }
