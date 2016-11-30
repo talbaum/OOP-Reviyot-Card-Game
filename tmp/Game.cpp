@@ -59,8 +59,8 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 								if (word.at(index+1)==(char)32){ //next char is space
 									shape=word.at(index);
 									value=std::atoi(s.c_str());
-									NumericCard c=NumericCard(shape,value);
-									GameCards.push_back(&c);
+									NumericCard * c=new NumericCard(shape,value); // new!
+									GameCards.push_back(c);
 									index++;
 								}
 								else{ //next one isnt space, keep going on nums
@@ -88,15 +88,15 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 							}
 							index++;
 							shape=word.at(index);
-							FigureCard f=FigureCard(shape,fig,value);
-							GameCards.push_back(&f);
+							FigureCard * f=new FigureCard(shape,fig,value); // new!
+							GameCards.push_back(f);
 							cout << "next card value:" << value << ", figure: " << fig << " of " << shape <<'\n';
 						}
 					}
 					index++;
 				}
 				deckCheck=true;
-				deck.SetDeck(GameCards);
+				deck.SetDeck(GameCards); //need to check if its really updated it
 
 				//initialize the deck from the gameCards.
 			}
@@ -115,17 +115,16 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 					Player * temp;
 					switch (strtg){
 					case 1:
-						temp = new PlayerType1(name,playerNum,deck,strtg);
-						cout<<"Player was initliazed"<<endl;
+						temp = new PlayerType1(name,playerNum,deck,strtg); // new!
 						break;
 					case 2:
-						temp = new PlayerType2(name,playerNum,deck,strtg);
+						temp = new PlayerType2(name,playerNum,deck,strtg);// new!
 						break;
 					case 3:
-						temp = new PlayerType3(name,playerNum,deck,strtg);
+						temp = new PlayerType3(name,playerNum,deck,strtg);// new!
 						break;
 					case 4:
-						temp = new PlayerType4(name,playerNum,deck,strtg);
+						temp = new PlayerType4(name,playerNum,deck,strtg);// new!
 						break;
 					}
 					//initialize player & his hand and strategy.
@@ -168,8 +167,9 @@ void Game::play(){
 		else
 			askedPlayer= myPlayer->cyclicOrder(getPlayers());
 
-
-		cout << myPlayer->getName() << "Asked " << players[askedPlayer]->getName()<< "for the value "<< askedCardVec[0]->getValue()<<'\n';
+		string cVal=askedCardVec[0]->toString();
+		cVal.resize(cVal.length()-1);
+		cout << myPlayer->getName() << " Asked " << players[askedPlayer]->getName()<< " for the value "<< cVal<<'\n';
 
 
 		Card* requestedCard;
