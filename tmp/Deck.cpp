@@ -15,8 +15,9 @@
 	}
 	   Deck::~Deck(){}
 
-	   Deck::Deck (Deck &other){
-               vector<Card*> DeckCards(other.GetDeck());
+	   Deck::Deck (const Deck &other){
+               
+               vector<Card*> DeckCards(other.DeckCards);
            }
            
            

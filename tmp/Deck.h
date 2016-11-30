@@ -13,7 +13,7 @@ private:
 public:
 	Deck();
 	Deck (vector<Card*>);
-        Deck (Deck &other);
+        Deck (const Deck &other);
 	virtual ~Deck();
 	Deck& operator =(const Deck &other);
 	bool isEmpty();

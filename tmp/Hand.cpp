@@ -25,8 +25,14 @@ Hand& Hand::operator =(Hand &other){
 	if(this==&other)
 		return *this;
 	//body of operator
-
+        
+        HandCards = other.HandCards;
+        count= other.count;
+        deck= other.deck;
+        initialHand = other.initialHand;
 }
+
+
 void Hand::sortMyHand(){
 	vector <Card*> tmp;
 	for(unsigned int i=0;i<HandCards.size();i++){
