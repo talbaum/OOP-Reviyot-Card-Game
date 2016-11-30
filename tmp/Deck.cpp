@@ -52,7 +52,7 @@
 		string ans="";
                 unsigned int i;
 		for (i=0;i<DeckCards.size();i++){
-			ans+=DeckCards.at(i)->toString()+  " ";
+			ans+=DeckCards[i]->toString();
 		}
 		return ans;
 	}

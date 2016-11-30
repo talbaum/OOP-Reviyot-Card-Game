@@ -28,7 +28,8 @@ Card& Card::operator =(const Card &other){
 
 Card::~Card(){}
 
-//int Card::getValue(){return 0;}
+int Card::getValue(){}
+//string Card::toString(){return "notMe ";}
 
 char Card:: getShape(){
 	char ans;

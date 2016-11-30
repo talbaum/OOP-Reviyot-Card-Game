@@ -6,8 +6,7 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
-	/*
-	 * test for card:
+/*test for card:
 	NumericCard * a=new NumericCard();
 	NumericCard * b=new NumericCard('S',2);
 	cout<<a->toString()<<endl;
@@ -18,8 +17,9 @@ int main(int argc, char **argv) {
 	cout<<d->toString()<<endl;
 	cout<<d->getShape()<<endl;
 	cout<<a->getValue()<<endl;
-	cout<<c->getValue()<<endl;
-	 */
+	cout<<d->getValue()<<endl;
+	cout<<b->getValue()<<endl;
+*/
 
 	/*
 	 //test for deck:
@@ -235,7 +235,8 @@ int main(int argc, char **argv) {
 
 */
 
-                 char* configurationFile ="config1.txt";
+
+ char* configurationFile = argv[1];
                  Game game = Game(configurationFile);
                  game.init();
                   Game initializedGame = game;
@@ -250,6 +251,7 @@ int main(int argc, char **argv) {
                  cout<<"----------"<<endl;
                  cout<<"Final State:"<<endl;
                  game.printState();
+
 
 	return 0;
 
