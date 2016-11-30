@@ -21,15 +21,23 @@ Card::Card(char s) : shape(){
 		break;
 	}
 }
-Card& Card::operator =(const Card &other){
-	if(this==&other)
-		return *this;
+
+Card::Card(const Card &other){
+    this->shape= other.shape;
 }
 
-Card::~Card(){}
+Card& Card::operator =(const Card &other){
+	if(this==&other)
+		return *this;     
+        this->shape = other.shape;
+        return *this;
+}
 
-int Card::getValue(){}
-//string Card::toString(){return "notMe ";}
+Card::~Card(){
+   // delete &shape;  //how to delete shape pointer? need to fix
+}
+
+//int Card::getValue(){return 0;}
 
 char Card:: getShape(){
 	char ans;
