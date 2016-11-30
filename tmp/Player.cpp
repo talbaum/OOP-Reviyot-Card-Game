@@ -1,14 +1,28 @@
 #include "Player.h"
+
+
 Player::Player() : name(""),position(1),posIterator(0),strategy(0) {};
+
 Player:: Player(string name, int position, Deck d, int strtg) : Hand(d), name(name),position(position),posIterator(0),strategy(strtg){};
 
 Player:: ~Player() {};
+
+Player::Player(const Player &other){
+        name ==other.name;
+        position == other.position;
+        strategy == other.strategy;
+        posIterator == other.posIterator;
+}
 
 Player& Player::operator =(Player &other){
 	if(this==&other)
 		return *this;
 
-	//body of operator
+	name == other.name;
+        position = other.position;
+        strategy = other.strategy;
+        posIterator = other.posIterator;
+        return *this;
 }
 
 //vector<Card*> Player::selectCard(vector<vector<Card*> > myCards){};

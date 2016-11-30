@@ -30,6 +30,7 @@ Hand& Hand::operator =(Hand &other){
         count= other.count;
         deck= other.deck;
         initialHand = other.initialHand;
+        return *this;
 }
 
 
