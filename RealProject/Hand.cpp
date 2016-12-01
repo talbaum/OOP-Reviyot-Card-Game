@@ -118,11 +118,14 @@ bool  Hand:: removeCard(Card &card) {
 	if (pos < 0)
 		return false; //no such card at the hand.
 	else {
-		//insideVec=HandCards[pos];
-		//insideVec.erase(insideVec.begin());
+
 		HandCards[pos].erase(HandCards[pos].begin());
+
+		if(HandCards[pos].size()==0) //my if of empty vec
+			HandCards.erase(HandCards.begin()+pos);
+
 		count--;
-		addCard(*deck.fetchCard());
+		//addCard(*deck.fetchCard());  need to add card in game.cpp
 		return true;
 
 		/*

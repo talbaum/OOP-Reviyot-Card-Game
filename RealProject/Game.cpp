@@ -149,7 +149,7 @@ void Game::init(){
 }
 
 void Game::play(){
-	unsigned int numOfPlayer=1,askedPlayer,shapeIndex;
+	unsigned int numOfPlayer,askedPlayer,shapeIndex;
 	bool isAskedWon=false;
 	Player* myPlayer;
 	vector<Card*> askedCardVec;
@@ -158,7 +158,6 @@ void Game::play(){
 		count++;
 		cout << "Turn " << count <<'\n';
 		printState();
-
 		numOfPlayer=(count-1)%players.size();
 		myPlayer=players[numOfPlayer];
 		askedCardVec=myPlayer->selectCard(myPlayer->getHand());
@@ -176,22 +175,19 @@ void Game::play(){
 		Card* requestedCard;
 		bool stop=true,actionHappend=false;
 
-		shapeIndex=askedCardVec.size()-1;
+		shapeIndex=0;
 		while(stop){
 			//actual remove of cards and adding it from one player to other
 			//while we can remove one card at a certain shape, remove the pointer from askedPlayer and add it to myPlayer
-			if(shapeIndex<0)
+			if(shapeIndex>=askedCardVec.size())
 				break;
 
-			if(shapeIndex<askedCardVec.size()){
 				requestedCard=askedCardVec[shapeIndex];//need to check memory usage
 				stop=players[askedPlayer]->removeCard(*requestedCard);
-			}
-			else
-				stop=false;
+
 			if(stop){
 				myPlayer->addCard(*requestedCard);
-				shapeIndex--;
+				shapeIndex++;
 				if(!actionHappend)
 					actionHappend=true;
 			}

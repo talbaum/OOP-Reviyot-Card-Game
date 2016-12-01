@@ -11,14 +11,6 @@ CPP_SRCS += \
 ../Player.cpp \
 ../reviiyot.cpp 
 
-O_SRCS += \
-../Card.o \
-../Deck.o \
-../Game.o \
-../Hand.o \
-../Player.o \
-../reviiyot.o 
-
 OBJS += \
 ./Card.o \
 ./Deck.o \
