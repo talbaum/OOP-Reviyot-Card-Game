@@ -172,26 +172,34 @@ void Game::play(){
 		cout << myPlayer->getName() << " is Asking " << players[askedPlayer]->getName()<< " for the value "<< cVal<<'\n';
 		cout<<""<<endl;
 
-		Card* requestedCard;
-		bool stop=true,actionHappend=false;
-
-		shapeIndex=0;
-		while(stop){
-			//actual remove of cards and adding it from one player to other
-			//while we can remove one card at a certain shape, remove the pointer from askedPlayer and add it to myPlayer
-			if(shapeIndex>=askedCardVec.size())
-				break;
-
-				requestedCard=askedCardVec[shapeIndex];//need to check memory usage
-				stop=players[askedPlayer]->removeCard(*requestedCard);
-
-			if(stop){
-				myPlayer->addCard(*requestedCard);
-				shapeIndex++;
-				if(!actionHappend)
-					actionHappend=true;
-			}
-		}
+                bool actionHappend=false;
+                
+                
+		Card* requestedCard = askedCardVec[0];
+                Card* cardToDelete;
+                int requestedValue = askedCardVec[0]->getValue();
+                
+                int vectorIndex = players[askedPlayer]->searchCard(*requestedCard);
+                int numofcardsadded=players[askedPlayer]->getHand()[vectorIndex].size();
+                
+                if (vectorIndex>-1){
+                    actionHappend=true;
+                    vector<Card*> foundCardVec;
+                    for (int i=0;i<numofcardsadded;i++){
+                        foundCardVec.push_back(players[askedPlayer]->getHand()[vectorIndex][i]);
+                    }
+                    for (int i=0;i<numofcardsadded;i++){
+                        cardToDelete = players[askedPlayer]->getHand()[vectorIndex][i];
+                        players[askedPlayer]->removeCard(*cardToDelete);
+                        myPlayer->addCard(*foundCardVec.back());
+                        foundCardVec.pop_back();
+                        if (!deck.isEmpty())
+                        players[askedPlayer]->addCard(*deck.fetchCard());
+                    }
+                    myPlayer->sortMyHand();
+                    
+                }
+ 
 		if(actionHappend){
 			//checking if the game has ended.
 			if(players[askedPlayer]->getNumberOfCards()==0){
