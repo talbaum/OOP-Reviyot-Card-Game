@@ -11,4 +11,5 @@ reviiyot: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
+	find . -type f | xargs -n 5 touch
 	rm *.o
