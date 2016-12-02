@@ -17,14 +17,14 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 		cout << "error reading conf file"<<endl;
 		return;
 	}
-	cout << "passed first if- conf file"<<endl;
+	//cout << "passed first if- conf file"<<endl;
 	int N;
 	bool verbalpass=false;
 	bool highest=false;
 	bool deckCheck=false;
 	bool playersPass= false;
-
 	string word;
+        
 	while ((!filetext.eof())&&(getline(filetext,word))){
 
 		if ((!word.empty())&&(word.at(0)!='#')){
@@ -32,19 +32,18 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 			if (!verbalpass){
                                 verbal=word.at(0) - '0';
 				verbalpass=true;
-				cout << "verbal:" << verbal << '\n';
+				//cout << "verbal:" << verbal << '\n';
 			}
 			else if (!highest){
-				cout << "N:" << word <<'\n';
+				//cout << "N:" << word <<'\n';
 				string highestVal="";
-				for(unsigned int i=0;i<word.length();i++)
+				for(unsigned int i=0;i<word.length();i++){
 					highestVal+=word.at(i);
-
+                                }
 				N=atoi(highestVal.c_str());
-				//N=(int)word.at(0)-'0'; // if N is more then 1 digit then problem
 				highest=true;
 			}
-			else if (deckCheck==false){
+			else if (!deckCheck){
 				char shape;
 				char fig;
 				int value;
@@ -52,27 +51,22 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 				string s;
 
 				while (index<word.length()){
-
-					if (word.at(index)!=(char)32){ //not a space
-						if (word.at(index)<='9'){ // numeric card
-							s="";
-							while (word.at(index)!=(char)32){ //this char isnt space
-
-								if (word.at(index+1)==(char)32){ //next char is space-need to add if next char is end line!!
-									shape=word.at(index);
-									value=std::atoi(s.c_str());
-									NumericCard * c=new NumericCard(shape,value); // new!
-									GameCards.push_back(c);
-									index++;
-								}
-								else{ //next one isnt space, keep going on nums
-									s=s+word.at(index);
-									index++;
-								}
-							}
-						}
-						else{ //figure card
-							fig=word.at(index);
+                                        s="";
+                                        while ((index<word.length())&&(word.at(index)!=(char)32)){
+                                            s=s+word.at(index);
+                                            index++;
+                                        }
+                                        
+                                        if (s.at(0)<='9'){ //numericCard
+                                            shape=s.at(s.length()-1);
+                                            s.resize(s.length()-1);
+                                            value=std::atoi(s.c_str());
+                                            NumericCard * c=new NumericCard(shape,value); // new!
+                                            GameCards.push_back(c);
+                                          //  cout << "card: " << value << " of " << shape <<'\n';
+                                        }
+                                        else{
+                                            fig=s.at(0);
 							switch (fig){
 							case 'J':
 								value=N+1;
@@ -87,23 +81,26 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 								value=N+4;
 								break;
 							}
-							index++;
-							shape=word.at(index);
+							shape=s.at(1);
 							FigureCard * f=new FigureCard(shape,fig,value); // new!
 							GameCards.push_back(f);
-						}
-					}
-					index++;
-				}
+                                                     //   cout << "card: " << value << " of " << shape <<'\n';
+                                        }
+                                        index++;
+                                }
 				deckCheck=true;
 				//deck.SetDeck(GameCards); //need to check if its really updated it
 				deck=GameCards;
 				//initialize the deck from the gameCards.
-			}
+                                                    
+                        //    cout << "deck pass" << '\n';
+                            
+                        }
 
+                        
 			else if (!playersPass){
 				int playerNum=1;
-				while (!word.empty()&&(word.at(0)!='#')){
+				while ((!playersPass)&&(!word.empty())&&(word.at(0)!='#')){
 					string name="";
 					int index=0;
 					int strtg;
@@ -131,12 +128,16 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 					this->deck=temp->deck;
 					players.push_back(temp);
 					//cout << "player name: " << name << " playing " << strtg <<'\n';
-					getline(filetext,word);
+					
+                                        if (!getline(filetext,word))
+                                            playersPass=true;
 					playerNum++;
 				}
+				
 			}
+			
 		}
-	}
+        }
 }
 
 Game ::~Game(){
