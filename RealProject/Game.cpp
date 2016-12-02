@@ -178,9 +178,7 @@ void Game::play(){
 		cout << myPlayer->getName() << " Asked " << players[askedPlayer]->getName()<< " for the value "<< cVal<<'\n';
 		cout<<""<<endl;
 
-                bool actionHappend=false;
-
-
+        bool actionHappend=false;
 		Card* requestedCard = askedCardVec[0];
                 Card* cardToDelete;
                // int requestedValue = askedCardVec[0]->getValue();
@@ -221,7 +219,7 @@ void Game::play(){
 			}
 		}
 		else if(myPlayer->getNumberOfCards()!=0 && deck.getNumberOfCards()!=0)
-			myPlayer->deck.fetchCard();
+			myPlayer->addCard(*deck.fetchCard());
 
 		//the asked card is not at the asked player hand. so my player takes a card from deck.
 		//player can fetch card only if his hand and the deck are not empty
