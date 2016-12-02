@@ -242,16 +242,15 @@ int main(int argc, char **argv) {
                   Game initializedGame = game;
                   game.play();
 
-                 cout << std::endl;
-                  game.printWinner();
-                 game.printNumberOfTurns();
-                 cout << "----------" << endl;
-                 cout<<"Initial State:"<<endl;
-                   initializedGame.printState();
-                 cout<<"----------"<<endl;
-                 cout<<"Final State:"<<endl;
-                 game.printState();
-
+          //       cout << std::endl;
+          //        game.printWinner();
+          //       game.printNumberOfTurns();
+          //       cout << "----------" << endl;
+           //      cout<<"Initial State:"<<endl;
+           //        initializedGame.printState();
+          //       cout<<"----------"<<endl;
+         //        cout<<"Final State:"<<endl;
+         //        game.printState();
 
 	return 0;
 

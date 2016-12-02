@@ -9,7 +9,7 @@ using namespace std;
 
 //Game::Game():players(),deck(), highNumVal(0){} // needed?
 
-Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),count(0){
+Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),count(0),verbal(0){
 
 	vector<Card*> GameCards;
 	ifstream filetext(config);
@@ -18,7 +18,6 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 		return;
 	}
 	cout << "passed first if- conf file"<<endl;
-	bool verbal;
 	int N;
 	bool verbalpass=false;
 	bool highest=false;
@@ -26,15 +25,12 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 	bool playersPass= false;
 
 	string word;
-	while (getline(filetext,word)){
+	while ((!filetext.eof())&&(getline(filetext,word))){
 
 		if ((!word.empty())&&(word.at(0)!='#')){
 
 			if (!verbalpass){
-				if (word.at(0)=='1')
-					verbal=true;
-				else
-					verbal=false;
+                                verbal=word.at(0) - '0';
 				verbalpass=true;
 				cout << "verbal:" << verbal << '\n';
 			}
@@ -74,7 +70,6 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 									index++;
 								}
 							}
-							cout << "next card value:" << value << " of " << shape <<'\n';
 						}
 						else{ //figure card
 							fig=word.at(index);
@@ -96,7 +91,6 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 							shape=word.at(index);
 							FigureCard * f=new FigureCard(shape,fig,value); // new!
 							GameCards.push_back(f);
-							cout << "next card value:" << value << ", figure: " << fig << " of " << shape <<'\n';
 						}
 					}
 					index++;
@@ -136,7 +130,7 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 					//initialize player & his hand and strategy.
 					this->deck=temp->deck;
 					players.push_back(temp);
-					cout << "player name: " << name << " playing " << strtg <<'\n';
+					//cout << "player name: " << name << " playing " << strtg <<'\n';
 					getline(filetext,word);
 					playerNum++;
 				}
@@ -160,10 +154,20 @@ void Game::play(){
 	Player* myPlayer;
 	vector<Card*> askedCardVec;
 
+        bool actionHappend=false;
+        string cVal;
+        int vectorIndex;
+        int numofcardsadded;
+        Card* requestedCard;
+        Card* cardToDelete;
+        vector<Card*> foundCardVec;
+        int i;
 	while(winner1==0){
 		count++;
+                if (verbal==1){
 		cout << "Turn " << count <<'\n';
 		printState();
+                }
 		numOfPlayer=(count-1)%players.size();
 		myPlayer=players[numOfPlayer];
 		askedCardVec=myPlayer->selectCard(myPlayer->getHand());
@@ -173,26 +177,28 @@ void Game::play(){
 		else
 			askedPlayer= myPlayer->cyclicOrder(getPlayers())-1;
 
-		string cVal=askedCardVec[0]->toString();
+		cVal=askedCardVec[0]->toString();
 		cVal.resize(cVal.length()-1);
+                if (verbal==1){
 		cout << myPlayer->getName() << " Asked " << players[askedPlayer]->getName()<< " for the value "<< cVal<<'\n';
 		cout<<""<<endl;
+                }
 
-        bool actionHappend=false;
-		Card* requestedCard = askedCardVec[0];
-                Card* cardToDelete;
+                actionHappend=false;
+		requestedCard = askedCardVec[0];
+                
                // int requestedValue = askedCardVec[0]->getValue();
 
-                int vectorIndex = players[askedPlayer]->searchCard(*requestedCard);
-                int numofcardsadded=players[askedPlayer]->getHand()[vectorIndex].size();
+                vectorIndex = players[askedPlayer]->searchCard(*requestedCard);
+                numofcardsadded=players[askedPlayer]->getHand()[vectorIndex].size();
 
                 if (vectorIndex>-1){
                     actionHappend=true;
-                    vector<Card*> foundCardVec;
-                    for (int i=0;i<numofcardsadded;i++){
+                    
+                    for (i=0;i<numofcardsadded;i++){
                         foundCardVec.push_back(players[askedPlayer]->getHand()[vectorIndex][i]);
                     }
-                    for (int i=0;i<numofcardsadded;i++){
+                    for (i=0;i<numofcardsadded;i++){
                         cardToDelete = players[askedPlayer]->getHand()[vectorIndex][0];
                         players[askedPlayer]->removeCard(*cardToDelete);
                         myPlayer->addCard(*foundCardVec.back());
@@ -241,9 +247,9 @@ void Game::printWinner(){
 	}
 	else{
 		if(winner1<winner2)
-		cout<<"***** The Winners are: "<< players[winner1]->getName()<<"and: "<<players[winner2]->getName()<<" *****"<<endl;
+		cout<<"***** The Winners are: "<< players[winner1]->getName()<<" and "<<players[winner2]->getName()<<" *****"<<endl;
 		else
-		cout<<"***** The Winners are: "<< players[winner2]->getName()<<"and: "<<players[winner1]->getName()<<" *****"<<endl;
+		cout<<"***** The Winners are: "<< players[winner2]->getName()<<" and "<<players[winner1]->getName()<<" *****"<<endl;
 
 		printNumberOfTurns();
 		printInitialState();
