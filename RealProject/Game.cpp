@@ -149,7 +149,7 @@ void Game::init(){
 }
 
 void Game::play(){
-	unsigned int numOfPlayer,askedPlayer,shapeIndex;
+	unsigned int numOfPlayer,askedPlayer;
 	bool isAskedWon=false;
 	Player* myPlayer;
 	vector<Card*> askedCardVec;
@@ -169,19 +169,19 @@ void Game::play(){
 
 		string cVal=askedCardVec[0]->toString();
 		cVal.resize(cVal.length()-1);
-		cout << myPlayer->getName() << " is Asking " << players[askedPlayer]->getName()<< " for the value "<< cVal<<'\n';
+		cout << myPlayer->getName() << " Asked " << players[askedPlayer]->getName()<< " for the value "<< cVal<<'\n';
 		cout<<""<<endl;
 
                 bool actionHappend=false;
-                
-                
+
+
 		Card* requestedCard = askedCardVec[0];
                 Card* cardToDelete;
-                int requestedValue = askedCardVec[0]->getValue();
-                
+               // int requestedValue = askedCardVec[0]->getValue();
+
                 int vectorIndex = players[askedPlayer]->searchCard(*requestedCard);
                 int numofcardsadded=players[askedPlayer]->getHand()[vectorIndex].size();
-                
+
                 if (vectorIndex>-1){
                     actionHappend=true;
                     vector<Card*> foundCardVec;
@@ -189,7 +189,7 @@ void Game::play(){
                         foundCardVec.push_back(players[askedPlayer]->getHand()[vectorIndex][i]);
                     }
                     for (int i=0;i<numofcardsadded;i++){
-                        cardToDelete = players[askedPlayer]->getHand()[vectorIndex][i];
+                        cardToDelete = players[askedPlayer]->getHand()[vectorIndex][0];
                         players[askedPlayer]->removeCard(*cardToDelete);
                         myPlayer->addCard(*foundCardVec.back());
                         foundCardVec.pop_back();
@@ -197,9 +197,9 @@ void Game::play(){
                         players[askedPlayer]->addCard(*deck.fetchCard());
                     }
                     myPlayer->sortMyHand();
-                    
+
                 }
- 
+
 		if(actionHappend){
 			//checking if the game has ended.
 			if(players[askedPlayer]->getNumberOfCards()==0){
@@ -247,17 +247,18 @@ void Game::printWinner(){
 void Game::printInitialState(){
 	string ans="";
 	vector<vector<Card*> > printMe;
-	cout<<"Initial state: "<<endl;
 	cout<<"----------"<<endl;
+	cout<<"Initial state: "<<endl;
 	cout<<"Deck: "<<initialDeck.toString()<<endl;
 
 	for(unsigned int i=0;i<players.size();++i){
 		printMe=players[i]->initialHand;
 		for(unsigned j=0;j<printMe.size();j++){
 			for(unsigned k=0;k<printMe[j].size();k++)
-				ans+=printMe[j][k]->toString();
+				ans+=printMe[j][k]->toString() + " ";
 		}
 		cout << players[i]->getName() << ": " << ans <<endl;;
+		ans="";
 	}
 	cout<<"----------"<<endl;
 }
@@ -273,63 +274,5 @@ void Game::printNumberOfTurns(){//Print the number of played turns at any given 
 	cout << "Number of turns: " << count<< endl;
 }
 
-/* ido and oren reading file:
- *
-	    //std::ifstream fin("../config3.txt");
-	    std::ifstream fin (config);
-	    std::string line;
-	    string s="";
-		int verbal;
-		int N;
-		bool verbalpass=false;
-		bool highest=false;
-		bool deckCheck=false;
-		bool playersPass= false;
-	    int counter =1;
-	    while (std::getline(fin, line)){
-	        if (line != "" && line.at(0)!='#'){
-	            s = s + line + "\n";
-	            if (counter ==1){
-	                verbal = stoi(line);
-	            }
-	            else if (counter ==3){
-	                deck.stringToDeck(line);
-	            }
-	            else if (counter > 3){
-	                if (line.at(line.length()-1)=='1'){
-	                    players.push_back(new PlayerType1(line.substr(0,line.length()-2)));
-	                }
-
-	                else if (line.at(line.length()-1)=='2'){
-	                    players.push_back(new PlayerType2(line.substr(0,line.length()-2)));
-	                }
-
-	                else if (line.at(line.length()-1)=='3'){
-	                    players.push_back(new PlayerType3(line.substr(0,line.length()-2)));
-	                }
-
-	                else
-	                    players.push_back(new PlayerType4(line.substr(0,line.length()-2)));
-	                }
-
-	            counter++;
-	        }
-	    }
-	}
- */
-
-
-
-
-
-
-
-
-
-//int main(){
-
-
-
-//}
 
 //empty constructor is needed?, check gameplay
