@@ -40,7 +40,12 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 			}
 			else if (!highest){
 				cout << "N:" << word <<'\n';
-				N=(int)word.at(0)-'0';
+				string highestVal="";
+				for(unsigned int i=0;i<word.length();i++)
+					highestVal+=word.at(i);
+
+				N=atoi(highestVal.c_str());
+				//N=(int)word.at(0)-'0'; // if N is more then 1 digit then problem
 				highest=true;
 			}
 			else if (deckCheck==false){
@@ -49,14 +54,15 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 				int value;
 				unsigned int index=0;
 				string s;
-				while (word.length()>index){
+
+				while (index<word.length()){
 
 					if (word.at(index)!=(char)32){ //not a space
-
 						if (word.at(index)<='9'){ // numeric card
 							s="";
 							while (word.at(index)!=(char)32){ //this char isnt space
-								if (word.at(index+1)==(char)32){ //next char is space
+
+								if (word.at(index+1)==(char)32){ //next char is space-need to add if next char is end line!!
 									shape=word.at(index);
 									value=std::atoi(s.c_str());
 									NumericCard * c=new NumericCard(shape,value); // new!
@@ -236,7 +242,11 @@ void Game::printWinner(){
 		printState();
 	}
 	else{
+		if(winner1<winner2)
 		cout<<"***** The Winners are: "<< players[winner1]->getName()<<"and: "<<players[winner2]->getName()<<" *****"<<endl;
+		else
+		cout<<"***** The Winners are: "<< players[winner2]->getName()<<"and: "<<players[winner1]->getName()<<" *****"<<endl;
+
 		printNumberOfTurns();
 		printInitialState();
 		cout<<"Final state: "<<endl;
