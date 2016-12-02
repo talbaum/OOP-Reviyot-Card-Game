@@ -62,7 +62,7 @@ PlayerType1::PlayerType1(string name, int position , Deck d, int strtg) :Player(
 
 vector<Card*> PlayerType1::selectCard(vector<vector<Card*> > myCards) {
 	//getCommonCard
-	int commonCardAmount=0,firstIndex=0;
+	unsigned int commonCardAmount=0,firstIndex=0;
 	vector<Card*> commonCard;
 	for(unsigned int i=0;i<myCards.size();i++){
 		if(myCards[i].size()>commonCardAmount){

@@ -236,7 +236,7 @@ int main(int argc, char **argv) {
 */
 
 
- char* configurationFile = "config1.txt"; //was argv[1]
+ char* configurationFile = "config3.txt"; //was argv[1]
                  Game game = Game(configurationFile);
                  game.init();
                   Game initializedGame = game;
