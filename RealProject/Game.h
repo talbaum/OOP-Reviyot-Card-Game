@@ -1,4 +1,3 @@
-
 #ifndef GAME_H_
 #define GAME_H_
 
@@ -18,7 +17,7 @@ private:
 	int winner1;
 	int winner2;
 	int count;
-        int verbal;
+    int verbal;
 
 public:
 	Game(char* configurationFile);
@@ -34,5 +33,3 @@ public:
 };
 
 #endif
-
-//order of intialize the fields. warning.

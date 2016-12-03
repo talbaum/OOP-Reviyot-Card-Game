@@ -75,6 +75,9 @@ FigureCard::FigureCard(char s,char f, int v):Card(s),figure(),value(v){
 		break;
 	}
 }
+
+FigureCard:: ~FigureCard() {}
+
 int FigureCard::getValue(){
 	return value;}
 
@@ -116,6 +119,9 @@ string FigureCard::toString() {
 NumericCard::NumericCard():Card(), number(0){}
 
 NumericCard::NumericCard ( char s,int num):Card(s),number(num){}
+
+NumericCard:: ~NumericCard() {}
+
 
 int NumericCard:: getValue(){
 	return number;}

@@ -24,7 +24,7 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 	bool deckCheck=false;
 	bool playersPass= false;
 	string word;
-        
+
 	while ((!filetext.eof())&&(getline(filetext,word))){
 
 		if ((!word.empty())&&(word.at(0)!='#')){
@@ -56,7 +56,7 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
                                             s=s+word.at(index);
                                             index++;
                                         }
-                                        
+
                                         if (s.at(0)<='9'){ //numericCard
                                             shape=s.at(s.length()-1);
                                             s.resize(s.length()-1);
@@ -92,12 +92,12 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 				//deck.SetDeck(GameCards); //need to check if its really updated it
 				deck=GameCards;
 				//initialize the deck from the gameCards.
-                                                    
+
                         //    cout << "deck pass" << '\n';
-                            
+
                         }
 
-                        
+
 			else if (!playersPass){
 				int playerNum=1;
 				while ((!playersPass)&&(!word.empty())&&(word.at(0)!='#')){
@@ -128,20 +128,22 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 					this->deck=temp->deck;
 					players.push_back(temp);
 					//cout << "player name: " << name << " playing " << strtg <<'\n';
-					
+
                                         if (!getline(filetext,word))
                                             playersPass=true;
 					playerNum++;
 				}
-				
+
 			}
-			
+
 		}
         }
 }
 
 Game ::~Game(){
-	//delete temp?
+	for(int i=players.size()-1;i>=0;i--)
+		delete(players[i]);
+
 }
 
 vector<Player *> Game::getPlayers(){ return players;};
@@ -187,7 +189,7 @@ void Game::play(){
 
                 actionHappend=false;
 		requestedCard = askedCardVec[0];
-                
+
                // int requestedValue = askedCardVec[0]->getValue();
 
                 vectorIndex = players[askedPlayer]->searchCard(*requestedCard);
@@ -195,7 +197,7 @@ void Game::play(){
 
                 if (vectorIndex>-1){
                     actionHappend=true;
-                    
+
                     for (i=0;i<numofcardsadded;i++){
                         foundCardVec.push_back(players[askedPlayer]->getHand()[vectorIndex][i]);
                     }
@@ -288,6 +290,3 @@ void Game::printState(){ //Print the state of the game as described in the assig
 void Game::printNumberOfTurns(){//Print the number of played turns at any given time.
 	cout << "Number of turns: " << count<< endl;
 }
-
-
-//empty constructor is needed?, check gameplay

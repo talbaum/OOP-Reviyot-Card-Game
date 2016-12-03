@@ -1,17 +1,17 @@
 #include "Player.h"
 
 
-Player::Player() : name(""),position(1),posIterator(0),strategy(0) {};
+Player::Player() : name(""),position(1),strategy(0),posIterator(0){};
 
-Player:: Player(string name, int position, Deck d, int strtg) : Hand(d), name(name),position(position),posIterator(0),strategy(strtg){};
+Player:: Player(string name, int position, Deck d, int strtg) : Hand(d), name(name),position(position),strategy(strtg),posIterator(0){};
 
 Player:: ~Player() {};
 
 Player::Player(const Player &other){
         name ==other.name;
-        position == other.position;
+     /*   position == other.position;
         strategy == other.strategy;
-        posIterator == other.posIterator;
+        posIterator == other.posIterator;*/
 }
 
 Player& Player::operator =(Player &other){

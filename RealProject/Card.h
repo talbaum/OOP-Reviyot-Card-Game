@@ -40,6 +40,7 @@ private:
 public:
 	FigureCard();
 	FigureCard(char,char,int);
+	virtual ~FigureCard();
 	virtual int getValue();
 	virtual string toString() ;
 
@@ -51,6 +52,7 @@ private:
 public:
 	NumericCard();
 	NumericCard(char,int);
+	virtual ~NumericCard();
 	virtual int getValue() ;
 	virtual string toString();
 

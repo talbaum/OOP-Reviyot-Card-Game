@@ -46,7 +46,18 @@ void Hand::sortMyHand(){
 		}
 	}
 }
-Hand::~Hand(){}
+Hand::~Hand(){
+for(int i=HandCards.size()-1;i>=0;i--){
+	for(int j=HandCards[i].size()-1;j>=0;j--)
+		delete(HandCards[i][j]);
+}
+for(int i=initialHand.size()-1;i>=0;i--){
+	for(int j=initialHand[i].size()-1;j>=0;j--)
+		delete(initialHand[i][j]);
+}
+
+
+}
 
 vector<vector<Card*> > Hand:: getHand(){
 	return this->HandCards;

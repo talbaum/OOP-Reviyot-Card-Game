@@ -13,7 +13,10 @@
 			this->DeckCards=DeckCards2;
 		}
 	}
-	   Deck::~Deck(){}
+	   Deck::~Deck(){
+		//   for(int i=DeckCards.size()-1;i>=0;i--)
+		  //		delete(DeckCards[i]);
+	   }
 
 	 /*
 	   Deck::Deck (const Deck &other){
