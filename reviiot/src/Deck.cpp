@@ -1,21 +1,18 @@
-#include "Card.h"
-#include "Deck.h"
+#include "../include/Card.h"
+#include "../include/Deck.h"
 #include <vector>
 
 	Deck::Deck(): DeckCards() {};
 
 	Deck::Deck(vector<Card*> GameCards):DeckCards(){
-        vector<Card *> DeckCards2;
-        Card *temp;
-		for (unsigned int i=0;i<GameCards.size();i++){
-                temp = GameCards[i];
-			DeckCards2.push_back(temp);
-			this->DeckCards=DeckCards2;
-		}
+		for (unsigned int i=0;i<GameCards.size();i++)
+			DeckCards.push_back(GameCards[i]);
 	}
-	   Deck::~Deck(){
-		//   for(int i=DeckCards.size()-1;i>=0;i--)
-		  //		delete(DeckCards[i]);
+	   Deck::~Deck(){/*
+		   for(int i=DeckCards.size()-1;i>=0;--i){
+			   delete(DeckCards[i]);
+	   }
+		   DeckCards.clear();*/
 	   }
 
 	 /*

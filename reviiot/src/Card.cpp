@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Card.h"
+#include "../include/Card.h"
 #include <sstream>
 using namespace std;
 
@@ -21,9 +21,7 @@ Card::Card(char s) : shape(){
 		break;
 	}
 }
-Card::Card(const Card &other){
-    this->shape= other.shape;
-}
+Card::Card(const Card &other): shape(other.shape){}
 
 Card& Card::operator =(const Card &other){
 	if(this==&other)
@@ -129,7 +127,7 @@ int NumericCard:: getValue(){
 string NumericCard::toString() {
 	std::stringstream ss;
 	ss<<number;
-	std:string ans = ss.str();
+	string ans = ss.str();
 	switch (getShape()){
 	case Club:
 		ans+='C';

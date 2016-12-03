@@ -1,19 +1,20 @@
-#include "Hand.h"
+#include "../include/Hand.h"
 #include  <vector>
 #include <iostream>
-#include "Deck.h"
+#include "../include/Deck.h"
 
 using namespace std;
-Hand::Hand():HandCards(),count(0),deck() {}
+Hand::Hand():HandCards(),count(0),deck(),initialHand() {}
 
 
-Hand:: Hand(Deck deck2) :HandCards(), count(0),deck(deck2){//empty constructor
+Hand:: Hand(Deck deck2) :HandCards(), count(0),initialHand(){//empty constructor
+//	deck=(deck2);
 	for(unsigned int i=0;i<7;i++)
-		addCard(*deck.fetchCard());
+		addCard(*deck2.fetchCard());
 
 	sortMyHand();
 	initialHand=HandCards;
-	//deck=deck2;
+	deck=deck2;
 
 }
 
@@ -25,12 +26,12 @@ Hand& Hand::operator =(Hand &other){
 	if(this==&other)
 		return *this;
 	//body of operator
-        
-        HandCards = other.HandCards;
-        count= other.count;
-        deck= other.deck;
-        initialHand = other.initialHand;
-        return *this;
+
+	HandCards = other.HandCards;
+	count= other.count;
+	deck= other.deck;
+	initialHand = other.initialHand;
+	return *this;
 }
 
 
@@ -47,18 +48,24 @@ void Hand::sortMyHand(){
 	}
 }
 Hand::~Hand(){
-for(int i=HandCards.size()-1;i>=0;i--){
-	for(int j=HandCards[i].size()-1;j>=0;j--)
-		delete(HandCards[i][j]);
-}
-for(int i=initialHand.size()-1;i>=0;i--){
-	for(int j=initialHand[i].size()-1;j>=0;j--)
-		delete(initialHand[i][j]);
-}
 
+	for(int i=initialHand.size()-1;i>=0;i--){
+		for(int j=initialHand[i].size()-1;j>=0;--j){
+			initialHand[i][j]=0; //mark the removed card pointer
+			delete(initialHand[i][j]);
+		}
+	}
+	initialHand.clear();
 
+	for(int i=HandCards.size()-1;i>=0;i--){
+		for(int j=HandCards[i].size()-1;j>=0;--j){
+			if(	HandCards[i][j]!=0)
+				delete(HandCards[i][j]);
+		}
+
+	}
+	HandCards.clear();
 }
-
 vector<vector<Card*> > Hand:: getHand(){
 	return this->HandCards;
 }
@@ -78,7 +85,7 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
 			return mid;
 		}
 	}
-		return mid; //for making sure its inserted before the closer bigger value. need to check it.
+	return mid; //for making sure its inserted before the closer bigger value. need to check it.
 }
 
 bool Hand:: addCard(Card &card){
@@ -161,38 +168,21 @@ bool  Hand:: removeCard(Card &card) {
 
 int Hand:: searchCard(Card &card){  //made for remove card method. (had to make 2 diffrenet ones).
 
-	  int left = 0;
-	        int right = HandCards.size() - 1;
-	        int middle;
-	        while (left <= right) {
-	            middle = left + (right - left)/2;
-	            if (HandCards[middle][0]->getValue() > card.getValue())
-	                right = middle - 1;
-	            else
-	                if (HandCards[middle][0]->getValue() < card.getValue())
-	                    left = middle + 1;
-	                else
-	                    return middle;
-	        }
-	        return -1;
-}
-	/*unsigned int mid, left = 0 ;
-	unsigned int right = HandCards.size();
-	while (left < right) {
-		mid = left + (right - left)/2;
-		if (card.getValue() > HandCards[mid][0]->getValue()){
-			left = mid+1;
-		}
-		else if (card.getValue() < HandCards[mid][0]->getValue()){
-			right = mid;
-		}
-		else {
-			return mid;
-		}
+	int left = 0;
+	int right = HandCards.size() - 1;
+	int middle;
+	while (left <= right) {
+		middle = left + (right - left)/2;
+		if (HandCards[middle][0]->getValue() > card.getValue())
+			right = middle - 1;
+		else
+			if (HandCards[middle][0]->getValue() < card.getValue())
+				left = middle + 1;
+			else
+				return middle;
 	}
-	return -1; // if the exact value is not found at the vec.
-}*/
-
+	return -1;
+}
 
 int Hand:: getNumberOfCards(){
 	return this->count;

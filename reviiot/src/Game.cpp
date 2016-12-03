@@ -3,13 +3,13 @@
 #include <fstream>
 #include <cstdlib>
 #include <vector> // needed???
-#include "Game.h"
-#include "Player.h"
+#include "../include/Game.h"
+#include "../include/Player.h"
 using namespace std;
 
 //Game::Game():players(),deck(), highNumVal(0){} // needed?
 
-Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),count(0),verbal(0){
+Game::Game(char* config):players(),deck(), initialDeck(),twoWinners(false),winner1(0),winner2(0),count(0),verbal(0){
 
 	vector<Card*> GameCards;
 	ifstream filetext(config);
@@ -142,8 +142,13 @@ Game::Game(char* config): initialDeck(),twoWinners(false),winner1(0),winner2(0),
 
 Game ::~Game(){
 	for(int i=players.size()-1;i>=0;i--)
-		delete(players[i]);
-
+	{
+		if(players[i]!=0){
+			players[i]=0;
+			delete(players[i]);
+		}
+	}
+	players.clear();
 }
 
 vector<Player *> Game::getPlayers(){ return players;};
