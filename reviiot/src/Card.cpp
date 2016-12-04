@@ -1,10 +1,10 @@
-#include <iostream>
 #include <string>
 #include "../include/Card.h"
 #include <sstream>
 using namespace std;
 
 Card::Card():shape(){ }
+
 Card::Card(char s) : shape(){
 	switch (s){
 	case 'C':
@@ -21,6 +21,7 @@ Card::Card(char s) : shape(){
 		break;
 	}
 }
+
 Card::Card(const Card &other): shape(other.shape){}
 
 Card& Card::operator =(const Card &other){
@@ -29,10 +30,10 @@ Card& Card::operator =(const Card &other){
         this->shape = other.shape;
         return *this;
 }
+
 Card::~Card(){}
 
 int Card::getValue(){return 0;}
-//string Card::toString(){return "notMe ";}
 
 char Card:: getShape(){
 	char ans;
@@ -77,7 +78,8 @@ FigureCard::FigureCard(char s,char f, int v):Card(s),figure(),value(v){
 FigureCard:: ~FigureCard() {}
 
 int FigureCard::getValue(){
-	return value;}
+	return value;
+}
 
 string FigureCard::toString() {
 	string ans="";
@@ -111,18 +113,15 @@ string FigureCard::toString() {
 	return ans;
 }
 
-
-
-
 NumericCard::NumericCard():Card(), number(0){}
 
-NumericCard::NumericCard ( char s,int num):Card(s),number(num){}
+NumericCard::NumericCard(char s,int num):Card(s),number(num){}
 
-NumericCard:: ~NumericCard() {}
-
+NumericCard:: ~NumericCard(){}
 
 int NumericCard:: getValue(){
-	return number;}
+	return number;
+}
 
 string NumericCard::toString() {
 	std::stringstream ss;
@@ -144,5 +143,3 @@ string NumericCard::toString() {
 	}
 	return ans;
 }
-
-// opertor= , toString

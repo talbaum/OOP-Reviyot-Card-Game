@@ -1,9 +1,6 @@
 #ifndef HAND_H_
 #define HAND_H_
 
-#include <iostream>
-#include "Card.h"
-#include <vector>
 #include <string>
 #include "Deck.h"
 

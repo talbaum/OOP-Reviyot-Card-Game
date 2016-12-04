@@ -1,11 +1,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include <iostream>
-
 #include "Player.h"
-#include "Deck.h"
-
 using namespace std;
 
 class Game {
@@ -17,7 +13,7 @@ private:
 	int winner1;
 	int winner2;
 	int count;
-    int verbal;
+        int verbal;
 
 public:
 	Game(char* configurationFile);

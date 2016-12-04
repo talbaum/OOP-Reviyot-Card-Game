@@ -1,8 +1,6 @@
 #ifndef DECK_H_
 #define DECK_H_
 #include <vector>
-#include <iostream>
-
 #include "Card.h"
 
 using namespace std;

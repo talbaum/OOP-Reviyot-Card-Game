@@ -1,16 +1,12 @@
 #include "../include/Hand.h"
-#include  <vector>
-#include <iostream>
-#include "../include/Deck.h"
 
 using namespace std;
-Hand::Hand():HandCards(),count(0),deck(),initialHand() {}
+Hand::Hand():HandCards(),count(0),deck(),initialHand() {} //empty constructor
 
 
-Hand:: Hand(Deck deck2) :HandCards(), count(0),initialHand(){//empty constructor
-//	deck=(deck2);
+Hand:: Hand(Deck deck2) :HandCards(), count(0),deck(),initialHand(){
 	for(unsigned int i=0;i<7;i++)
-		addCard(*deck2.fetchCard());
+            addCard(*deck2.fetchCard());
 
 	sortMyHand();
 	initialHand=HandCards;
@@ -25,7 +21,6 @@ Hand::Hand(const Hand &other): HandCards(other.HandCards) , count (other.count),
 Hand& Hand::operator =(Hand &other){
 	if(this==&other)
 		return *this;
-	//body of operator
 
 	HandCards = other.HandCards;
 	count= other.count;
@@ -47,8 +42,8 @@ void Hand::sortMyHand(){
 		}
 	}
 }
-Hand::~Hand(){
 
+Hand::~Hand(){
 	for(int i=initialHand.size()-1;i>=0;i--){
 		for(int j=initialHand[i].size()-1;j>=0;--j){
 			initialHand[i][j]=0; //mark the removed card pointer
@@ -59,13 +54,14 @@ Hand::~Hand(){
 
 	for(int i=HandCards.size()-1;i>=0;i--){
 		for(int j=HandCards[i].size()-1;j>=0;--j){
-			if(	HandCards[i][j]!=0)
-				delete(HandCards[i][j]);
+			if(HandCards[i][j]!=0)
+                            delete(HandCards[i][j]);
 		}
 
 	}
 	HandCards.clear();
 }
+
 vector<vector<Card*> > Hand:: getHand(){
 	return this->HandCards;
 }
@@ -102,12 +98,10 @@ bool Hand:: addCard(Card &card){
 	}
 	else{
 		HandCards.at(myCardPos).push_back(&card);
-
-
-		if(HandCards.at(myCardPos).size()==4)   //if player got revia.
+		if(HandCards.at(myCardPos).size()==4){   //if player got revia.
 			for(int i=3;i>=0;i--)
 				removeCard(*HandCards[myCardPos][i]);
-
+                }
 		else if(HandCards.at(myCardPos).size()>=2)
 			HandCards[myCardPos]=sortByShape(HandCards[myCardPos]);
 	}
@@ -136,35 +130,15 @@ bool  Hand:: removeCard(Card &card) {
 	if (pos < 0)
 		return false; //no such card at the hand.
 	else {
-
 		HandCards[pos].erase(HandCards[pos].begin());
 
 		if(HandCards[pos].size()==0) //my if of empty vec
 			HandCards.erase(HandCards.begin()+pos);
 
 		count--;
-		//addCard(*deck.fetchCard());  need to add card in game.cpp
 		return true;
-
-		/*
-		 * Old version: delete all the vec at once.
-		insideVec=HandCards[pos];
-		int K=insideVec.size();
-		insideVec.erase(insideVec.begin(),insideVec.end());
-		count-=K;
-		int j=0;
-		Deck deck2=deck;	//find more efficent code for this
-		while(j<K){
-			Hand::addCard(*deck2.fetchCard());
-			count++;
-			j++;
-		}
-		deck=deck2;
-		return true;
-		 */
 	}
 }
-
 
 int Hand:: searchCard(Card &card){  //made for remove card method. (had to make 2 diffrenet ones).
 
@@ -198,5 +172,3 @@ string Hand:: toString(){
 	}
 	return ans;
 }
-
-//opertor =

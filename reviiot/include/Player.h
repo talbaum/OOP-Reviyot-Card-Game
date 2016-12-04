@@ -1,7 +1,6 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-#include <iostream>
 #include "Hand.h"
 
 using namespace std;
@@ -11,7 +10,6 @@ private:
 	const string name;
 	int position;
 	int strategy;
-	//Game& game;
 
 public:
 	int posIterator;
