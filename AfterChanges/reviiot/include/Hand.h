@@ -23,6 +23,7 @@ public:
 	Hand& operator=(Hand &other);
 	virtual ~Hand();
 
+	void makeHandVec(string word,int N);
 	vector<vector<Card*> > getHand();
 	void sortMyHand();
 	int searchCard(Card &card);

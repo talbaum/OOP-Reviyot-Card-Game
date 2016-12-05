@@ -8,16 +8,15 @@ class Game {
 private:
 	vector<Player *> players;  //The list of the players
 	Deck deck; ///The deck of the game
-	Deck initialDeck;
 	bool twoWinners;
 	int winner1;
 	int winner2;
 	int count;
-        int verbal;
+    int verbal;
 
 public:
-    Game(Game &other);
-	Game(Game &&other);
+    Game(const Game &other);
+	//Game(const Game &&other);
 	Game(char* configurationFile);
 	//Game& operator=(Game &other);
 	virtual ~Game();

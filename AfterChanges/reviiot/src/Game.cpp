@@ -3,7 +3,8 @@
 #include "../include/Game.h"
 using namespace std;
 
-Game::Game(Game &other):players(),deck(other.deck),initialDeck(other.initialDeck),twoWinners(other.twoWinners),winner1(other.winner1),winner2(other.winner2),count(other.count),verbal(other.verbal){
+Game::Game(const Game &other):players(),deck(other.deck),twoWinners(other.twoWinners),winner1(other.winner1),winner2(other.winner2),count(other.count),verbal(other.verbal){
+
 	for(int i=other.players.size()-1;i>=0; i--) {
 	        switch (other.players[i]->getStrategy()) {
 	            case 1:
@@ -22,7 +23,7 @@ Game::Game(Game &other):players(),deck(other.deck),initialDeck(other.initialDeck
 	    }
 	}
 
-Game:: Game(Game &&other) :players(),deck(other.deck),initialDeck(other.initialDeck),twoWinners(other.twoWinners),winner1(other.winner1),winner2(other.winner2),count(other.count),verbal(other.verbal){
+/*Game:: Game(const Game &&other) :players(),deck(&other.deck),initialDeck(&other.initialDeck),twoWinners(&other.twoWinners),winner1(&other.winner1),winner2(&other.winner2),count(&other.count),verbal(other.verbal){
     for(int i=other.players.size()-1;i>=0; i--) {
         switch (other.players[i]->getStrategy()) {
             case 1:
@@ -39,9 +40,9 @@ Game:: Game(Game &&other) :players(),deck(other.deck),initialDeck(other.initialD
                 break;
         }
     }
-}
+}*/
 
-Game::Game(char* config):players(),deck(), initialDeck(),twoWinners(false),winner1(0),winner2(0),count(0),verbal(0){
+Game::Game(char* config):players(),deck(),twoWinners(false),winner1(0),winner2(0),count(0),verbal(0){
 	vector<Card*> GameCards;
 	ifstream filetext(config);
 	if (!filetext.is_open()){
@@ -127,7 +128,7 @@ Game ::~Game(){
 
 vector<Player *> Game::getPlayers(){ return players;};
 void Game::init(){
-	initialDeck.SetDeck(deck.GetDeck());
+
 }
 
 void Game::play(){

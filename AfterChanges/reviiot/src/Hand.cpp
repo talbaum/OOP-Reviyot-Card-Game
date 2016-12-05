@@ -4,8 +4,9 @@ using namespace std;
 Hand::Hand():HandCards(),count(0),deck(),initialHand() {} //empty constructor
 
 
-Hand:: Hand(Deck &deck2) :HandCards(), count(0),deck(deck2),initialHand(){
-	for(unsigned int i=0;i<7;i++)
+Hand:: Hand(Deck &deck2) :HandCards(), count(0),initialHand(){
+	deck=deck2;
+	for(unsigned int i=0;i<7&&deck.getNumberOfCards()!=0;i++)
             addCard(*deck.fetchCard());
 
 	sortMyHand();
@@ -14,7 +15,9 @@ Hand:: Hand(Deck &deck2) :HandCards(), count(0),deck(deck2),initialHand(){
 
 }
 
-Hand::Hand(Hand &other): HandCards(other.HandCards) , count (other.count), deck(other.deck),initialHand(other.initialHand) {};
+Hand::Hand(Hand &other): HandCards(other.HandCards) , count (other.count), deck(other.deck),initialHand(other.initialHand) {
+
+};
 //copy constructor
 
 
@@ -178,6 +181,51 @@ int Hand:: searchCard(Card &card){  //made for remove card method. (had to make 
 int Hand:: getNumberOfCards(){
 	return this->count;
 }
+void Hand::makeHandVec(string word,int N){
+//vector<Card*> GameCards;
+	char shape;
+	char fig;
+	int value;
+	unsigned int index=0;
+	string s;
+	while (index<word.length()){
+		s="";
+		while ((index<word.length())&&(word.at(index)!=(char)32)){
+			s=s+word.at(index);
+			index++;
+		}
+		if (s.at(0)<='9'){ //numericCard
+			shape=s.at(s.length()-1);
+			s.resize(s.length()-1);
+			//value = atoi(s);
+			value=atoi(s.c_str());
+			NumericCard * c=new NumericCard(shape,value); // new!
+			this->addCard(*c);
+		}
+		else{ //figureCard
+			fig=s.at(0);
+			switch (fig){
+			case 'J':
+				value=N+1;
+				break;
+			case 'Q':
+				value=N+2;
+				break;
+			case 'K':
+				value=N+3;
+				break;
+			case 'A':
+				value=N+4;
+				break;
+			}
+			shape=s.at(1);
+			FigureCard * f=new FigureCard(shape,fig,value);
+			DeckCards.push_back(f);
+		}
+		index++;
+	}
+}
+
 
 string Hand:: toString(){
 	string ans="";

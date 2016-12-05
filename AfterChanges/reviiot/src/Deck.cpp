@@ -5,11 +5,13 @@
 #include <cstring>
 #include <cstdlib>
 
-Deck::Deck() : DeckCards(), N() {};
+Deck::Deck() : DeckCards(), N(), deckAsString() {};
 
-Deck::Deck(vector<Card *> GameCards) : DeckCards(),N() {
+Deck::Deck(vector<Card *> GameCards) : DeckCards(),N(),deckAsString() {
 	for (unsigned int i = 0; i < GameCards.size(); i++)
 		DeckCards.push_back(GameCards[i]);
+
+	deckAsString=this->toString();
 }
 
 void Deck::setN(int n){
@@ -17,7 +19,9 @@ void Deck::setN(int n){
 }
 
 void Deck::makeDeckVec(string word,int N){
-	vector<Card*> GameCards;
+	//vector<Card*> GameCards;
+	DeckCards.clear();
+
 	char shape;
 	char fig;
 	int value;
@@ -35,7 +39,7 @@ void Deck::makeDeckVec(string word,int N){
 			//value = atoi(s);
 			value=atoi(s.c_str());
 			NumericCard * c=new NumericCard(shape,value); // new!
-			GameCards.push_back(c);
+			DeckCards.push_back(c);
 		}
 		else{ //figureCard
 			fig=s.at(0);
@@ -55,11 +59,10 @@ void Deck::makeDeckVec(string word,int N){
 			}
 			shape=s.at(1);
 			FigureCard * f=new FigureCard(shape,fig,value);
-			GameCards.push_back(f);
+			DeckCards.push_back(f);
 		}
 		index++;
 	}
-	SetDeck(GameCards);
 }
 
 Deck::~Deck() {
@@ -69,8 +72,9 @@ Deck::~Deck() {
 	DeckCards.clear();
 }
 
-Deck::Deck(Deck &other): DeckCards(){
-	makeDeckVec(other.toString(),N);
+Deck::Deck(const Deck &other): DeckCards(){
+	deckAsString=other.toString();
+	makeDeckVec(deckAsString,N);
 }
 
 
@@ -107,12 +111,13 @@ int Deck::getNumberOfCards() {
 	return DeckCards.size();
 }
 
-string Deck::toString() {
+const string Deck::toString() const {
 	string ans = "";
 	unsigned int i;
 	for (i = 0; i < DeckCards.size(); i++) {
-		ans += DeckCards.at(i)->toString() + " ";
+		ans += DeckCards[i]->toString() + " ";
 	}
+	//deckAsString.c_str(ans);
 	return ans;
 }
-//toString (using card to string), opertor =
+
