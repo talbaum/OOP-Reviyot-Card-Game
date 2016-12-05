@@ -5,23 +5,40 @@ using namespace std;
 
 Game::Game(const Game &other):players(),deck(other.deck),twoWinners(other.twoWinners),winner1(other.winner1),winner2(other.winner2),count(other.count),verbal(other.verbal){
 
-	for(int i=other.players.size()-1;i>=0; i--) {
-	        switch (other.players[i]->getStrategy()) {
-	            case 1:
-	                players.push_back(new PlayerType1(*other.players[i]));
-	                break;
-	            case 2:
-	                players.push_back(new PlayerType2(*other.players[i]));
-	                break;
-	            case 3:
-	                players.push_back(new PlayerType3(*other.players[i]));
-	                break;
-	            case 4:
-	                players.push_back(new PlayerType4(*other.players[i]));
-	                break;
-	        }
-	    }
+	for( unsigned int i=0;i<other.players.size(); i++) {
+		switch (other.players[i]->getStrategy()) {
+		case 1:{
+			Player *c = new PlayerType1();
+			c = other.players[i];
+			//c(*other.players[i]);
+			players.push_back(c);
+			break;
+		}
+		case 2:{
+			Player *c = new PlayerType2();
+			c = other.players[i];
+			players.push_back(c);
+			//players.push_back(new PlayerType2(*other.players[i]));
+			break;
+		}
+		case 3:{
+			Player *c = new PlayerType3();
+			c = other.players[i];
+			players.push_back(c);
+			//players.push_back(new PlayerType2(*other.players[i]));
+			break;
+		}
+		case 4:{
+			Player *c = new PlayerType4();
+			c = other.players[i];
+			players.push_back(c);
+			//players.push_back(new PlayerType2(*other.players[i]));
+			break;
+		}
+		}
 	}
+}
+
 
 /*Game:: Game(const Game &&other) :players(),deck(&other.deck),initialDeck(&other.initialDeck),twoWinners(&other.twoWinners),winner1(&other.winner1),winner2(&other.winner2),count(&other.count),verbal(other.verbal){
     for(int i=other.players.size()-1;i>=0; i--) {
@@ -69,7 +86,7 @@ Game::Game(char* config):players(),deck(),twoWinners(false),winner1(0),winner2(0
 				}
 				N=atoi(highestVal.c_str());
 				highest=true;
-                deck.setN(N);
+				deck.setN(N);
 			}
 			else if (!deckCheck){
 				deckCheck=true;

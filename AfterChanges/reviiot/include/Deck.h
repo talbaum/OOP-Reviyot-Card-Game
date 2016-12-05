@@ -8,8 +8,9 @@ using namespace std;
 class Deck {
 private:
 
-	int N;
+
 public:
+	int N;
 	vector<Card *> DeckCards;// Declare here the collection of "Card *" of the deck
 	string deckAsString;
 	Deck ();

@@ -1,4 +1,5 @@
 #include "../include/Hand.h"
+#include <cstdlib>
 
 using namespace std;
 Hand::Hand():HandCards(),count(0),deck(),initialHand() {} //empty constructor
@@ -15,8 +16,12 @@ Hand:: Hand(Deck &deck2) :HandCards(), count(0),initialHand(){
 
 }
 
-Hand::Hand(Hand &other): HandCards(other.HandCards) , count (other.count), deck(other.deck),initialHand(other.initialHand) {
 
+
+Hand::Hand(Hand &other): count (other.count), deck(other.deck),initialHand(other.initialHand) {
+string word=other.toString();
+cout<< "test" <<endl;
+makeHandVec(word,other.deck.N);
 };
 //copy constructor
 
@@ -24,6 +29,7 @@ Hand::Hand(Hand &other): HandCards(other.HandCards) , count (other.count), deck(
 Hand& Hand::operator =(Hand &other){
 	if(this==&other)
 		return *this;
+
 
 	HandCards = other.HandCards;
 	count= other.count;
@@ -182,7 +188,6 @@ int Hand:: getNumberOfCards(){
 	return this->count;
 }
 void Hand::makeHandVec(string word,int N){
-//vector<Card*> GameCards;
 	char shape;
 	char fig;
 	int value;
@@ -220,7 +225,7 @@ void Hand::makeHandVec(string word,int N){
 			}
 			shape=s.at(1);
 			FigureCard * f=new FigureCard(shape,fig,value);
-			DeckCards.push_back(f);
+			this->addCard(*f);
 		}
 		index++;
 	}
