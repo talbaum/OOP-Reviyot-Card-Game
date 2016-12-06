@@ -3,13 +3,11 @@
 Player::Player() : name(""),position(1),strategy(0),posIterator(0){};
 
 Player:: Player(string name, int position, Deck &d, int strtg) : Hand(d), name(name),position(position),strategy(strtg),posIterator(0){
-	cout<<name<<endl;
 };
 
 Player:: ~Player() {};
 
 Player::Player(const Player &other):name(other.name),position(other.position),strategy(other.strategy),posIterator(other.posIterator){
-	cout<<"come hereeeeee"<<endl;
 	string word="";
 	vector<Card*> insideVec;
 	for(unsigned int i=0; i<HandCards.size();i++){
@@ -18,6 +16,7 @@ Player::Player(const Player &other):name(other.name),position(other.position),st
 			word+=insideVec[j]->toString() + " ";
 	}
 	makeHandVec(word,other.deck.N);
+        
 
 }
 
@@ -35,7 +34,7 @@ string dothatshit(const Player &other){
 
 
 Player& Player::operator =(Player &other){
-	cout<< "test" <<endl;
+	//cout<< "test" <<endl;
 
 	if(this==&other)
 		return *this;

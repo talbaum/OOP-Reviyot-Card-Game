@@ -12,13 +12,11 @@ Hand:: Hand(Deck &deck2) :HandCards(), count(0),initialHand(){
 
 	sortMyHand();
 	initialHand=HandCards;
-//	deck=deck2;
-
 }
 
 
 
-Hand::Hand(Hand &other): count (other.count), deck(other.deck),initialHand(other.initialHand) {
+Hand::Hand(Hand &other): HandCards() ,count (other.count), deck(other.deck),initialHand(other.initialHand) {
 string word=other.toString();
 cout<< "test" <<endl;
 makeHandVec(word,other.deck.N);
@@ -235,6 +233,7 @@ void Hand::makeHandVec(string word,int N){
 
 string Hand:: toString(){
 	string ans="";
+        //sortMyHand();
 	vector<Card*> insideVec;
 	for(unsigned int i=0; i<HandCards.size();i++){
 		insideVec=HandCards[i];

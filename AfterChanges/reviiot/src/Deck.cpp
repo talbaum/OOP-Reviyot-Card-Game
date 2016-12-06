@@ -5,7 +5,7 @@
 #include <cstring>
 #include <cstdlib>
 
-Deck::Deck() : DeckCards(), N(), deckAsString() {};
+Deck::Deck() :  DeckCards(),N(), deckAsString() {};
 
 Deck::Deck(vector<Card *> GameCards) : DeckCards(),N(),deckAsString() {
 	for (unsigned int i = 0; i < GameCards.size(); i++)
@@ -14,12 +14,13 @@ Deck::Deck(vector<Card *> GameCards) : DeckCards(),N(),deckAsString() {
 	deckAsString=this->toString();
 }
 
-void Deck::setN(int n){
-	N=n;
+void Deck::setN(int p){
+	this->N=p;
 }
 
 void Deck::makeDeckVec(string word,int N){
 	//vector<Card*> GameCards;
+ 
 	DeckCards.clear();
 
 	char shape;
@@ -72,8 +73,8 @@ Deck::~Deck() {
 	DeckCards.clear();
 }
 
-Deck::Deck(const Deck &other): DeckCards(){
-	deckAsString=other.toString();
+Deck::Deck(const Deck &other): DeckCards(),N(other.N),deckAsString(other.toString()){
+	//deckAsString=other.toString();
 	makeDeckVec(deckAsString,N);
 }
 
@@ -83,6 +84,7 @@ Deck &Deck::operator=(const Deck &other) {
 		return *this;
 
 	DeckCards = other.DeckCards;
+        N=other.N;
 	return *this;
 }
 

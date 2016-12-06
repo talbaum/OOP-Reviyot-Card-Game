@@ -10,9 +10,10 @@ private:
 
 
 public:
+        vector<Card *> DeckCards;// Declare here the collection of "Card *" of the deck
 	int N;
-	vector<Card *> DeckCards;// Declare here the collection of "Card *" of the deck
 	string deckAsString;
+        
 	Deck ();
 	Deck (vector<Card*>);
 	Deck (const Deck &other);
