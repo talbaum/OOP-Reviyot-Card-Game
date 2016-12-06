@@ -229,6 +229,7 @@ void Hand::makeHandVec(string word,int N){
 		}
 		index++;
 	}
+	this->sortMyHand();
 }
 
 

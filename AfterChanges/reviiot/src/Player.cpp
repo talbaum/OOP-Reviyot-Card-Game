@@ -18,6 +18,7 @@ Player::Player(const Player &other):name(other.name),position(other.position),st
 			word+=insideVec[j]->toString() + " ";
 	}
 	makeHandVec(word,other.deck.N);
+
 }
 
 string dothatshit(const Player &other){
@@ -89,7 +90,7 @@ PlayerType1::PlayerType1() :Player(){};
 
 PlayerType1::PlayerType1(string name, int position , Deck &d, int strtg) :Player( name, position , d,strtg){};
 
-PlayerType1::PlayerType1(Player &player): name(player.name),position(player.position),strategy(player.strategy),posIterator(other.posIterator){
+PlayerType1::PlayerType1(const Player &player): Player(player){
 	string word = dothatshit(player);
 	makeHandVec(word,player.deck.N);
 };
@@ -119,8 +120,7 @@ PlayerType2::PlayerType2() :Player(){};
 PlayerType2::PlayerType2(string name, int position , Deck &d,int strtg) :Player( name, position , d,strtg){};
 
 
-
-PlayerType2::PlayerType2(Player &player): Player(player.getName(),player.getPosition(),player.deck,2){
+PlayerType2::PlayerType2(const Player &player): Player(player){
 	string word = dothatshit(player);
 	makeHandVec(word,player.deck.N);
 };
@@ -150,7 +150,7 @@ PlayerType3::PlayerType3() :Player(){};
 
 PlayerType3::PlayerType3(string name, int position , Deck &d,int strtg) :Player( name, position , d,strtg){};
 
-PlayerType3::PlayerType3(Player &player): Player(player.getName(),player.getPosition(),player.deck,3){
+PlayerType3::PlayerType3(const Player &player): Player(player){
 	string word = dothatshit(player);
 	makeHandVec(word,player.deck.N);
 };
@@ -172,7 +172,7 @@ PlayerType4::PlayerType4() :Player(){};
 
 PlayerType4::PlayerType4(string name, int position , Deck &d,int strtg) :Player( name, position , d,strtg){};
 
-PlayerType4::PlayerType4(Player &player): Player(player.getName(),player.getPosition(),player.deck,4){
+PlayerType4::PlayerType4(const Player &player): Player(player){
 	string word = dothatshit(player);
 	makeHandVec(word,player.deck.N);
 };

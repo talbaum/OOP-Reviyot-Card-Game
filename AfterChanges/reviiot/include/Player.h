@@ -32,14 +32,14 @@ class PlayerType1 : public Player {  //For strategy 1
 public:
 	PlayerType1();
 	PlayerType1(string name, int position , Deck &d, int strtg);
-	PlayerType1(Player &player);
+	PlayerType1(const Player &player);
 	virtual vector<Card*> selectCard(vector<vector<Card*> > myCards);
 };
 
 class PlayerType2 : public Player {  //For strategy 2
 public:
 	PlayerType2();
-	PlayerType2(Player &player);
+	PlayerType2(const Player &player);
 	PlayerType2(string name, int position , Deck &d,int strtg);
 	virtual vector<Card*> selectCard(vector<vector<Card*> > myCards);
 };
@@ -47,7 +47,7 @@ public:
 class PlayerType3 : public Player {  //For strategy 3
 public:
 	PlayerType3();
-	PlayerType3(Player &player);
+	PlayerType3(const Player &player);
 	PlayerType3(string name, int position , Deck &d,int strtg);
 	virtual vector<Card*> selectCard(vector<vector<Card*> > myCards);
 };
@@ -55,7 +55,7 @@ public:
 class PlayerType4 : public Player {  //For strategy 4
 public:
 	PlayerType4();
-	PlayerType4(Player &player);
+	PlayerType4(const Player &player);
 	PlayerType4(string name, int position , Deck &d,int strtg);
 	virtual vector<Card*> selectCard(vector<vector<Card*> > myCards);
 };
