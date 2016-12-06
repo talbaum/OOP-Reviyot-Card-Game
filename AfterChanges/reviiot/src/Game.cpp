@@ -4,7 +4,6 @@
 using namespace std;
 
 Game::Game(const Game &other):players(),deck(other.deck),twoWinners(other.twoWinners),winner1(other.winner1),winner2(other.winner2),count(other.count),verbal(other.verbal){
-
 	for( unsigned int i=0;i<other.players.size(); i++) {
 		switch (other.players[i]->getStrategy()) {
 		case 1:{
@@ -63,7 +62,7 @@ Game::Game(const Game &other):players(),deck(other.deck),twoWinners(other.twoWin
 }*/
 
 Game::Game(char* config):players(),deck(),twoWinners(false),winner1(0),winner2(0),count(0),verbal(0){
-	vector<Card*> GameCards;
+	//vector<Card*> GameCards;
 	ifstream filetext(config);
 	if (!filetext.is_open()){
 		cout << "error reading conf file"<<endl;
@@ -226,7 +225,7 @@ void Game::play(){
 				}
 			}
 		}
-		else if(myPlayer->getNumberOfCards()!=0 && deck.getNumberOfCards()!=0)
+		else if( deck.getNumberOfCards()!=0)
 			myPlayer->addCard(*deck.fetchCard());
                 
 

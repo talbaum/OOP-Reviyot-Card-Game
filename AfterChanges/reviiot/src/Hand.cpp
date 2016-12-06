@@ -2,21 +2,20 @@
 #include <cstdlib>
 
 using namespace std;
-Hand::Hand():HandCards(),count(0),deck(),initialHand() {} //empty constructor
+Hand::Hand():HandCards(),count(0),deck() {} //empty constructor
 
 
-Hand:: Hand(Deck &deck2) :HandCards(), count(0),initialHand(){
+Hand:: Hand(Deck &deck2) :HandCards(), count(0){
 	deck=deck2;
 	for(unsigned int i=0;i<7&&deck.getNumberOfCards()!=0;i++)
             addCard(*deck.fetchCard());
 
 	sortMyHand();
-	initialHand=HandCards;
 }
 
 
 
-Hand::Hand(Hand &other): HandCards() ,count (other.count), deck(other.deck),initialHand(other.initialHand) {
+Hand::Hand(Hand &other): HandCards() ,count (other.count), deck(other.deck) {
 string word=other.toString();
 cout<< "test" <<endl;
 makeHandVec(word,other.deck.N);
@@ -32,7 +31,6 @@ Hand& Hand::operator =(Hand &other){
 	HandCards = other.HandCards;
 	count= other.count;
 	deck= other.deck;
-	initialHand = other.initialHand;
 	return *this;
 }
 
@@ -53,26 +51,14 @@ void Hand::sortMyHand(){
 Hand::~Hand(){
     
     cout<< "hand destructor" <<endl;
-	for(int i=initialHand.size()-1;i>=0;i--){
-		for(int j=initialHand[i].size()-1;j>=0;--j){
-                        if (initialHand[i][j]!=nullptr){
-			delete(initialHand[i][j]);
-                        initialHand[i][j]=nullptr; //mark the removed card pointer
-                        }
-		}
-	}
-	initialHand.clear();
 
-	for(int i=HandCards.size()-1;i>=0;i--){
-		for(int j=HandCards[i].size()-1;j>=0;--j){
-			if(HandCards[i][j]!=nullptr){
-                            delete(HandCards[i][j]);
-                            HandCards[i][j]=nullptr;
-                        }
-		}
-
-	}
-	HandCards.clear();
+while (!HandCards.empty()){
+    while (!HandCards.back().empty()){
+    delete (HandCards.back().back());
+    HandCards.back().pop_back();
+    }
+    HandCards.pop_back();
+    }
 }
 
 vector<vector<Card*> > Hand:: getHand(){
@@ -112,8 +98,7 @@ bool Hand:: addCard(Card &card){
 	else{
 		HandCards.at(myCardPos).push_back(&card);
 		if(HandCards.at(myCardPos).size()==4){   //if player got revia.
-			for(int i=3;i>=0;i--)
-				removeCardReviia(*HandCards[myCardPos][i]);
+				removeCardReviia(*HandCards[myCardPos][0]);
                 }
 		else if(HandCards.at(myCardPos).size()>=2)
 			HandCards[myCardPos]=sortByShape(HandCards[myCardPos]);
@@ -138,34 +123,34 @@ vector<Card*> Hand:: sortByShape(vector<Card*> sortMe) {
 }
 
 bool  Hand:: removeCard(Card &card) {
-	vector<Card*> insideVec;
+	//vector<Card*> insideVec;
 	int pos = searchCard(card);
 	if (pos < 0)
 		return false; //no such card at the hand.
 	else {
-		//delete(HandCards[pos][0]);
-		HandCards[pos].erase(HandCards[pos].begin());
-
-		if(HandCards[pos].size()==0) //my if of empty vec
+		HandCards[pos].pop_back();
+                count--;
+		if(HandCards[pos].empty()) //my if of empty vec
 			HandCards.erase(HandCards.begin()+pos);
 
-		count--;
 		return true;
 	}
 }
+
 bool  Hand:: removeCardReviia(Card &card) {
-	vector<Card*> insideVec;
+	//vector<Card*> insideVec;
 	int pos = searchCard(card);
 	if (pos < 0)
 		return false; //no such card at the hand.
 	else {
-		delete(HandCards[pos][0]);
-		HandCards[pos].erase(HandCards[pos].begin());
+            while (!HandCards[pos].empty()){
+		delete(HandCards[pos].back());
+		HandCards[pos].pop_back();
+                count--;
+            }
+            HandCards.erase(HandCards.begin()+pos);
 
-		if(HandCards[pos].size()==0) //my if of empty vec
-			HandCards.erase(HandCards.begin()+pos);
-
-		count--;
+		
 		return true;
 	}
 }

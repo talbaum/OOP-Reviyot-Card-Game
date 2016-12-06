@@ -28,6 +28,7 @@ public:
 	Card& operator =(const Card &other);
 	virtual ~Card();
         char getShape();
+        
 	virtual int getValue()=0;
 	virtual string toString()=0;//Returns the string representation of the card "<value><shape>" exp: "12S" or "QD"
 
@@ -40,6 +41,7 @@ private:
 public:
 	FigureCard();
 	FigureCard(char,char,int);
+        FigureCard (const FigureCard &other);
 	virtual ~FigureCard();
 	virtual int getValue();
 	virtual string toString() ;
@@ -52,6 +54,7 @@ private:
 public:
 	NumericCard();
 	NumericCard(char,int);
+        NumericCard (const NumericCard &other);
 	virtual ~NumericCard();
 	virtual int getValue() ;
 	virtual string toString();

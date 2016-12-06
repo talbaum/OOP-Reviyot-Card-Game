@@ -57,9 +57,12 @@ char Card:: getShape(){
 
 
 
-FigureCard::FigureCard():Card(),figure(),value(0){}
+FigureCard::FigureCard():Card(),figure(),value(0){
+    
+}
 
 FigureCard::FigureCard(char s,char f, int v):Card(s),figure(),value(v){
+        
 	switch (f){
 	case 'J':
 		figure = Jack;
@@ -114,9 +117,14 @@ string FigureCard::toString() {
 	return ans;
 }
 
-NumericCard::NumericCard():Card(), number(0){}
+NumericCard::NumericCard():Card(), number(0){
+}
 
-NumericCard::NumericCard(char s,int num):Card(s),number(num){}
+NumericCard::NumericCard(char s,int num):Card(s),number(num){
+}
+
+NumericCard::NumericCard (const NumericCard &other):Card(other), number(other.number){
+}
 
 NumericCard:: ~NumericCard(){}
 
