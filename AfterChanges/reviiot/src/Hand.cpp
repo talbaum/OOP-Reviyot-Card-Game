@@ -55,9 +55,9 @@ Hand::~Hand(){
     cout<< "hand destructor" <<endl;
 	for(int i=initialHand.size()-1;i>=0;i--){
 		for(int j=initialHand[i].size()-1;j>=0;--j){
-                        if (initialHand[i][j]!=NULL){
+                        if (initialHand[i][j]!=nullptr){
 			delete(initialHand[i][j]);
-                        initialHand[i][j]=NULL; //mark the removed card pointer
+                        initialHand[i][j]=nullptr; //mark the removed card pointer
                         }
 		}
 	}
@@ -65,9 +65,9 @@ Hand::~Hand(){
 
 	for(int i=HandCards.size()-1;i>=0;i--){
 		for(int j=HandCards[i].size()-1;j>=0;--j){
-			if(HandCards[i][j]!=NULL){
+			if(HandCards[i][j]!=nullptr){
                             delete(HandCards[i][j]);
-                            HandCards[i][j]=NULL;
+                            HandCards[i][j]=nullptr;
                         }
 		}
 
