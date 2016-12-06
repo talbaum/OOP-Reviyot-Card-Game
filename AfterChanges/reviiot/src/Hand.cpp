@@ -51,18 +51,24 @@ void Hand::sortMyHand(){
 }
 
 Hand::~Hand(){
+    
+    cout<< "hand destructor" <<endl;
 	for(int i=initialHand.size()-1;i>=0;i--){
 		for(int j=initialHand[i].size()-1;j>=0;--j){
-			initialHand[i][j]=0; //mark the removed card pointer
+                        if (initialHand[i][j]!=NULL){
 			delete(initialHand[i][j]);
+                        initialHand[i][j]=NULL; //mark the removed card pointer
+                        }
 		}
 	}
 	initialHand.clear();
 
 	for(int i=HandCards.size()-1;i>=0;i--){
 		for(int j=HandCards[i].size()-1;j>=0;--j){
-			if(HandCards[i][j]!=0)
+			if(HandCards[i][j]!=NULL){
                             delete(HandCards[i][j]);
+                            HandCards[i][j]=NULL;
+                        }
 		}
 
 	}

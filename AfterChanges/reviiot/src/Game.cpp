@@ -136,11 +136,12 @@ Game::Game(char* config):players(),deck(),twoWinners(false),winner1(0),winner2(0
 }
 
 Game ::~Game(){
-	for(int i=players.size()-1;i>=0;i--)
+    
+	for(unsigned int i=0;i<players.size();i++)
 	{
-		if(players[i]!=0){
-			players[i]=0;
+		if(players[i]!=NULL){
 			delete(players[i]);
+                        players[i]=NULL;
 		}
 	}
 	players.clear();

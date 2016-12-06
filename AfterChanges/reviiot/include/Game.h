@@ -15,7 +15,7 @@ private:
     int verbal;
 
 public:
-    Game(const Game &other);
+        Game(const Game &other);
 	//Game(const Game &&other);
 	Game(char* configurationFile);
 	//Game& operator=(Game &other);

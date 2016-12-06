@@ -31,7 +31,8 @@ Card& Card::operator =(const Card &other){
         return *this;
 }
 
-Card::~Card(){}
+Card::~Card(){
+}
 
 //int Card::getValue(){return 0;}
 
