@@ -3,12 +3,13 @@
 Player::Player() : name(""),position(1),strategy(0),posIterator(0){};
 
 Player:: Player(string name, int position, Deck &d, int strtg) : Hand(d), name(name),position(position),strategy(strtg),posIterator(0){
-	cout<<"checkk"<<endl;
+	cout<<name<<endl;
 };
 
 Player:: ~Player() {};
 
 Player::Player(const Player &other):name(other.name),position(other.position),strategy(other.strategy),posIterator(other.posIterator){
+	cout<<"come hereeeeee"<<endl;
 	string word="";
 	vector<Card*> insideVec;
 	for(unsigned int i=0; i<HandCards.size();i++){
@@ -19,7 +20,22 @@ Player::Player(const Player &other):name(other.name),position(other.position),st
 	makeHandVec(word,other.deck.N);
 }
 
+string dothatshit(const Player &other){
+	string word="";
+		vector<Card*> insideVec;
+		for(unsigned int i=0; i<other.HandCards.size();i++){
+			insideVec=other.HandCards[i];
+			for(unsigned int j=0; j<insideVec.size();j++)
+				word+=insideVec[j]->toString() + " ";
+		}
+		return word;
+}
+
+
+
 Player& Player::operator =(Player &other){
+	cout<< "test" <<endl;
+
 	if(this==&other)
 		return *this;
 
@@ -73,7 +89,10 @@ PlayerType1::PlayerType1() :Player(){};
 
 PlayerType1::PlayerType1(string name, int position , Deck &d, int strtg) :Player( name, position , d,strtg){};
 
-PlayerType1::PlayerType1(Player &player): Player(player.getName(),player.getPosition(),player.deck,1){};
+PlayerType1::PlayerType1(Player &player): name(player.name),position(player.position),strategy(player.strategy),posIterator(other.posIterator){
+	string word = dothatshit(player);
+	makeHandVec(word,player.deck.N);
+};
 
 vector<Card*> PlayerType1::selectCard(vector<vector<Card*> > myCards) {
 	//getCommonCard
@@ -99,7 +118,12 @@ PlayerType2::PlayerType2() :Player(){};
 
 PlayerType2::PlayerType2(string name, int position , Deck &d,int strtg) :Player( name, position , d,strtg){};
 
-PlayerType2::PlayerType2(Player &player): Player(player.getName(),player.getPosition(),player.deck,2){};
+
+
+PlayerType2::PlayerType2(Player &player): Player(player.getName(),player.getPosition(),player.deck,2){
+	string word = dothatshit(player);
+	makeHandVec(word,player.deck.N);
+};
 
 vector<Card*> PlayerType2:: selectCard(vector<vector<Card*> > myCards) {
 	//getUnCommonCard
@@ -126,7 +150,10 @@ PlayerType3::PlayerType3() :Player(){};
 
 PlayerType3::PlayerType3(string name, int position , Deck &d,int strtg) :Player( name, position , d,strtg){};
 
-PlayerType3::PlayerType3(Player &player): Player(player.getName(),player.getPosition(),player.deck,3){};
+PlayerType3::PlayerType3(Player &player): Player(player.getName(),player.getPosition(),player.deck,3){
+	string word = dothatshit(player);
+	makeHandVec(word,player.deck.N);
+};
 
 vector<Card*> PlayerType3:: selectCard(vector<vector<Card*> > myCards){
 	//getHighestValue
@@ -145,7 +172,10 @@ PlayerType4::PlayerType4() :Player(){};
 
 PlayerType4::PlayerType4(string name, int position , Deck &d,int strtg) :Player( name, position , d,strtg){};
 
-PlayerType4::PlayerType4(Player &player): Player(player.getName(),player.getPosition(),player.deck,4){};
+PlayerType4::PlayerType4(Player &player): Player(player.getName(),player.getPosition(),player.deck,4){
+	string word = dothatshit(player);
+	makeHandVec(word,player.deck.N);
+};
 
 vector<Card*> PlayerType4:: selectCard(vector<vector<Card*> > myCards){
 	//getLowestValue

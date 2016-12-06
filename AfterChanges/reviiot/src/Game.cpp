@@ -8,29 +8,28 @@ Game::Game(const Game &other):players(),deck(other.deck),twoWinners(other.twoWin
 	for( unsigned int i=0;i<other.players.size(); i++) {
 		switch (other.players[i]->getStrategy()) {
 		case 1:{
-			Player *c = new PlayerType1();
-			c = other.players[i];
+			PlayerType1 *c = new PlayerType1(*other.players[i]);
+			//PlayerType1 c = other.players[i];
 			//c(*other.players[i]);
 			players.push_back(c);
 			break;
 		}
 		case 2:{
-			Player *c = new PlayerType2();
-			c = other.players[i];
+			PlayerType2 *c = new PlayerType2(*other.players[i]);;
 			players.push_back(c);
 			//players.push_back(new PlayerType2(*other.players[i]));
 			break;
 		}
 		case 3:{
-			Player *c = new PlayerType3();
-			c = other.players[i];
+			PlayerType3 *c = new PlayerType3(*other.players[i]);
+			//c = other.players[i];
 			players.push_back(c);
 			//players.push_back(new PlayerType2(*other.players[i]));
 			break;
 		}
 		case 4:{
-			Player *c = new PlayerType4();
-			c = other.players[i];
+			PlayerType4 *c = new PlayerType4(*other.players[i]);
+			//c = other.players[i];
 			players.push_back(c);
 			//players.push_back(new PlayerType2(*other.players[i]));
 			break;
