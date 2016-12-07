@@ -15,8 +15,6 @@ Player::Player(const Player &other):name(other.name),position(other.position),st
 			word+=insideVec[j]->toString() + " ";
 	}
 	makeHandVec(word,other.N);
-        
-
 }
 
 string PlayerToString(const Player &other){
