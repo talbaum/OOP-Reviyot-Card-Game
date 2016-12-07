@@ -158,7 +158,8 @@ void Game::play(){
 	Player* myPlayer;
 	vector<Card*> askedCardVec;
 	string cVal;
-	int vectorIndex,numofcardsadded,i;
+	int vectorIndex;
+        size_t i;
 	Card* requestedCard;
 	Card* cardToDelete;
 	vector<Card*> foundCardVec;
@@ -190,18 +191,15 @@ void Game::play(){
 		requestedCard = askedCardVec[0];
 		vectorIndex = players[askedPlayer]->searchCard(*requestedCard);
 
+                //size_t num=players[askedPlayer]->getHand()[vectorIndex].size()'
 		tmpHand = players[askedPlayer]->getHand();
-
-
-		numofcardsadded=tmpHand[vectorIndex].size(); // LEAK!
-
 
 		if (vectorIndex>-1){
 			actionHappend=true;
-			for (i=0;i<numofcardsadded;i++){
+			for (i=0;i<tmpHand[vectorIndex].size();i++){
 				foundCardVec.push_back(tmpHand[vectorIndex][i]);
 			}
-			for (i=0;i<numofcardsadded;i++){
+			for (i=0;i<tmpHand[vectorIndex].size();i++){
 				cardToDelete = tmpHand[vectorIndex][0];
 
 				players[askedPlayer]->removeCard(*cardToDelete);
