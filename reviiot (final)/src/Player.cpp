@@ -1,12 +1,9 @@
 #include "../include/Player.h"
 
-//Player::Player() : name(""),position(1),strategy(0),posIterator(0){};
-
 Player:: Player(string name, int position, Deck &d, int strtg) : Hand(d), name(name),position(position),strategy(strtg),posIterator(0){
 };
 
 Player:: ~Player() {
-        //cout<< "player destructor" <<endl;
 };
 
 Player::Player(const Player &other):name(other.name),position(other.position),strategy(other.strategy),posIterator(other.posIterator){
@@ -22,7 +19,7 @@ Player::Player(const Player &other):name(other.name),position(other.position),st
 
 }
 
-string dothatshit(const Player &other){
+string PlayerToString(const Player &other){
 	string word="";
 		vector<Card*> insideVec;
 		for(unsigned int i=0; i<other.HandCards.size();i++){
@@ -54,7 +51,6 @@ int Player:: getPosition(){return position;}
 
 int Player:: getStrategy(){return strategy;}
 
-
 int Player::PlayerWithMostCards(vector<Player *> players){
 	int max=0;
 	int pos=0;
@@ -81,7 +77,7 @@ int Player:: cyclicOrder(vector<Player*> players){
 PlayerType1::PlayerType1(string name, int position , Deck &d, int strtg) :Player( name, position , d,strtg){};
 
 PlayerType1::PlayerType1(const Player &player): Player(player){
-	string word = dothatshit(player);
+	string word = PlayerToString(player);
 	makeHandVec(word,player.N);
 };
 
@@ -109,7 +105,7 @@ PlayerType2::PlayerType2(string name, int position , Deck &d,int strtg) :Player(
 
 
 PlayerType2::PlayerType2(const Player &player): Player(player){
-	string word = dothatshit(player);
+	string word = PlayerToString(player);
 	makeHandVec(word,player.N);
 };
 
@@ -137,7 +133,7 @@ vector<Card*> PlayerType2:: selectCard(vector<vector<Card*> > myCards) {
 PlayerType3::PlayerType3(string name, int position , Deck &d,int strtg) :Player( name, position , d,strtg){};
 
 PlayerType3::PlayerType3(const Player &player): Player(player){
-	string word = dothatshit(player);
+	string word = PlayerToString(player);
 	makeHandVec(word,player.N);
 };
 
@@ -157,7 +153,7 @@ vector<Card*> PlayerType3:: selectCard(vector<vector<Card*> > myCards){
 PlayerType4::PlayerType4(string name, int position , Deck &d,int strtg) :Player( name, position , d,strtg){};
 
 PlayerType4::PlayerType4(const Player &player): Player(player){
-	string word = dothatshit(player);
+	string word = PlayerToString(player);
 	makeHandVec(word,player.N);
 };
 
