@@ -50,7 +50,7 @@ Hand::~Hand(){
 }
 
 vector<vector<Card*> > Hand:: getHand(){
-	return this->HandCards; //LEAK!!
+	return this->HandCards;
 }
 
 int Hand:: whereToInsert(Card &card){   // made for the addCard method.
@@ -180,7 +180,7 @@ void Hand::makeHandVec(string word,int N){
 			shape=s.at(s.length()-1);
 			s.resize(s.length()-1);
 			value=atoi(s.c_str());
-			NumericCard * c=new NumericCard(shape,value); // new! LEAK!!
+			NumericCard * c=new NumericCard(shape,value);
 			this->addCard(*c);
 		}
 		else{ //figureCard
@@ -200,7 +200,7 @@ void Hand::makeHandVec(string word,int N){
 				break;
 			}
 			shape=s.at(1);
-			FigureCard * f=new FigureCard(shape,fig,value); //LEAK!!
+			FigureCard * f=new FigureCard(shape,fig,value);
 			this->addCard(*f);
 		}
 		index++;

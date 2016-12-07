@@ -12,11 +12,11 @@ private:
 	int winner1;
 	int winner2;
 	int count;
-        int verbal;
+    int verbal;
 
 public:
 	Game(char* configurationFile);
-        Game(const Game &other);
+    Game(const Game &other);
 	virtual ~Game();
 	vector<Player *> getPlayers();
 	void init(); // initiliaze players hands positions and startegy
