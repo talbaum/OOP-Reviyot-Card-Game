@@ -1,3 +1,1 @@
-src/Card.d: ../src/Card.cpp ../src/../include/Card.h
-
-../src/../include/Card.h:
+ƒ9Âið5Ik¾ez>)yN×$dW³*r„(RBN×$dW³*r„(RBN×$dW³*r„(RBN×$dW³*r„(RB

@@ -15,7 +15,8 @@ private:
 public:
 	vector<vector<Card*> > HandCards;// Declare here the collection of "Card *" of the hand
 	int count;
-	Deck deck;
+	//Deck &deck;
+	int N;
 
 	Hand();
 	Hand(Deck &deck);

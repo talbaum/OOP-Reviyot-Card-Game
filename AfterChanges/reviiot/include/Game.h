@@ -12,7 +12,7 @@ private:
 	int winner1;
 	int winner2;
 	int count;
-        int verbal;
+    int verbal;
 
 public:
         Game(const Game &other);

@@ -4,11 +4,12 @@
 using namespace std;
 
 Game::Game(const Game &other):players(),deck(other.deck),twoWinners(other.twoWinners),winner1(other.winner1),winner2(other.winner2),count(other.count),verbal(other.verbal){
+
 	for( unsigned int i=0;i<other.players.size(); i++) {
 		switch (other.players[i]->getStrategy()) {
 		case 1:{
 			PlayerType1 *c = new PlayerType1(*other.players[i]);
-                        
+
 			//PlayerType1 c = other.players[i];
 			//c(*other.players[i]);
 			players.push_back(c);
@@ -16,14 +17,14 @@ Game::Game(const Game &other):players(),deck(other.deck),twoWinners(other.twoWin
 		}
 		case 2:{
 			PlayerType2 *c = new PlayerType2(*other.players[i]);;
-                       
+
 			players.push_back(c);
 			//players.push_back(new PlayerType2(*other.players[i]));
 			break;
 		}
 		case 3:{
 			PlayerType3 *c = new PlayerType3(*other.players[i]);
-                        
+
 			//c = other.players[i];
 			players.push_back(c);
 			//players.push_back(new PlayerType2(*other.players[i]));
@@ -31,7 +32,7 @@ Game::Game(const Game &other):players(),deck(other.deck),twoWinners(other.twoWin
 		}
 		case 4:{
 			PlayerType4 *c = new PlayerType4(*other.players[i]);
-                        
+
 			//c = other.players[i];
 			players.push_back(c);
 			//players.push_back(new PlayerType2(*other.players[i]));
@@ -121,7 +122,6 @@ Game::Game(char* config):players(),deck(),twoWinners(false),winner1(0),winner2(0
 						break;
 					}
 					//initialize player & his hand and strategy.
-					this->deck=temp->deck;
 					players.push_back(temp);
 					if (!getline(filetext,word))
 						playersPass=true;
@@ -135,15 +135,16 @@ Game::Game(char* config):players(),deck(),twoWinners(false),winner1(0),winner2(0
 }
 
 Game ::~Game(){
-    
+	//cout<<"game destructor"<<endl;
 	for(unsigned int i=0;i<players.size();i++)
 	{
 		if(players[i]!=NULL){
 			delete(players[i]);
-                        players[i]=NULL;
+			players[i]=NULL;
 		}
 	}
 	players.clear();
+
 }
 
 vector<Player *> Game::getPlayers(){ return players;};
@@ -161,9 +162,9 @@ void Game::play(){
 	Card* requestedCard;
 	Card* cardToDelete;
 	vector<Card*> foundCardVec;
-        
-        vector<vector<Card*> > tmpHand; // testing!!
-        
+
+	vector<vector<Card*> > tmpHand; // testing!!
+
 	while(winner1==0){
 		count++;
 		if (verbal==1){
@@ -188,13 +189,13 @@ void Game::play(){
 		actionHappend=false;
 		requestedCard = askedCardVec[0];
 		vectorIndex = players[askedPlayer]->searchCard(*requestedCard);
-                
-                tmpHand = players[askedPlayer]->getHand();
-                
-                
-		numofcardsadded=tmpHand[vectorIndex].size();
-                
-                
+
+		tmpHand = players[askedPlayer]->getHand();
+
+
+		numofcardsadded=tmpHand[vectorIndex].size(); // LEAK!
+
+
 		if (vectorIndex>-1){
 			actionHappend=true;
 			for (i=0;i<numofcardsadded;i++){
@@ -202,6 +203,7 @@ void Game::play(){
 			}
 			for (i=0;i<numofcardsadded;i++){
 				cardToDelete = tmpHand[vectorIndex][0];
+
 				players[askedPlayer]->removeCard(*cardToDelete);
 				myPlayer->addCard(*foundCardVec.back());
 				foundCardVec.pop_back();
@@ -209,7 +211,7 @@ void Game::play(){
 					players[askedPlayer]->addCard(*deck.fetchCard());
 			}
 			myPlayer->sortMyHand();
-                        
+
 		}
 		if(actionHappend){
 			//checking if the game has ended.
@@ -225,11 +227,11 @@ void Game::play(){
 				}
 			}
 		}
-		else if( deck.getNumberOfCards()!=0)
+		else if(myPlayer->getNumberOfCards()!=0 && deck.getNumberOfCards()!=0)
 			myPlayer->addCard(*deck.fetchCard());
-                
 
-                
+
+
 		//the asked card is not at the asked player hand. so my player takes a card from deck.
 		//player can fetch card only if his hand and the deck are not empty
 	}//end of while.game over.

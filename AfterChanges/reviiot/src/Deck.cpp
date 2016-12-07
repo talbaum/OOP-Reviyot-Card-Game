@@ -20,8 +20,8 @@ void Deck::setN(int p){
 
 void Deck::makeDeckVec(string word,int N){
 	//vector<Card*> GameCards;
- 
-	//cout<< "im here" <<endl;
+
+	DeckCards.clear();
 
 	char shape;
 	char fig;
@@ -39,7 +39,7 @@ void Deck::makeDeckVec(string word,int N){
 			s.resize(s.length()-1);
 			//value = atoi(s);
 			value=atoi(s.c_str());
-			NumericCard * c=new NumericCard(shape,value); // new!
+			NumericCard * c=new NumericCard(shape,value); // new! LEAK!!
 			DeckCards.push_back(c);
 		}
 		else{ //figureCard
@@ -59,7 +59,7 @@ void Deck::makeDeckVec(string word,int N){
 				break;
 			}
 			shape=s.at(1);
-			FigureCard * f=new FigureCard(shape,fig,value);
+			FigureCard * f=new FigureCard(shape,fig,value); //LEAK!!
 			DeckCards.push_back(f);
 		}
 		index++;
@@ -67,23 +67,16 @@ void Deck::makeDeckVec(string word,int N){
 }
 
 Deck::~Deck() {
-    /*
-	for (int i = DeckCards.size() - 1; i >= 0; --i) {
-            if (DeckCards[i]!=nullptr){
+   // cout<<"deck destructor"<<endl;
+	for (int i=DeckCards.size()-1;i>=0;i--) {
+		if(DeckCards[i]!=NULL){
 		delete (DeckCards[i]);
-                DeckCards[i]=nullptr;
-            }
+		DeckCards[i]=NULL;
+		}
 	}
+	/*for(int i=0;i<DeckCards.size();i++)
+		cout<<DeckCards[i]->toString()<<" "<< endl;*/
 	DeckCards.clear();
-	*/
-    
-    while (!DeckCards.empty()){
-       //if (DeckCards.back()!=nullptr)
-        delete DeckCards.back(); // if not void needed!!!
-        
-        DeckCards.pop_back();
-    }
-    DeckCards.clear();
 }
 
 Deck::Deck(const Deck &other): DeckCards(),N(other.N),deckAsString(other.toString()){
@@ -117,9 +110,11 @@ void Deck::SetDeck(vector<Card *> newDeck) {
 }
 
 Card *Deck::fetchCard() {
-Card *CardPtr = DeckCards.front(); // to check if the & create a pointer or go straight to card.
+	Card* CardPtr=DeckCards[0]; // to check if the & create a pointer or go straight to card.
+	//delete(DeckCards[0]);
+	//DeckCards[0]=0;
 	DeckCards.erase(DeckCards.begin());
-return CardPtr;
+	return CardPtr;
 }
 
 int Deck::getNumberOfCards() {

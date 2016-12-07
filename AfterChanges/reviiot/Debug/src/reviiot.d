@@ -1,13 +1,1 @@
-src/reviiot.d: ../src/reviiot.cpp ../src/../include/Game.h \
- ../src/../include/Player.h ../src/../include/Hand.h \
- ../src/../include/Deck.h ../src/../include/Card.h
-
-../src/../include/Game.h:
-
-../src/../include/Player.h:
-
-../src/../include/Hand.h:
-
-../src/../include/Deck.h:
-
-../src/../include/Card.h:
+¾ÙüÂÖUF½Ö»ƒ»ËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,eËŞiósøŸŸ#—,e
