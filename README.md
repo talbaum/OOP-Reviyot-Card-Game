@@ -62,3 +62,4 @@ Deck: JC JS JD JH 3C 3S 3D 3H
 Ami: 2H KC KD KS
 Tami: 2C 2D 2S KH
 Ami asked Tami for the value K
+
