@@ -41,25 +41,3 @@ printState() function. This function should be implemented with extra care, sinc
 produces the expected output by which your work will be evaluated. This function prints
 the cards remaining in the deck from top to bottom in a single line, followed by the name
 and sorted hand of all players (a single line per player).
-
-
-Example:
-
-**Turn 1**
-Deck: 2C KS JC JS JD JH 3C 3S 3D 3H
-Ami: 2H QC QH QS KC KD AS
-Tami: 2D 2S QD KH AC AD AH
-Ami asked Tami for the value Q
-
-**Turn 2**
-Deck: KS JC JS JD JH 3C 3S 3D 3H
-Ami: 2H KC KD AS
-Tami: 2C 2D 2S KH AC AD AH
-Tami asked Ami for the value A
-
-**Turn 3**
-Deck: JC JS JD JH 3C 3S 3D 3H
-Ami: 2H KC KD KS
-Tami: 2C 2D 2S KH
-Ami asked Tami for the value K
-
