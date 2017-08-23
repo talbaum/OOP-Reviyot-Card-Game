@@ -8,9 +8,12 @@ card deck but with unlimited rank/value. For example a deck of N=12 consists of
 2s,3s,...,12s, Jacks, Queens, Kings and Aces. 
 
 •The implementation  include the following classes:
+
 **Card:** a single playing card. This class is abstract and holds the shape of the card only.
+
 **FigureCard:** Inherits from Card. Used for cards with a figure on. That is: Jack, Queen,
 King and Ace.
+
 **NumericCard:** Inherits from Card. Used for cards with numeric values. (2, 3, 4, 5, etc…)
  A card value is the combination of its value and its shape, when “value” is the most
 significant value while “shape” is the least significant value. Ex: 23C and not C23
