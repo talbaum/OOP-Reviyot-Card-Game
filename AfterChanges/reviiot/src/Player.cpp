@@ -20,7 +20,7 @@ Player::Player(const Player &other):name(other.name),position(other.position),st
 
 }
 
-string dothatshit(const Player &other){
+string func(const Player &other){
 	string word="";
 		vector<Card*> insideVec;
 		for(unsigned int i=0; i<other.HandCards.size();i++){
