@@ -9,9 +9,6 @@ Game::Game(const Game &other):players(),deck(other.deck),twoWinners(other.twoWin
 		switch (other.players[i]->getStrategy()) {
 		case 1:{
 			PlayerType1 *c = new PlayerType1(*other.players[i]);
-
-			//PlayerType1 c = other.players[i];
-			//c(*other.players[i]);
 			players.push_back(c);
 			break;
 		}
@@ -19,51 +16,23 @@ Game::Game(const Game &other):players(),deck(other.deck),twoWinners(other.twoWin
 			PlayerType2 *c = new PlayerType2(*other.players[i]);;
 
 			players.push_back(c);
-			//players.push_back(new PlayerType2(*other.players[i]));
 			break;
 		}
 		case 3:{
 			PlayerType3 *c = new PlayerType3(*other.players[i]);
-
-			//c = other.players[i];
 			players.push_back(c);
-			//players.push_back(new PlayerType2(*other.players[i]));
 			break;
 		}
 		case 4:{
 			PlayerType4 *c = new PlayerType4(*other.players[i]);
-
-			//c = other.players[i];
 			players.push_back(c);
-			//players.push_back(new PlayerType2(*other.players[i]));
 			break;
 		}
 		}
 	}
 }
 
-
-/*Game:: Game(const Game &&other) :players(),deck(&other.deck),initialDeck(&other.initialDeck),twoWinners(&other.twoWinners),winner1(&other.winner1),winner2(&other.winner2),count(&other.count),verbal(other.verbal){
-    for(int i=other.players.size()-1;i>=0; i--) {
-        switch (other.players[i]->getStrategy()) {
-            case 1:
-                players.push_back(new PlayerType1(*other.players[i]));
-                break;
-            case 2:
-                players.push_back(new PlayerType2(*other.players[i]));
-                break;
-            case 3:
-                players.push_back(new PlayerType3(*other.players[i]));
-                break;
-            case 4:
-                players.push_back(new PlayerType4(*other.players[i]));
-                break;
-        }
-    }
-}*/
-
 Game::Game(char* config):players(),deck(),twoWinners(false),winner1(0),winner2(0),count(0),verbal(0){
-	//vector<Card*> GameCards;
 	ifstream filetext(config);
 	if (!filetext.is_open()){
 		cout << "error reading conf file"<<endl;
@@ -109,16 +78,16 @@ Game::Game(char* config):players(),deck(),twoWinners(false),winner1(0),winner2(0
 					Player * temp;
 					switch (strtg){
 					case 1:
-						temp = new PlayerType1(name,playerNum,deck,strtg); // new!
+						temp = new PlayerType1(name,playerNum,deck,strtg); 
 						break;
 					case 2:
-						temp = new PlayerType2(name,playerNum,deck,strtg);// new!
+						temp = new PlayerType2(name,playerNum,deck,strtg);
 						break;
 					case 3:
-						temp = new PlayerType3(name,playerNum,deck,strtg);// new!
+						temp = new PlayerType3(name,playerNum,deck,strtg);
 						break;
 					case 4:
-						temp = new PlayerType4(name,playerNum,deck,strtg);// new!
+						temp = new PlayerType4(name,playerNum,deck,strtg);
 						break;
 					}
 					//initialize player & his hand and strategy.
@@ -135,7 +104,6 @@ Game::Game(char* config):players(),deck(),twoWinners(false),winner1(0),winner2(0
 }
 
 Game ::~Game(){
-	//cout<<"game destructor"<<endl;
 	for(unsigned int i=0;i<players.size();i++)
 	{
 		if(players[i]!=NULL){
@@ -144,7 +112,6 @@ Game ::~Game(){
 		}
 	}
 	players.clear();
-
 }
 
 vector<Player *> Game::getPlayers(){ return players;};
@@ -164,7 +131,7 @@ void Game::play(){
 	Card* cardToDelete;
 	vector<Card*> foundCardVec;
 
-	vector<vector<Card*> > tmpHand; // testing!!
+	vector<vector<Card*> > tmpHand;
 
 	while(winner1==0){
 		count++;
@@ -247,7 +214,7 @@ void Game::printWinner(){
 	}
 }
 
-void Game::printState(){ //Print the state of the game as described in the assignment.
+void Game::printState(){ 
 
 	cout <<"Deck: "<< deck.toString()<<endl;
 	for(unsigned int i=0;i<players.size();++i)
