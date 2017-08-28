@@ -26,7 +26,6 @@ Hand& Hand::operator =(Hand &other){
 	if(this==&other)
 		return *this;
 
-
 	HandCards = other.HandCards;
 	count= other.count;
 	return *this;
@@ -48,7 +47,6 @@ void Hand::sortMyHand(){
 
 Hand::~Hand(){
 
-	//cout<< "hand destructor" <<endl;
 	for(int i=HandCards.size()-1;i>=0;i--){
 		for(int j=HandCards[i].size()-1;j>=0;--j){
 			if(HandCards[i][j]!=NULL){
@@ -57,13 +55,12 @@ Hand::~Hand(){
 
 			}
 		}
-
 	}
 	HandCards.clear();
 }
 
 vector<vector<Card*> > Hand:: getHand(){
-	return this->HandCards; //LEAK!!
+	return this->HandCards;
 }
 
 int Hand:: whereToInsert(Card &card){   // made for the addCard method.
@@ -81,7 +78,7 @@ int Hand:: whereToInsert(Card &card){   // made for the addCard method.
 			return mid;
 		}
 	}
-	return mid; //for making sure its inserted before the closer bigger value. need to check it.
+	return mid; 
 }
 
 bool Hand:: addCard(Card &card){
@@ -130,10 +127,9 @@ bool  Hand:: removeCard(Card &card) {
 	if (pos < 0)
 		return false; //no such card at the hand.
 	else {
-		//delete(HandCards[pos][0]);
 		HandCards[pos].erase(HandCards[pos].begin());
 
-		if(HandCards[pos].size()==0) //my if of empty vec
+		if(HandCards[pos].size()==0) 
 			HandCards.erase(HandCards.begin()+pos);
 
 		count--;
@@ -146,10 +142,9 @@ bool  Hand:: removeCardReviia(Card &card) {
 	if (pos < 0)
 		return false; //no such card at the hand.
 	else {
-		//delete(HandCards[pos][0]);
 		HandCards[pos].erase(HandCards[pos].begin());
 
-		if(HandCards[pos].size()==0) //my if of empty vec
+		if(HandCards[pos].size()==0) 
 			HandCards.erase(HandCards.begin()+pos);
 
 		count--;
@@ -157,7 +152,7 @@ bool  Hand:: removeCardReviia(Card &card) {
 	}
 }
 
-int Hand:: searchCard(Card &card){  //made for remove card method. (had to make 2 diffrenet ones).
+int Hand:: searchCard(Card &card){  //made for remove card method. 
 
 	int left = 0;
 	int right = HandCards.size() - 1;
@@ -193,9 +188,8 @@ void Hand::makeHandVec(string word,int N){
 		if (s.at(0)<='9'){ //numericCard
 			shape=s.at(s.length()-1);
 			s.resize(s.length()-1);
-			//value = atoi(s);
 			value=atoi(s.c_str());
-			NumericCard * c=new NumericCard(shape,value); // new! LEAK!!
+			NumericCard * c=new NumericCard(shape,value);
 			this->addCard(*c);
 		}
 		else{ //figureCard
@@ -215,7 +209,7 @@ void Hand::makeHandVec(string word,int N){
 				break;
 			}
 			shape=s.at(1);
-			FigureCard * f=new FigureCard(shape,fig,value); //LEAK!!
+			FigureCard * f=new FigureCard(shape,fig,value);
 			this->addCard(*f);
 		}
 		index++;
@@ -226,7 +220,6 @@ void Hand::makeHandVec(string word,int N){
 
 string Hand:: toString(){
 	string ans="";
-	//sortMyHand();
 	vector<Card*> insideVec;
 	for(unsigned int i=0; i<HandCards.size();i++){
 		insideVec=HandCards[i];
