@@ -1,12 +1,10 @@
 #include "../include/Player.h"
 
-//Player::Player() : name(""),position(1),strategy(0),posIterator(0){};
 
 Player:: Player(string name, int position, Deck &d, int strtg) : Hand(d), name(name),position(position),strategy(strtg),posIterator(0){
 };
 
 Player:: ~Player() {
-        //cout<< "player destructor" <<endl;
 };
 
 Player::Player(const Player &other):name(other.name),position(other.position),strategy(other.strategy),posIterator(other.posIterator){
@@ -33,11 +31,7 @@ string dothatshit(const Player &other){
 		return word;
 }
 
-
-
 Player& Player::operator =(Player &other){
-	//cout<< "test" <<endl;
-
 	if(this==&other)
 		return *this;
 
@@ -50,11 +44,6 @@ Player& Player::operator =(Player &other){
 		}
 		makeHandVec(word,other.N);
 		return *this;
-	/*	name == other.name;
-        position = other.position;
-        strategy = other.strategy;
-        posIterator = other.posIterator;
-        return *this;*/
 }
 
 string Player:: getName(){return name;}
@@ -69,7 +58,7 @@ int Player::PlayerWithMostCards(vector<Player *> players){
 	int pos=0;
 	for(unsigned int i=0;i<players.size();i++){
 		if(players[i]->getNumberOfCards()>=max){
-			if(players[i]->getPosition() != this->position){ //to make sure i wont ask for cards from me
+			if(players[i]->getPosition() != this->position){ //to make sure i wont ask for cards from myself.
 				max=players[i]->getNumberOfCards();
 				pos=players[i]->getPosition();
 			}
@@ -79,7 +68,7 @@ int Player::PlayerWithMostCards(vector<Player *> players){
 }
 
 int Player:: cyclicOrder(vector<Player*> players){
-	unsigned int myPos=this->getPosition() -1;//getPosition-1 array start from 0 and position starts from 1
+	unsigned int myPos=this->getPosition() -1;
 	if(posIterator % players.size()==myPos)
 		posIterator++;
 
@@ -87,7 +76,6 @@ int Player:: cyclicOrder(vector<Player*> players){
 	return (posIterator-1)%players.size() +1;
 }
 
-//PlayerType1::PlayerType1() :Player(){};
 
 PlayerType1::PlayerType1(string name, int position , Deck &d, int strtg) :Player( name, position , d,strtg){};
 
@@ -115,8 +103,6 @@ vector<Card*> PlayerType1::selectCard(vector<vector<Card*> > myCards) {
 	}
 	return commonCard;
 }
-
-//PlayerType2::PlayerType2() :Player(){};
 
 PlayerType2::PlayerType2(string name, int position , Deck &d,int strtg) :Player( name, position , d,strtg){};
 
@@ -147,7 +133,6 @@ vector<Card*> PlayerType2:: selectCard(vector<vector<Card*> > myCards) {
 	return unCommonCard;
 }
 
-//PlayerType3::PlayerType3() :Player(){};
 
 PlayerType3::PlayerType3(string name, int position , Deck &d,int strtg) :Player( name, position , d,strtg){};
 
@@ -169,7 +154,6 @@ vector<Card*> PlayerType3:: selectCard(vector<vector<Card*> > myCards){
 	return maxCard;
 }
 
-//PlayerType4::PlayerType4() :Player(){};
 
 PlayerType4::PlayerType4(string name, int position , Deck &d,int strtg) :Player( name, position , d,strtg){};
 
