@@ -34,7 +34,6 @@ Card& Card::operator =(const Card &other){
 Card::~Card(){
 }
 
-//int Card::getValue(){return 0;}
 
 char Card:: getShape(){
 	char ans;
