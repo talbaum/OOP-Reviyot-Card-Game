@@ -91,7 +91,6 @@ bool Hand:: addCard(Card &card){
 		int pos=whereToInsert(card);
 		it=HandCards.begin();
 		HandCards.insert(it+pos,insideVec);
-		sortMyHand();
 	}
 	else{
 		HandCards.at(myCardPos).push_back(&card);
