@@ -16,7 +16,6 @@ Hand:: Hand(Deck &deck2) :HandCards(), count(0),N(deck2.N){
 
 Hand::Hand(Hand &other): HandCards() ,count (other.count),N(other.N){
 	string word=other.toString();
-	cout<< "test" <<endl;
 	makeHandVec(word,N);
 };
 //copy constructor
