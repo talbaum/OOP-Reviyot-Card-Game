@@ -37,7 +37,7 @@ void Deck::makeDeckVec(string word,int N){
 			shape=s.at(s.length()-1);
 			s.resize(s.length()-1);
 			value=atoi(s.c_str());
-			NumericCard * c=new NumericCard(shape,value); // new! LEAK!!
+			NumericCard * c=new NumericCard(shape,value); 
 			DeckCards.push_back(c);
 		}
 		else{ //figureCard
@@ -57,7 +57,7 @@ void Deck::makeDeckVec(string word,int N){
 				break;
 			}
 			shape=s.at(1);
-			FigureCard * f=new FigureCard(shape,fig,value); //LEAK!!
+			FigureCard * f=new FigureCard(shape,fig,value); 
 			DeckCards.push_back(f);
 		}
 		index++;
